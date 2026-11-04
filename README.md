@@ -2,6 +2,8 @@
 
 **🇬🇧 English** · [🇫🇷 Français](#-version-française)
 
+> 📖 **New here?** Read the plain-language overview first (French): [docs/presentation.md](docs/presentation.md).
+
 Hierarchical **LangGraph** multi-agent system that reads a **job offer** and a **CV**, scores the
 fit, explains the skill gaps and drafts a **cover letter**, with a writer/reviewer loop and a
 **human-in-the-loop** approval step. It runs **100% locally** on a quantized **Qwen3.8-27B** served by
