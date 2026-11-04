@@ -11,6 +11,7 @@ supervisor, which routes deterministically (see `jobmatch.graph.supervisor`).
 """
 
 from langgraph.checkpoint.base import BaseCheckpointSaver
+from langgraph.checkpoint.serde.base import SerializerProtocol
 from langgraph.graph import START, StateGraph
 from langgraph.graph.state import CompiledStateGraph
 
@@ -35,3 +36,22 @@ def build_graph(checkpointer: BaseCheckpointSaver | None = None) -> CompiledStat
     for node in (*TEAMS, "human_review"):
         g.add_edge(node, "supervisor")
     return g.compile(checkpointer=checkpointer, name="jobmatch")
+
+
+def checkpoint_serializer() -> SerializerProtocol:
+    """Checkpoint serializer that explicitly allows our Pydantic/Enum state types.
+
+    LangGraph warns (and will soon refuse) when deserializing unregistered types
+    from a checkpoint; registering them keeps resume-after-interrupt working.
+    """
+    from langgraph.checkpoint.serde.jsonplus import JsonPlusSerializer
+
+    from jobmatch import schemas
+
+    allowed = [
+        ("jobmatch.schemas", name)
+        for name in dir(schemas)
+        if isinstance(getattr(schemas, name), type)
+        and getattr(schemas, name).__module__ == "jobmatch.schemas"
+    ]
+    return JsonPlusSerializer(allowed_msgpack_modules=allowed)

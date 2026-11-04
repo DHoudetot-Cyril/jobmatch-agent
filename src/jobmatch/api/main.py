@@ -85,7 +85,7 @@ async def _open_postgres_graph(app: FastAPI) -> Any:
     from psycopg.rows import dict_row
     from psycopg_pool import AsyncConnectionPool
 
-    from jobmatch.graph.build import build_graph
+    from jobmatch.graph.build import build_graph, checkpoint_serializer
 
     pool = AsyncConnectionPool(
         get_settings().database_url,
@@ -95,7 +95,7 @@ async def _open_postgres_graph(app: FastAPI) -> Any:
     )
     await pool.open(wait=True, timeout=15)
     app.state.pool = pool
-    saver = AsyncPostgresSaver(pool)
+    saver = AsyncPostgresSaver(pool, serde=checkpoint_serializer())
     await saver.setup()
     logger.info("event=checkpointer_ready backend=postgres")
     return build_graph(checkpointer=saver)
