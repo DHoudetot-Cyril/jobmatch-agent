@@ -5,7 +5,7 @@ SHELL := /bin/bash
 COMPOSE ?= docker compose
 # Every service except the api (useful while running uvicorn on the host).
 INFRA_SERVICES := app-db prometheus grafana langfuse-web langfuse-worker \
-                  langfuse-postgres clickhouse redis minio
+                  langfuse-postgres clickhouse redis minio jevos
 
 .PHONY: help up down logs ps infra test lint format eval qwen clean
 

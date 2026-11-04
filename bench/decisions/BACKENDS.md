@@ -122,5 +122,6 @@ For full CVs Laya must run with `max_len` >= 4096, otherwise the end of the CV i
   options costs k x (phrasings) prompts, so latency grows with the number of options.
 - jevos' state cache (16 states / 8192 tokens) makes repeated questions on the same CV much
   cheaper; disable it (`state_cache=False`) for cold-read latency numbers.
-- jevos binary is spawned from `~/.local/share/jevos`, outside the repo; it is not part of any
-  Docker image.
+- jevos binary is spawned from `~/.local/share/jevos` (outside the repo) only when nothing
+  answers at `base_url`. The stack also runs it as the `jevos` compose service
+  (`infra/jevos/Dockerfile`: same release, SHA-256 checked at build time), on 127.0.0.1:8017.

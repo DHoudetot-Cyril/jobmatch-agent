@@ -23,6 +23,16 @@ class Settings(BaseSettings):
     max_review_iterations: int = 2  # writer <-> reviewer loop
     min_text_chars_for_pdf: int = 200  # below this a PDF is treated as scanned -> vision OCR
 
+    # --- Decision layer ("System 1", see jobmatch.decisions.service) ---
+    # false = exactly the historical LLM-only pipeline (verify_* nodes become no-ops and the
+    # reviewer keeps its original prompt/schema). Used as the A/B switch by the evals.
+    decisions_enabled: bool = True
+    decisions_backend: str = "jevos"
+    jevos_url: str = "http://127.0.0.1:8017"  # compose: http://jevos:8017
+    decisions_timeout_s: float = 30.0  # per decision HTTP call
+    decisions_concurrency: int = 4  # in-flight decisions per event loop
+    claim_dismiss_threshold: float = 0.8  # calibrated P(supported) >= this -> issue dismissed
+
     # --- LangGraph checkpointer (application Postgres, NOT Langfuse's) ---
     database_url: str = "postgresql://jobmatch:jobmatch@localhost:5433/jobmatch"
 

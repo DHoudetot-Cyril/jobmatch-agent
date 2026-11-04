@@ -15,8 +15,10 @@ Graph public interface (implemented in `jobmatch.graph.build`):
       approved=False with feedback -> writer rewrites, reviewer, then human_review again
       approved=False without feedback -> status "rejected", graph ends
     - Node names (used as Prometheus `node` label & Langfuse span names):
-      supervisor, parse_offer, parse_cv, score_match, analyze_gaps,
-      write_letter, review_letter, human_review
+      supervisor, parse_offer, parse_cv, score_match, verify_skills, analyze_gaps,
+      write_letter, review_letter, verify_claims, human_review
+      (verify_skills / verify_claims use the decision model, `jobmatch.decisions.service`;
+      with `DECISIONS_ENABLED=false` they are no-ops and the outputs are the LLM-only ones)
 """
 
 from typing import Annotated, TypedDict
@@ -28,6 +30,7 @@ from jobmatch.schemas import (
     JobOffer,
     MatchResult,
     Review,
+    ScoreAssessment,
 )
 
 
@@ -44,6 +47,7 @@ class JobMatchState(TypedDict, total=False):
     profile: CandidateProfile
     # matching team
     match: MatchResult
+    score_assessment: ScoreAssessment  # per-skill LLM ratings, re-used by verify_skills
     # writing team
     cover_letter: CoverLetter
     review: Review

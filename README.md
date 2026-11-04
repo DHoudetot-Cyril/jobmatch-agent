@@ -56,11 +56,11 @@ flowchart TD
         PC[parse_cv]
     end
     subgraph M["Matching team"]
-        SM[score_match] --> AG[analyze_gaps]
+        SM[score_match] --> VS[verify_skills<br/>jevos] --> AG[analyze_gaps]
     end
     subgraph W["Writing team"]
-        WL[write_letter] --> RL[review_letter]
-        RL -->|issues & iterations left| WL
+        WL[write_letter] --> RL[review_letter] --> VC[verify_claims<br/>jevos]
+        VC -->|issues & iterations left| WL
     end
     H[/human_review<br/>interrupt/]
     S --> A --> S

@@ -52,6 +52,34 @@ REVIEW_ITERATIONS = Histogram(
     "jobmatch_review_iterations", "Writer/reviewer loops per analysis", buckets=(0, 1, 2, 3, 4, 5)
 )
 
+# --- Decision layer ("System 1", jobmatch.decisions.service) ---
+DECISION_LATENCY = Histogram(
+    "jobmatch_decision_duration_seconds",
+    "Duration of one decision-model call",
+    ["task"],  # skill_evidence|claim_supported
+    buckets=(0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2, 5, 10),
+)
+DECISIONS = Counter(
+    "jobmatch_decisions_total",
+    "Decision-model answers",
+    ["task", "outcome"],  # outcome: yes|no|error|skipped
+)
+DECISION_AGREEMENT = Counter(
+    "jobmatch_decision_llm_agreement_total",
+    "Decision model vs LLM verdict on the same question",
+    ["task", "agree"],  # agree: true|false
+)
+CLAIMS_DISMISSED = Counter(
+    "jobmatch_claims_dismissed_total",
+    "Reviewer 'unsupported claim' issues dismissed by the decision model",
+)
+for _task in ("skill_evidence", "claim_supported"):  # export zeros before the first decision
+    DECISION_LATENCY.labels(task=_task)
+    for _outcome in ("yes", "no", "error", "skipped"):
+        DECISIONS.labels(task=_task, outcome=_outcome)
+    for _agree in ("true", "false"):
+        DECISION_AGREEMENT.labels(task=_task, agree=_agree)
+
 
 def instrument_node(node: str) -> Callable:
     """Decorator measuring latency and errors of a graph node (sync or async)."""

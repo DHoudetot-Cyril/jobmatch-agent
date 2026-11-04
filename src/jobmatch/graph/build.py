@@ -1,10 +1,10 @@
 """Assembly of the hierarchical graph (public interface documented in `jobmatch.state`).
 
-                         ┌──> analysis_team  (parse_offer ‖ parse_cv) ──┐
-    START ─> supervisor ─┼──> matching_team  (score_match → analyze_gaps) ┼─> supervisor
-                         ├──> writing_team   (write_letter ⇄ review_letter)
-                         ├──> human_review   (interrupt) ───────────────┘
-                         └──> END
+                       ┌──> analysis_team (parse_offer ‖ parse_cv) ────────────────────┐
+    START > supervisor ┼──> matching_team (score_match → verify_skills → analyze_gaps) ┼> supervisor
+                       ├──> writing_team  (write_letter ⇄ review_letter → verify_claims) │
+                       ├──> human_review  (interrupt) ─────────────────────────────────┘
+                       └──> END
 
 Every team is a compiled subgraph used as a node; each one hands control back to the
 supervisor, which routes deterministically (see `jobmatch.graph.supervisor`).

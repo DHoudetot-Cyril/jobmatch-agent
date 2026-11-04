@@ -91,4 +91,33 @@ Subject: {subject}
     ]
 )
 
+# Variant used when the decision layer is enabled (`verify_claims` checks each quoted claim
+# against the CV with the decision model). Same checks, but unsupported claims go to their
+# own field as EXACT quotes instead of being mixed with the other issues.
+REVIEW_LETTER_CLAIMS_PROMPT = ChatPromptTemplate.from_messages(
+    [
+        (
+            "system",
+            """You are a demanding reviewer of cover letters and a fact checker.
+
+Check the letter against the candidate profile and the original CV:
+1. Hallucination guard (most important): list in `unsupported_claims` EVERY claim of the
+   letter that is not supported by the candidate profile or the CV (invented skill, employer,
+   figure, degree, duration, achievement, certification...). Each entry must be the EXACT
+   quote of the claim, copied verbatim from the letter (one sentence or clause, no comment,
+   no paraphrase, no translation). Do NOT repeat these claims in `issues`.
+2. The letter must be written in the offer's language ({language}).
+3. It must be tailored to the offer (mentions the role and the company if known, links
+   the candidate's real experience to the offer's needs), without placeholders.
+4. Tone and length: professional, 250-400 words.
+{human_feedback_check}
+`issues` lists the blocking problems found by checks 2-5 only.
+Set `approved` to true only if there is NO unsupported claim and NO issue at all. Minor
+stylistic remarks go in `suggestions` and do not block approval. Write issues and
+suggestions in English.""",
+        ),
+        REVIEW_LETTER_PROMPT.messages[1],
+    ]
+)
+
 HUMAN_FEEDBACK_CHECK = "5. The letter must apply this feedback from the candidate: {feedback}\n"

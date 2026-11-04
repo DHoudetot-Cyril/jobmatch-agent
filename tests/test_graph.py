@@ -95,10 +95,12 @@ async def test_happy_path_pauses_at_human_review(graph, install_fake_llm, respon
     assert state["trace"][3:] == [
         "supervisor",
         "score_match",
+        "verify_skills",
         "analyze_gaps",
         "supervisor",
         "write_letter",
         "review_letter",
+        "verify_claims",
         "supervisor",
     ]
     assert fake.count(JobOffer) == fake.count(CandidateProfile) == 1

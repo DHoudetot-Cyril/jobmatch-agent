@@ -9,6 +9,7 @@ import pytest
 from langchain_core.messages import AIMessage, BaseMessage
 from pydantic import BaseModel
 
+from jobmatch.decisions.base import Decision, DecisionModel, Question
 from jobmatch.schemas import (
     CandidateProfile,
     CoverLetter,
@@ -37,9 +38,11 @@ class FakeLLM:
         self.responses = responses or {}
         self.text_response = text_response
         self.calls: dict[str, list[list[BaseMessage]]] = defaultdict(list)
+        self.schemas: list[type[BaseModel]] = []  # exact schema of every structured call
 
     def with_structured_output(self, schema: type[BaseModel], **kwargs: Any) -> "_Structured":
         assert kwargs.get("method") == "json_schema" and kwargs.get("include_raw") is True
+        self.schemas.append(schema)
         return _Structured(self, schema)
 
     async def ainvoke(self, messages: list[BaseMessage], *args: Any, **kwargs: Any) -> AIMessage:
@@ -51,13 +54,17 @@ class FakeLLM:
 
 
 class _Structured:
+    """Scripts are looked up by schema, then by its base classes (e.g. `ReviewerOutput` is
+    answered by the `Review` script and recorded under "Review")."""
+
     def __init__(self, fake: FakeLLM, schema: type[BaseModel]):
         self.fake, self.schema = fake, schema
+        self.key = next((c for c in schema.__mro__ if c in fake.responses), schema)
 
     async def ainvoke(self, messages: list[BaseMessage], *args: Any, **kwargs: Any) -> dict:
-        calls = self.fake.calls[self.schema.__name__]
+        calls = self.fake.calls[self.key.__name__]
         calls.append(messages)
-        script = self.fake.responses[self.schema]
+        script = self.fake.responses[self.key]
         item = script[min(len(calls) - 1, len(script) - 1)]
         if callable(item):
             item = item(messages)
@@ -67,7 +74,8 @@ class _Structured:
         )
         if item is INVALID:
             return {"raw": raw, "parsed": None, "parsing_error": ValueError("bad json")}
-        return {"raw": raw, "parsed": item.model_copy(deep=True), "parsing_error": None}
+        parsed = self.schema.model_validate(item.model_dump())
+        return {"raw": raw, "parsed": parsed, "parsing_error": None}
 
 
 @pytest.fixture
@@ -79,6 +87,49 @@ def install_fake_llm(monkeypatch: pytest.MonkeyPatch) -> Callable[..., FakeLLM]:
         monkeypatch.setattr("jobmatch.llm.get_llm", lambda temperature=None: fake)
         return fake
 
+    return install
+
+
+# --- fake decision model ("System 1") --------------------------------------------------------
+
+
+class FakeDecisionModel(DecisionModel):
+    """Answers yes/no questions with `p_yes(state, question_text) -> float`; records calls.
+    With `error`, every call raises it (unreachable backend)."""
+
+    name = "fake"
+
+    def __init__(
+        self,
+        p_yes: Callable[[str, str], float] | None = None,
+        error: Exception | None = None,
+    ):
+        self.p_yes = p_yes or (lambda state, q: 0.5)
+        self.error = error
+        self.questions: list[str] = []
+
+    async def decide(self, state: str, question: Question) -> Decision:
+        self.questions.append(question.question)
+        if self.error is not None:
+            raise self.error
+        p = self.p_yes(state, question.question)
+        return Decision(probs={"no": 1 - p, "yes": p}, backend=self.name)
+
+
+@pytest.fixture(autouse=True)
+def install_fake_decisions(monkeypatch: pytest.MonkeyPatch) -> Callable[..., FakeDecisionModel]:
+    """Unit tests never reach a real decision backend.
+
+    By default the backend is "unreachable" (graceful degradation path -> LLM-only results).
+    `install_fake_decisions(p_yes)` installs a scripted one and returns it.
+    """
+
+    def install(p_yes=None, error: Exception | None = None) -> FakeDecisionModel:
+        fake = FakeDecisionModel(p_yes, error)
+        monkeypatch.setattr("jobmatch.decisions.service.get_decision_model", lambda: fake)
+        return fake
+
+    install(error=RuntimeError("no decision backend in unit tests"))
     return install
 
 

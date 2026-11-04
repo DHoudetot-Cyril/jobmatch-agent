@@ -69,13 +69,26 @@ services:
       DATABASE_URL: postgresql://${APP_DB_USER}:${APP_DB_PASSWORD}@app-db:5432/${APP_DB_NAME}
       LANGFUSE_HOST: http://langfuse-web:3000
       LLM_BASE_URL: ${LLM_BASE_URL:-http://172.17.0.1:8080/v1}
+      JEVOS_URL: http://jevos:8017
     ports:
       - 127.0.0.1:8000:8000
     depends_on:
       app-db:
         condition: service_healthy
+      jevos:
+        condition: service_healthy
       langfuse-web:
         condition: service_healthy
+
+  # Decision model ("System 1": calibrated yes/no checks on CPU, ~50 ms). Pinned jevos-v5
+  # release downloaded with SHA-256 check at build time (infra/jevos/Dockerfile). The host
+  # port lets host-side runs (evals, bench) share it at http://127.0.0.1:8017.
+  jevos:
+    build: ./infra/jevos
+    image: jobmatch-jevos:jevos-v5
+    restart: unless-stopped
+    ports:
+      - 127.0.0.1:8017:8017
 
   app-db:
     image: postgres:17.11

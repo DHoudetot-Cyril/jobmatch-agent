@@ -1,65 +1,73 @@
-"""Matching team: grounded match score, then actionable skill gaps.
+"""Matching team: grounded match score, verified by the decision model, then skill gaps.
 
-    START ─> score_match ─> analyze_gaps ─> END
+    START ─> score_match ─> verify_skills ─> analyze_gaps ─> END
 
 Grounding: the LLM does not pick the score directly. It assesses every offer skill
 (full / partial / none, with CV evidence) plus an experience-fit rating, and the score is
 computed in code from a fixed rubric (`compute_score`): required skills weigh 70%,
 nice-to-have 15%, experience fit 15%. The score is thus explainable and reproducible.
+
+Verification ("System 2" LLM + "System 1" decision model): `verify_skills` asks the decision
+model, for every offer skill, "does the CV show evidence of <skill>?" (calibrated probability)
+and fuses it with the LLM rating: final_credit = 0.5 * llm_credit + 0.5 * p_evidence. The
+score is recomputed with the same rubric, a skill is matched if final_credit >= 0.5 and a gap
+otherwise. If the decision layer is disabled or unavailable, the LLM-only result is kept as is.
 """
 
-from typing import Literal
+from collections.abc import Iterable
 
 from langgraph.graph import END, START, StateGraph
 from langgraph.graph.state import CompiledStateGraph
 from pydantic import BaseModel, Field
 
+from jobmatch.config import get_settings
+from jobmatch.decisions import service as decisions
 from jobmatch.graph.structured import invoke_structured
 from jobmatch.graph.teams._common import TeamInput, to_json
 from jobmatch.observability.metrics import instrument_node
 from jobmatch.prompts.matching import ANALYZE_GAPS_PROMPT, SCORE_MATCH_PROMPT
-from jobmatch.schemas import MatchResult, SkillGap, SkillLevel
+from jobmatch.schemas import (  # noqa: F401 - SkillAssessment/ScoreAssessment re-exported
+    MatchResult,
+    ScoreAssessment,
+    SkillAssessment,
+    SkillGap,
+    SkillLevel,
+)
 from jobmatch.state import JobMatchState
 
 WEIGHT_REQUIRED = 0.70
 WEIGHT_NICE_TO_HAVE = 0.15
 WEIGHT_EXPERIENCE = 0.15
-MATCH_VALUE = {"full": 1.0, "partial": 0.5, "none": 0.0}
-
-
-class SkillAssessment(BaseModel):
-    skill: str
-    level: SkillLevel
-    match: Literal["full", "partial", "none"]
-    evidence: str = Field(description="CV passage supporting the decision, or what is missing")
-
-
-class ScoreAssessment(BaseModel):
-    """Intermediate output of `score_match` (the score itself is computed in code)."""
-
-    skills: list[SkillAssessment] = Field(default_factory=list)
-    experience_fit: int = Field(ge=0, le=100)
-    strengths: list[str] = Field(default_factory=list)
-    summary: str
+MATCH_VALUE = decisions.LLM_CREDIT  # full = 1, partial = 0.5, none = 0
+GAP_THRESHOLD = 0.5  # verified skills: gap if final_credit < 0.5
 
 
 class GapAnalysis(BaseModel):
     gaps: list[SkillGap] = Field(default_factory=list)
 
 
-def compute_score(assessment: ScoreAssessment) -> int:
-    """Weighted rubric; weights of an empty skill category are redistributed."""
+def weighted_score(credits: Iterable[tuple[SkillLevel, float]], experience_fit: int) -> int:
+    """Weighted rubric over (level, credit in [0, 1]) pairs; weights of an empty skill
+    category are redistributed."""
+    credits = list(credits)
     parts: list[tuple[float, float]] = []  # (weight, coverage in [0, 1])
     for level, weight in (
         (SkillLevel.required, WEIGHT_REQUIRED),
         (SkillLevel.nice_to_have, WEIGHT_NICE_TO_HAVE),
     ):
-        values = [MATCH_VALUE[s.match] for s in assessment.skills if s.level == level]
+        values = [c for lvl, c in credits if lvl == level]
         if values:
             parts.append((weight, sum(values) / len(values)))
-    parts.append((WEIGHT_EXPERIENCE, assessment.experience_fit / 100))
+    parts.append((WEIGHT_EXPERIENCE, experience_fit / 100))
     total_weight = sum(w for w, _ in parts)
     return round(100 * sum(w * c for w, c in parts) / total_weight)
+
+
+def compute_score(assessment: ScoreAssessment) -> int:
+    """LLM-only score (rubric applied to the full / partial / none ratings)."""
+    return weighted_score(
+        ((s.level, MATCH_VALUE[s.match]) for s in assessment.skills), assessment.experience_fit
+    )
 
 
 def _merge_advice(gaps: list[SkillGap], advised: list[SkillGap]) -> list[SkillGap]:
@@ -103,7 +111,33 @@ async def score_match(state: JobMatchState) -> dict:
         strengths=assessment.strengths,
         summary=assessment.summary,
     )
-    return {"match": match, "trace": ["score_match"]}
+    return {"match": match, "score_assessment": assessment, "trace": ["score_match"]}
+
+
+@instrument_node("verify_skills")
+async def verify_skills(state: JobMatchState) -> dict:
+    """Fuse the LLM skill ratings with the decision model's calibrated evidence check."""
+    assessment = state.get("score_assessment")
+    if not get_settings().decisions_enabled or assessment is None or not assessment.skills:
+        return {"trace": ["verify_skills"]}
+    checks = await decisions.check_skill_evidence(state["cv_text"], assessment.skills)
+    if not checks:  # decision layer unavailable: keep the LLM-only result untouched
+        return {"trace": ["verify_skills"]}
+    match = state["match"]
+    gap_names = {c.skill for c in checks if c.final_credit < GAP_THRESHOLD}
+    match = match.model_copy(
+        update={
+            "score": weighted_score(
+                ((c.level, c.final_credit) for c in checks), assessment.experience_fit
+            ),
+            "matched_skills": [c.skill for c in checks if c.final_credit >= GAP_THRESHOLD],
+            # gaps ⊆ provisional gaps (a "full" skill has final_credit >= 0.5), so the
+            # evidence collected by score_match is kept as provisional advice.
+            "gaps": [g for g in match.gaps if g.skill in gap_names],
+            "skill_checks": checks,
+        }
+    )
+    return {"match": match, "trace": ["verify_skills"]}
 
 
 @instrument_node("analyze_gaps")
@@ -127,8 +161,10 @@ async def analyze_gaps(state: JobMatchState) -> dict:
 def build_matching_team() -> CompiledStateGraph:
     g = StateGraph(JobMatchState, input_schema=TeamInput)
     g.add_node("score_match", score_match)
+    g.add_node("verify_skills", verify_skills)
     g.add_node("analyze_gaps", analyze_gaps)
     g.add_edge(START, "score_match")
-    g.add_edge("score_match", "analyze_gaps")
+    g.add_edge("score_match", "verify_skills")
+    g.add_edge("verify_skills", "analyze_gaps")
     g.add_edge("analyze_gaps", END)
     return g.compile(name="matching_team")

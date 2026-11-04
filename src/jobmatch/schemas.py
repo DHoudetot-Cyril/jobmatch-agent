@@ -3,8 +3,10 @@ without updating every consumer. Agents produce these via structured output.
 """
 
 from enum import StrEnum
+from typing import Literal
 
 from pydantic import BaseModel, Field
+from pydantic.json_schema import SkipJsonSchema
 
 
 class SkillLevel(StrEnum):
@@ -53,6 +55,46 @@ class SkillGap(BaseModel):
     advice: str = Field(description="Concrete way to close or mitigate the gap")
 
 
+class SkillAssessment(BaseModel):
+    """LLM rating of one offer skill (intermediate output of `score_match`)."""
+
+    skill: str
+    level: SkillLevel
+    match: Literal["full", "partial", "none"]
+    evidence: str = Field(description="CV passage supporting the decision, or what is missing")
+
+
+class ScoreAssessment(BaseModel):
+    """Intermediate output of `score_match` (the score itself is computed in code)."""
+
+    skills: list[SkillAssessment] = Field(default_factory=list)
+    experience_fit: int = Field(ge=0, le=100)
+    strengths: list[str] = Field(default_factory=list)
+    summary: str
+
+
+class SkillCheck(BaseModel):
+    """One offer skill verified by the decision model (node `verify_skills`).
+
+    final_credit = 0.5 * llm_credit + 0.5 * p_evidence; the skill is a gap if < 0.5.
+    """
+
+    skill: str
+    level: SkillLevel
+    llm_credit: float = Field(description="LLM rating: full = 1, partial = 0.5, none = 0")
+    p_evidence: float = Field(description="Calibrated P(the CV shows the skill), decision model")
+    final_credit: float
+    agree: bool = Field(description="LLM (credit >= 0.5) and decision model (p >= 0.5) agree")
+
+
+class ClaimCheck(BaseModel):
+    """One letter claim flagged by the reviewer, verified by the decision model."""
+
+    claim: str
+    p_supported: float = Field(description="Calibrated P(the CV supports the claim)")
+    dismissed: bool = Field(description="True: the reviewer was wrong, the issue was removed")
+
+
 class MatchResult(BaseModel):
     """Produced by the Matching team (scorer + gap analyst)."""
 
@@ -61,6 +103,8 @@ class MatchResult(BaseModel):
     gaps: list[SkillGap] = Field(default_factory=list)
     strengths: list[str] = Field(default_factory=list)
     summary: str = Field(description="2-3 sentence justification of the score")
+    # Filled by `verify_skills` (empty when the decision layer is disabled / unavailable).
+    skill_checks: list[SkillCheck] = Field(default_factory=list)
 
 
 class Review(BaseModel):
@@ -72,6 +116,31 @@ class Review(BaseModel):
         description="Problems found, esp. any claim NOT supported by the CV (hallucination)",
     )
     suggestions: list[str] = Field(default_factory=list)
+    # Decision layer (additive). Hidden from the LLM's JSON schema so that, with the decision
+    # layer disabled, the reviewer sees exactly the historical schema.
+    unsupported_claims: SkipJsonSchema[list[str]] = Field(
+        default_factory=list,
+        description="Exact quotes of letter claims still considered unsupported by the CV",
+    )
+    claim_checks: SkipJsonSchema[list[ClaimCheck]] = Field(default_factory=list)
+
+
+class ReviewerOutput(Review):
+    """LLM output schema of the reviewer when the decision layer is enabled.
+
+    Unsupported claims are listed separately (exact quotes) so `verify_claims` can check each
+    one against the CV; `issues` then holds only the OTHER problems.
+    """
+
+    issues: list[str] = Field(
+        default_factory=list,
+        description="Problems OTHER than unsupported claims (language, tailoring, tone...)",
+    )
+    unsupported_claims: list[str] = Field(
+        default_factory=list,
+        description="EXACT quotes, copied verbatim from the letter, of every claim that is not "
+        "supported by the candidate profile or the CV",
+    )
 
 
 class CoverLetter(BaseModel):
