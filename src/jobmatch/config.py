@@ -37,6 +37,13 @@ class Settings(BaseSettings):
     decision_conflict_low: float = 0.2
     decision_conflict_high: float = 0.8
 
+    # --- Career advisor (the one autonomous tool-using agent, graph/teams/career.py) ---
+    # false = the career_team is skipped (exact pre-advisor pipeline, no `career_plan`).
+    career_advisor_enabled: bool = True
+    career_max_tool_rounds: int = 6  # LLM turns that may call tools; then the answer is forced
+    career_timeout_s: float = 120.0  # wall-time budget of the tool loop (then: forced answer)
+    career_data_dir: str = "data/career"  # local ESCO snapshot + learning-resource catalog
+
     # --- LangGraph checkpointer (application Postgres, NOT Langfuse's) ---
     database_url: str = "postgresql://jobmatch:jobmatch@localhost:5433/jobmatch"
 

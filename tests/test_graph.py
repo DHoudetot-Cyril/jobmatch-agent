@@ -22,6 +22,7 @@ from jobmatch.graph.teams.matching import (
 from jobmatch.schemas import (
     AnalysisStatus,
     CandidateProfile,
+    CareerPlan,
     CoverLetter,
     HumanDecision,
     JobOffer,
@@ -55,6 +56,7 @@ def responses(offer, profile, assessment, gap, letter, approved_review) -> dict:
         CandidateProfile: [profile],
         ScoreAssessment: [assessment],
         GapAnalysis: [GapAnalysis(gaps=[gap])],
+        CareerPlan: [CareerPlan(summary="Apprendre Kafka.")],
         CoverLetter: [letter],
         Review: [approved_review],
     }
@@ -79,7 +81,9 @@ async def test_happy_path_pauses_at_human_review(graph, install_fake_llm, respon
     result = await graph.ainvoke(INPUT, config)
 
     [intr] = result["__interrupt__"]
-    assert set(intr.value) == {"cover_letter", "match"}
+    assert set(intr.value) == {"cover_letter", "match", "career_plan"}
+    plan = CareerPlan.model_validate(intr.value["career_plan"])
+    assert [g.skill for g in plan.gaps] == ["Kafka"] and plan.tool_calls == 0
     assert CoverLetter.model_validate(intr.value["cover_letter"]).language == "fr"
     match = MatchResult.model_validate(intr.value["match"])
     # required 2/2 * 70 + nice 0/1 * 15 + 0.8 * 15 = 82
@@ -97,6 +101,9 @@ async def test_happy_path_pauses_at_human_review(graph, install_fake_llm, respon
         "score_match",
         "verify_skills",
         "analyze_gaps",
+        "supervisor",
+        "career_advisor",  # fake LLM answers without tool calls: the agent stops at once
+        "career_plan",
         "supervisor",
         "write_letter",
         "review_letter",
@@ -222,6 +229,8 @@ def test_supervisor_routing(offer, profile, letter, approved_review):
     assert next_step({"offer": offer}) == "analysis_team"
     assert next_step({"offer": offer, "profile": profile}) == "matching_team"
     base = {"offer": offer, "profile": profile, "match": match}
+    assert next_step(base) == "career_team"
+    base = {**base, "career_plan": CareerPlan(summary="ok")}
     assert next_step(base) == "writing_team"
     assert next_step({**base, "cover_letter": letter}) == "writing_team"
     full = {**base, "cover_letter": letter, "review": approved_review}
@@ -234,9 +243,14 @@ def test_supervisor_routing(offer, profile, letter, approved_review):
 
 def test_graph_structure():
     g = build_graph().get_graph()
-    assert {"supervisor", "analysis_team", "matching_team", "writing_team", "human_review"} <= set(
-        g.nodes
-    )
+    assert {
+        "supervisor",
+        "analysis_team",
+        "matching_team",
+        "career_team",
+        "writing_team",
+        "human_review",
+    } <= set(g.nodes)
 
 
 @pytest.mark.llm

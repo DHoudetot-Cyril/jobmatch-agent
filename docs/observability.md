@@ -48,6 +48,7 @@ jobmatch-analysis
 ├── supervisor
 ├── analysis_team ── parse_offer, parse_cv           (LLM generations inside)
 ├── matching_team ── score_match, verify_skills, analyze_gaps
+├── career_team   ── career_advisor ⇄ career_tools (tool calls), career_plan
 ├── writing_team  ── write_letter, review_letter, verify_claims (repeated per loop)
 └── human_review                                      (interrupt, then resume)
 ```
@@ -127,6 +128,9 @@ depends on them).
 | `jobmatch_decision_llm_agreement_total` | counter | `task`, `agree` (`true` / `false`) | Decision model vs LLM on the same question. | `check_skill_evidence`, `check_claims` |
 | `jobmatch_skill_resolution_total` | counter | `resolution` (`llm` / `resolved_partial` / `conflict`) | Fusion v2 outcome per offer skill: `llm` = LLM rating kept, `resolved_partial` = LLM `partial` replaced by the calibrated P(evidence), `conflict` = strong disagreement, partial credit 0.5. | `check_skill_evidence`, `decisions/service.py` |
 | `jobmatch_claims_dismissed_total` | counter | – | Reviewer "unsupported claim" issues dismissed by the decision model. | `verify_claims`, `graph/teams/writing.py` |
+| `jobmatch_career_tool_calls_total` | counter | `tool`, `status` (`ok` / `empty` / `error`) | Tool calls chosen by the career advisor (autonomous agent). | `graph/teams/career.py` `_run_tool` |
+| `jobmatch_career_rounds` | histogram (0 … 10) | – | Tool-calling LLM turns per career-advisor run (capped by `CAREER_MAX_TOOL_ROUNDS`). | `career_plan` |
+| `jobmatch_career_resources_dropped_total` | counter | – | Resource URLs in the LLM plan that no tool returned (hallucinations removed). | `career_plan` |
 
 Decision-metric label combinations are pre-created at import, so they export zeros before the
 first decision. The Python client also exports `*_created` series for counters and histograms.

@@ -9,16 +9,22 @@ Graph public interface (implemented in `jobmatch.graph.build`):
     - Run:    await graph.ainvoke(input, config={"configurable": {"thread_id": analysis_id},
                                                  "callbacks": [langfuse_handler, ...]})
     - The graph pauses with `langgraph.types.interrupt(payload)` in node "human_review"
-      where payload = {"cover_letter": CoverLetter.model_dump(), "match": MatchResult.model_dump()}.
+      where payload = {"cover_letter": CoverLetter.model_dump(), "match": MatchResult.model_dump(),
+                       "career_plan": CareerPlan.model_dump() | None}.
     - Resume: await graph.ainvoke(Command(resume=HumanDecision(...).model_dump()), config=same)
       approved=True  -> status "completed"
       approved=False with feedback -> writer rewrites, reviewer, then human_review again
       approved=False without feedback -> status "rejected", graph ends
     - Node names (used as Prometheus `node` label & Langfuse span names):
       supervisor, parse_offer, parse_cv, score_match, verify_skills, analyze_gaps,
+      career_advisor, career_tools, career_plan,
       write_letter, review_letter, verify_claims, human_review
       (verify_skills / verify_claims use the decision model, `jobmatch.decisions.service`;
       with `DECISIONS_ENABLED=false` they are no-ops and the outputs are the LLM-only ones)
+    - career_team (career_advisor ⇄ career_tools → career_plan) is the one autonomous,
+      tool-using agent (bounded ReAct loop, `jobmatch.graph.teams.career`); its tool-loop
+      messages stay in the subgraph, only `career_plan` reaches this state.
+      `CAREER_ADVISOR_ENABLED=false` skips it (no `career_plan`).
 """
 
 from typing import Annotated, TypedDict
@@ -26,6 +32,7 @@ from typing import Annotated, TypedDict
 from jobmatch.schemas import (
     AnalysisStatus,
     CandidateProfile,
+    CareerPlan,
     CoverLetter,
     JobOffer,
     MatchResult,
@@ -48,6 +55,8 @@ class JobMatchState(TypedDict, total=False):
     # matching team
     match: MatchResult
     score_assessment: ScoreAssessment  # per-skill LLM ratings, re-used by verify_skills
+    # career team (autonomous tool-using agent)
+    career_plan: CareerPlan
     # writing team
     cover_letter: CoverLetter
     review: Review

@@ -90,6 +90,7 @@ class AnalysisService:
             offer=values.get("offer"),
             profile=values.get("profile"),
             match=values.get("match"),
+            career_plan=values.get("career_plan"),
             cover_letter=values.get("cover_letter"),
             review=values.get("review"),
             review_iterations=values.get("review_iterations") or 0,

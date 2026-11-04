@@ -38,7 +38,8 @@ src/jobmatch/
   prompts/             Prompt templates (one module per team).
   graph/build.py       build_graph(checkpointer) -> compiled graph
   graph/supervisor.py  top-level supervisor routing between teams
-  graph/teams/         analysis.py, matching.py, writing.py  (each a subgraph)
+  graph/teams/         analysis.py, matching.py, career.py, writing.py  (each a subgraph)
+  career/tools.py      career-advisor tools (ESCO taxonomy, CV evidence, learning catalog)
   decisions/           decision models (base contract, jevos/laya/qwen-logits backends) and
                        service.py: check_skill_evidence / check_claims used by the graph
   observability/       metrics.py (Prometheus, contract), tracing.py (Langfuse)
@@ -54,8 +55,8 @@ docker-compose.yml     full stack
 
 ## Contracts (do not break)
 - Node names = Prometheus `node` label = Langfuse span names:
-  `supervisor, parse_offer, parse_cv, score_match, verify_skills, analyze_gaps, write_letter,
-  review_letter, verify_claims, human_review`.
+  `supervisor, parse_offer, parse_cv, score_match, verify_skills, analyze_gaps, career_advisor,
+  career_tools, career_plan, write_letter, review_letter, verify_claims, human_review`.
 - Metric names are defined in `observability/metrics.py`; the Grafana dashboard depends on them.
 - Wrap every node with `@instrument_node(name)`; call `record_llm_usage(name, msg)` after LLM calls.
 - Structured output: `get_llm().with_structured_output(Model, method="json_schema", include_raw=True)`.

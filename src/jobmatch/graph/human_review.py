@@ -16,6 +16,8 @@ def human_review(state: JobMatchState) -> dict:
     payload = {
         "cover_letter": state["cover_letter"].model_dump(),
         "match": state["match"].model_dump(),
+        # additive key: None when the career advisor is disabled
+        "career_plan": plan.model_dump() if (plan := state.get("career_plan")) else None,
     }
     # On resume the node re-runs from the top and `interrupt` returns the resume value.
     decision = HumanDecision.model_validate(interrupt(payload))

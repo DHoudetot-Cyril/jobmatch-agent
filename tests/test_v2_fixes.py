@@ -187,6 +187,8 @@ def test_get_llm_max_tokens_override():
 @pytest.mark.parametrize("enabled", [True, False])
 async def test_only_the_reviewer_is_uncapped(install_fake_llm, dup_responses, monkeypatch, enabled):
     monkeypatch.setattr(get_settings(), "decisions_enabled", enabled)
+    # one get_llm() per structured call: the career advisor's tool-bound model is not one
+    monkeypatch.setattr(get_settings(), "career_advisor_enabled", False)
     fake = install_fake_llm(dup_responses)
     graph = build_graph(checkpointer=MemorySaver())
     await graph.ainvoke(INPUT, {"configurable": {"thread_id": str(uuid.uuid4())}})

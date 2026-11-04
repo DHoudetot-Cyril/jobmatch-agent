@@ -79,6 +79,27 @@ CLAIMS_DISMISSED = Counter(
     "jobmatch_claims_dismissed_total",
     "Reviewer 'unsupported claim' issues dismissed by the decision model",
 )
+
+# --- Career advisor (autonomous tool-using agent, graph/teams/career.py) ---
+CAREER_TOOLS = ("search_skill_taxonomy", "check_cv_evidence", "search_learning_resources")
+CAREER_TOOL_CALLS = Counter(
+    "jobmatch_career_tool_calls_total",
+    "Tool calls chosen by the career advisor",
+    ["tool", "status"],  # status: ok|empty|error
+)
+CAREER_ROUNDS = Histogram(
+    "jobmatch_career_rounds",
+    "Tool-calling LLM turns per career-advisor run",
+    buckets=(0, 1, 2, 3, 4, 5, 6, 8, 10),
+)
+CAREER_RESOURCES_DROPPED = Counter(
+    "jobmatch_career_resources_dropped_total",
+    "Learning-resource URLs in the career plan not returned by a tool (hallucinated, removed)",
+)
+for _tool in CAREER_TOOLS:
+    for _status in ("ok", "empty", "error"):
+        CAREER_TOOL_CALLS.labels(tool=_tool, status=_status)
+
 for _task in ("skill_evidence", "claim_supported"):  # export zeros before the first decision
     DECISION_LATENCY.labels(task=_task)
     for _outcome in ("yes", "no", "error", "skipped"):

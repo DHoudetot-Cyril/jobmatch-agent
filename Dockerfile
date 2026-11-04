@@ -27,6 +27,9 @@ RUN groupadd --system --gid 1000 app \
     && useradd --system --uid 1000 --gid app --home-dir /app --no-create-home app
 WORKDIR /app
 COPY --from=builder --chown=app:app /app/.venv /app/.venv
+# Career-advisor local data (ESCO snapshot + learning catalog), read at runtime from
+# CAREER_DATA_DIR=data/career (relative to WORKDIR /app). No network access needed.
+COPY --chown=app:app data/career ./data/career
 ENV PATH="/app/.venv/bin:$PATH" \
     PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1

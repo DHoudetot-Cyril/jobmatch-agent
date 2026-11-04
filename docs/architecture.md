@@ -132,6 +132,11 @@ flowchart TD
         SM["score_match<br/>LLM"] --> VS["verify_skills<br/>jevos"] --> AG["analyze_gaps<br/>LLM"]
     end
 
+    subgraph CT["career_team (autonomous agent)"]
+        CA["career_advisor<br/>LLM + tools"] <-->|"tool calls<br/>(≤ CAREER_MAX_TOOL_ROUNDS)"| CTL["career_tools<br/>ToolNode"]
+        CA --> CP["career_plan<br/>LLM, post-validated"]
+    end
+
     subgraph WT["writing_team"]
         WL["write_letter<br/>LLM"] --> RL["review_letter<br/>LLM"] --> VC["verify_claims<br/>jevos"]
         VC -->|"not approved and<br/>reviews left"| WL
@@ -141,10 +146,12 @@ flowchart TD
 
     SUP --> AT
     SUP --> MT
+    SUP --> CT
     SUP --> WT
     SUP --> HR
     AT --> SUP
     MT --> SUP
+    CT --> SUP
     WT --> SUP
     HR --> SUP
     SUP -->|"status completed or rejected"| END((END))
@@ -158,6 +165,9 @@ flowchart TD
 | `score_match` | matching | Rates every offer skill `full` / `partial` / `none` with evidence, plus `experience_fit`; score computed in code | Qwen, temperature 0 |
 | `verify_skills` | matching | Asks jevos "does the CV show X?" per skill, fuses with the LLM rating (fusion v2), recomputes the score | jevos |
 | `analyze_gaps` | matching | Writes concrete advice for each gap (skipped if no gaps) | Qwen, default temperature (0.2) |
+| `career_advisor` | career | ONE ReAct turn: the LLM, bound to 3 local tools (ESCO taxonomy, CV evidence via jevos, learning catalog), decides which tools to call or stops | Qwen + tools |
+| `career_tools` | career | Runs the requested tool calls (LangGraph `ToolNode`, parallel); `cv_text` injected from the state, never passed by the LLM | tools (jevos for `check_cv_evidence`) |
+| `career_plan` | career | Forced final answer `CareerPlan` from a digest of the tool loop, post-validated in code (URLs / ESCO URIs not returned by a tool dropped, transferable skills only with positive CV evidence); deterministic fallback on failure; empty plan if no gaps | Qwen |
 | `write_letter` | writing | Writes or revises the cover letter in the offer's language | Qwen, temperature 0.5 |
 | `review_letter` | writing | Checks the letter against the offer, profile and raw CV text; lists unsupported claims | Qwen, temperature 0, no `max_tokens` cap |
 | `verify_claims` | writing | Asks jevos whether each flagged claim is supported; dismisses reviewer false positives | jevos |
@@ -170,6 +180,7 @@ Supervisor routing table (`src/jobmatch/graph/supervisor.py`, first matching rul
 | `status` is `completed` or `rejected` | `END` |
 | `offer` or `profile` missing | `analysis_team` |
 | `match` missing | `matching_team` |
+| `career_plan` missing and `CAREER_ADVISOR_ENABLED` | `career_team` |
 | `cover_letter` or `review` missing | `writing_team` |
 | otherwise | `human_review` (status set to `awaiting_approval` first) |
 
@@ -194,6 +205,7 @@ not appended twice.
 | `profile` | `CandidateProfile` | `parse_cv` | supervisor, `score_match`, `analyze_gaps`, `write_letter`, `review_letter`, API |
 | `match` | `MatchResult` | `score_match` (creates), `verify_skills`, `analyze_gaps` (update) | supervisor, `write_letter`, `human_review`, API, metrics |
 | `score_assessment` | `ScoreAssessment` | `score_match` | `verify_skills` |
+| `career_plan` | `CareerPlan` | `career_plan` (career team; its tool-loop `messages` stay in the subgraph state) | supervisor, `human_review`, API |
 | `cover_letter` | `CoverLetter` | `write_letter` | supervisor, `write_letter` (revision), `review_letter`, `human_review`, API |
 | `review` | `Review` | `review_letter`, `verify_claims`; set to `None` by `human_review` on feedback | supervisor, `route_after_review`, `write_letter` (revision), API |
 | `review_iterations` | `int` | `review_letter` (+1); reset to 0 by `human_review` on feedback | `route_after_review`, API, metrics |

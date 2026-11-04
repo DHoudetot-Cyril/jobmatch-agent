@@ -177,3 +177,37 @@ class HumanDecision(BaseModel):
     feedback: str | None = Field(
         default=None, description="If not approved: what to change; the writer rewrites"
     )
+
+
+# --- Career advisor (autonomous tool-using agent) -------------------------------------------
+
+
+class LearningResource(BaseModel):
+    title: str
+    url: str
+    provider: str | None = None
+    free: bool | None = None
+    est_hours: float | None = None
+
+
+class GapPlan(BaseModel):
+    """Plan for one skill gap, built by the career advisor from its tool results."""
+
+    skill: str
+    esco_uri: str | None = Field(default=None, description="ESCO concept URI if found")
+    esco_label: str | None = None
+    transferable_skills: list[str] = Field(
+        default_factory=list,
+        description="Related skills the CV already shows (verified with the decision model)",
+    )
+    resources: list[LearningResource] = Field(default_factory=list)
+    actions: list[str] = Field(default_factory=list, description="Concrete next steps, ordered")
+    priority: Literal["high", "medium", "low"] = "medium"
+
+
+class CareerPlan(BaseModel):
+    """Output of the `career_advisor` node."""
+
+    summary: str = Field(description="2-4 sentence roadmap for the candidate")
+    gaps: list[GapPlan] = Field(default_factory=list)
+    tool_calls: int = 0  # filled by the graph, not by the LLM

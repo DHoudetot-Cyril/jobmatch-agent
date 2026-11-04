@@ -7,6 +7,7 @@ from pydantic import BaseModel, Field, field_validator
 from jobmatch.schemas import (
     AnalysisStatus,
     CandidateProfile,
+    CareerPlan,
     ClaimCheck,
     CoverLetter,
     JobOffer,
@@ -44,13 +45,19 @@ class AnalysisView(BaseModel):
     offer: JobOffer | None = None
     profile: CandidateProfile | None = None
     match: MatchResult | None = None
+    career_plan: CareerPlan | None = Field(
+        default=None,
+        description="Career advisor plan per skill gap (autonomous tool-using agent: ESCO "
+        "taxonomy, verified transferable skills, catalog resources); null if disabled",
+    )
     cover_letter: CoverLetter | None = None
     review: ReviewView | None = None
     review_iterations: int = 0
     trace: list[str] = Field(default_factory=list, description="Visited graph nodes, in order")
     pending_review: dict[str, Any] | None = Field(
         default=None,
-        description="Interrupt payload (cover letter + match) when awaiting human approval",
+        description="Interrupt payload (cover letter + match + career_plan) when awaiting "
+        "human approval",
     )
     error: str | None = None
 

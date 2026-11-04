@@ -46,6 +46,10 @@ class FakeLLM:
         self.schemas.append(schema)
         return _Structured(self, schema)
 
+    def bind_tools(self, tools: list, **kwargs: Any) -> "FakeLLM":
+        """Tool-calling model (career advisor): plain `ainvoke` replies, i.e. no tool call."""
+        return self
+
     async def ainvoke(self, messages: list[BaseMessage], *args: Any, **kwargs: Any) -> AIMessage:
         self.calls["text"].append(messages)
         return AIMessage(content=self.text_response)

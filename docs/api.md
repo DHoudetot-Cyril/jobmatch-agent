@@ -189,6 +189,9 @@ Field notes:
   (`claim`, `p_supported`, `dismissed`). Both are listed in `/openapi.json`. The graph-side
   `schemas.Review` hides them (`SkipJsonSchema`) because its JSON schema is also the reviewer
   LLM's structured-output schema when the decision layer is off.
+- `career_plan` (additive, also in `pending_review`): the career advisor's plan per skill gap
+  (ESCO concept, verified transferable skills, catalog resources, actions, `tool_calls`);
+  `null` when `CAREER_ADVISOR_ENABLED=false`.
 - `pending_review` is the interrupt payload; it is set only when `status` is
   `awaiting_approval`.
 - `trace` lists visited nodes in order (all runs of the thread, including rewrites).
