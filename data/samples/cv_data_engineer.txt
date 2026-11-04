@@ -1,0 +1,45 @@
+Camille Martin (personne fictive)
+Data Engineer
+Nantes — camille.martin@example.com — 06 00 00 00 00
+
+PROFIL
+Data engineer avec 4 ans d'expérience dans la conception de pipelines de données pour
+des environnements à fort volume. Appétence pour la qualité des données et l'automatisation.
+
+EXPÉRIENCES PROFESSIONNELLES
+
+Data Engineer — Transfluvia (entreprise fictive, logistique), Nantes
+Mars 2022 – aujourd'hui (2 ans 8 mois)
+- Développement de pipelines PySpark traitant 15 millions d'événements de suivi de colis par jour.
+- Migration des traitements cron vers Apache Airflow (45 DAGs), avec alertes Slack.
+- Modélisation de l'entrepôt de données sur AWS Redshift ; stockage brut sur S3.
+- Mise en place de tests de qualité de données avec Great Expectations.
+- Conteneurisation des jobs avec Docker et déploiement via GitLab CI.
+
+Développeuse Data / BI — Agence Datapolis (entreprise fictive), Rennes
+Septembre 2020 – février 2022 (1 an 6 mois)
+- Écriture de requêtes SQL complexes et de procédures stockées sur PostgreSQL.
+- Développement de scripts Python d'ingestion (API REST, fichiers CSV).
+- Création de tableaux de bord Power BI pour des clients du secteur public.
+
+Stage Data Analyst — Mairie de Saint-Herblain (stage fictif)
+Février 2020 – juillet 2020 (6 mois)
+- Analyse des consommations énergétiques des bâtiments municipaux avec Python (pandas).
+
+COMPÉTENCES
+Langages : Python, SQL
+Big data : Apache Spark (PySpark)
+Orchestration : Apache Airflow
+Cloud : AWS (S3, Redshift, Lambda)
+Outils : Docker, GitLab CI, Git, Great Expectations, Power BI
+Bases de données : PostgreSQL, Redshift
+
+FORMATION
+Master Informatique, parcours Science des données — Université de Nantes (2020)
+Licence Mathématiques — Université de Rennes (2018)
+
+LANGUES
+Français (langue maternelle), anglais (courant, TOEIC 910)
+
+CENTRES D'INTÉRÊT
+Randonnée, bénévolat dans une association de rénovation énergétique.

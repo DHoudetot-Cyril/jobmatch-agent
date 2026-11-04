@@ -1,0 +1,37 @@
+Data Engineer confirmé (H/F) — CDI — Nantes (hybride, 2 jours de télétravail)
+
+Lumio Énergie (entreprise fictive) est une PME de 180 personnes qui développe des solutions
+de pilotage de la consommation électrique pour les collectivités et les bâtiments tertiaires.
+Notre plateforme collecte chaque jour plus de 40 millions de mesures issues de compteurs
+communicants et de capteurs IoT.
+
+Au sein de l'équipe Data (6 personnes), vous serez responsable de la fiabilité et de
+l'évolution de nos pipelines de données.
+
+Vos missions
+- Concevoir, développer et maintenir des pipelines d'ingestion batch et streaming.
+- Modéliser les données dans notre entrepôt (couches bronze / silver / gold).
+- Orchestrer les traitements et mettre en place le monitoring et les alertes.
+- Garantir la qualité des données (tests, contrôles, documentation).
+- Collaborer avec les data scientists pour industrialiser leurs modèles de prévision.
+
+Profil recherché
+- 3 à 5 ans d'expérience en data engineering.
+- Maîtrise de Python et de SQL (indispensable).
+- Expérience significative avec Apache Spark (PySpark).
+- Pratique d'un orchestrateur, idéalement Apache Airflow.
+- Connaissance de Docker et des bonnes pratiques CI/CD (GitLab CI).
+- Expérience sur un cloud public (AWS de préférence : S3, Glue, Redshift).
+
+Serait un plus
+- Kafka ou un autre outil de streaming.
+- dbt.
+- Terraform.
+- Une sensibilité aux enjeux de la transition énergétique.
+
+Ce que nous offrons
+- Salaire : 48 à 55 k€ bruts annuels selon expérience.
+- Tickets restaurant, mutuelle prise en charge à 70 %, 12 RTT.
+- Budget formation annuel et participation à des conférences.
+
+Processus : un échange RH, un entretien technique avec l'équipe Data, une rencontre avec le CTO.
