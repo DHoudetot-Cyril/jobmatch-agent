@@ -32,6 +32,20 @@ dev = [
 eval = [
     "deepeval>=4.3.3",
 ]
+# Local "System 1" decision models (bench/decisions). CPU-only torch, never in the API image
+# (the Dockerfile syncs with --no-dev and no extra group).
+decisions = [
+    "laya==0.4.22",
+    "torch>=2.4",
+]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu" }]
 
 [build-system]
 requires = ["hatchling"]
