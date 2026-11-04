@@ -31,12 +31,16 @@ NODE_LATENCY = Histogram(
 )
 NODE_ERRORS = Counter("jobmatch_agent_node_errors_total", "Graph node failures", ["node"])
 LLM_TOKENS = Counter(
-    "jobmatch_llm_tokens_total", "LLM tokens used", ["node", "kind"]  # kind: prompt|completion
+    "jobmatch_llm_tokens_total",
+    "LLM tokens used",
+    ["node", "kind"],  # kind: prompt|completion
 )
 
 # --- Analyses (business) ---
 ANALYSES = Counter(
-    "jobmatch_analyses_total", "Finished analyses", ["status"]  # completed|rejected|failed
+    "jobmatch_analyses_total",
+    "Finished analyses",
+    ["status"],  # completed|rejected|failed
 )
 ANALYSES_IN_PROGRESS = Gauge("jobmatch_analyses_in_progress", "Analyses currently running")
 MATCH_SCORE = Histogram(
