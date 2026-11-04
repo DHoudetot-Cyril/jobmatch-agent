@@ -8,10 +8,18 @@ computed in code from a fixed rubric (`compute_score`): required skills weigh 70
 nice-to-have 15%, experience fit 15%. The score is thus explainable and reproducible.
 
 Verification ("System 2" LLM + "System 1" decision model): `verify_skills` asks the decision
-model, for every offer skill, "does the CV show evidence of <skill>?" (calibrated probability)
-and fuses it with the LLM rating: final_credit = 0.5 * llm_credit + 0.5 * p_evidence. The
-score is recomputed with the same rubric, a skill is matched if final_credit >= 0.5 and a gap
-otherwise. If the decision layer is disabled or unavailable, the LLM-only result is kept as is.
+model, for every offer skill, "does the CV show evidence of <skill>?" (calibrated probability
+p) and fuses it with the LLM rating c in {1, 0.5, 0} (fusion v2, `decisions.service.fuse_skill`):
+  - c == 0.5 (LLM unsure / partial)            -> final = p   (the decision model resolves it)
+  - c == 1 and p < DECISION_CONFLICT_LOW (0.2)  -> final = 0.5 (strong disagreement, flagged)
+  - c == 0 and p > DECISION_CONFLICT_HIGH (0.8) -> final = 0.5 (flagged)
+  - otherwise                                   -> final = c   (LLM kept, no systematic bias)
+Each `SkillCheck.resolution` records which case applied. The score is recomputed with the same
+rubric, a skill is matched if final_credit >= 0.5 and a gap otherwise. If the decision layer is
+disabled or unavailable, the LLM-only result is kept as is.
+
+Offer skills are unique per case-insensitive name (`analysis.dedupe_skills`); the level map
+below still lets "required" win in case an older checkpoint holds duplicates.
 """
 
 from collections.abc import Iterable
@@ -95,10 +103,18 @@ async def score_match(state: JobMatchState) -> dict:
         profile_json=to_json(state["profile"]),
     )
     assessment = await invoke_structured("score_match", ScoreAssessment, messages, temperature=0)
-    # Trust the offer for the skill level rather than the LLM's copy of it.
-    levels = {s.name.casefold(): s.level for s in offer.skills}
+    # Trust the offer for the skill level rather than the LLM's copy of it (required wins).
+    levels: dict[str, SkillLevel] = {}
+    for s in offer.skills:
+        key = s.name.strip().casefold()
+        if levels.get(key) != SkillLevel.required:
+            levels[key] = s.level
+    unique: dict[str, SkillAssessment] = {}  # one rating per skill (the LLM may repeat one)
     for s in assessment.skills:
-        s.level = levels.get(s.skill.casefold(), s.level)
+        key = s.skill.strip().casefold()
+        s.level = levels.get(key, s.level)
+        unique.setdefault(key, s)
+    assessment.skills = list(unique.values())
     match = MatchResult(
         score=compute_score(assessment),
         matched_skills=[s.skill for s in assessment.skills if s.match != "none"],

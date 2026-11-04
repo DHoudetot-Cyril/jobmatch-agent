@@ -17,6 +17,10 @@ layer disabled the reviewer uses its original prompt/schema and `verify_claims` 
 
 The writer also applies `human_feedback` (set by `human_review` when the human asks for a
 rewrite); in that case it revises the previous draft instead of starting from scratch.
+
+The reviewer call has NO `max_tokens` cap (`REVIEWER_MAX_TOKENS = None`): with Qwen thinking,
+a 4096-token budget was exhausted on long reviews (finish_reason=length -> failed analysis).
+It is bounded only by the llama-server per-slot context. Other nodes keep the default cap.
 """
 
 import logging
@@ -41,6 +45,8 @@ from jobmatch.schemas import CoverLetter, Review, ReviewerOutput
 from jobmatch.state import JobMatchState
 
 log = logging.getLogger(__name__)
+
+REVIEWER_MAX_TOKENS = None  # no cap: bounded by the server's per-slot context only
 
 
 def claim_issue(claim: str) -> str:
@@ -123,6 +129,7 @@ async def review_letter(state: JobMatchState) -> dict:
             ReviewerOutput,
             REVIEW_LETTER_CLAIMS_PROMPT.format_messages(**prompt_vars),
             temperature=0.0,
+            max_tokens=REVIEWER_MAX_TOKENS,
         )
         review = _merge_claims(out)
     else:  # historical behaviour, unchanged
@@ -131,6 +138,7 @@ async def review_letter(state: JobMatchState) -> dict:
             Review,
             REVIEW_LETTER_PROMPT.format_messages(**prompt_vars),
             temperature=0.0,
+            max_tokens=REVIEWER_MAX_TOKENS,
         )
     if review.issues:  # an approval with open issues is inconsistent: issues win
         review.approved = False

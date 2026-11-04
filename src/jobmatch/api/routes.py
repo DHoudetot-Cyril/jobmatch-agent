@@ -26,6 +26,7 @@ from jobmatch.api.service import (
     NotAwaitingApprovalError,
 )
 from jobmatch.config import get_settings
+from jobmatch.decisions.registry import canonical_name
 from jobmatch.schemas import AnalysisStatus, HumanDecision
 
 logger = logging.getLogger(__name__)
@@ -173,16 +174,52 @@ async def _check_llm() -> DependencyCheck:
     return DependencyCheck(ok=False, detail="; ".join(errors))
 
 
+async def _check_decisions() -> DependencyCheck:
+    """Decision layer: NON-critical (the graph degrades to LLM-only results without it)."""
+    settings = get_settings()
+    if not settings.decisions_enabled:
+        return DependencyCheck(ok=True, critical=False, detail="disabled (DECISIONS_ENABLED=false)")
+    try:
+        backend = canonical_name(settings.decisions_backend)
+    except KeyError as exc:
+        return DependencyCheck(ok=False, critical=False, detail=str(exc))
+    if backend != "jevos":
+        return DependencyCheck(
+            ok=True, critical=False, detail=f"backend {backend!r} (in-process, not probed)"
+        )
+    url = f"{settings.jevos_url.rstrip('/')}/health"
+    try:
+        async with httpx.AsyncClient(timeout=_READY_TIMEOUT_S) as client:
+            resp = await client.get(url)
+        if resp.status_code == 200:
+            return DependencyCheck(ok=True, critical=False, detail=url)
+        detail = f"{url} -> HTTP {resp.status_code}"
+    except httpx.HTTPError as exc:
+        detail = f"{url} -> {type(exc).__name__}"
+    return DependencyCheck(
+        ok=False, critical=False, detail=f"{detail}; analyses degrade to LLM-only results"
+    )
+
+
 @router.get(
     "/ready",
     tags=["ops"],
     response_model=ReadyResponse,
-    summary="Readiness probe (database + LLM server)",
-    responses={503: {"model": ReadyResponse, "description": "A dependency is down"}},
+    summary="Readiness probe (database + LLM server; decision layer reported, non-critical)",
+    description=(
+        "`ready` depends only on the critical checks (database, llm). The `decisions` check "
+        "(jevos) is informational: when it fails the API stays ready and `degraded` is true."
+    ),
+    responses={503: {"model": ReadyResponse, "description": "A critical dependency is down"}},
 )
 async def ready(request: Request) -> JSONResponse:
-    db, llm = await asyncio.gather(_check_db(request), _check_llm())
-    body = ReadyResponse(ready=db.ok and llm.ok, checks={"database": db, "llm": llm})
+    db, llm, dec = await asyncio.gather(_check_db(request), _check_llm(), _check_decisions())
+    checks = {"database": db, "llm": llm, "decisions": dec}
+    body = ReadyResponse(
+        ready=all(c.ok for c in checks.values() if c.critical),
+        degraded=any(not c.ok for c in checks.values() if not c.critical),
+        checks=checks,
+    )
     return JSONResponse(
         body.model_dump(), status_code=200 if body.ready else status.HTTP_503_SERVICE_UNAVAILABLE
     )

@@ -233,6 +233,41 @@ def mean_metrics(per_repeat: list[dict]) -> dict:
 # --------------------------------------------------------------------------- Langfuse
 
 
+def langfuse_score_bodies(outputs: dict[str, dict], results: dict[str, dict]) -> list[dict]:
+    """Score payloads for every numeric judge metric of every traced case.
+
+    `results[case]` is a summary entry `{"score": int, "trace_id", "metrics": {name: {"value",
+    "reason", ...}}, "run", "stability", ...}` (a bare `{name: metric}` dict is accepted too).
+    Anything that is not a numeric metric (ints, aggregates, None values) is skipped.
+    """
+    bodies = []
+    for case_id, entry in results.items():
+        trace_id = (outputs.get(case_id) or {}).get("trace_id")
+        if not trace_id or not isinstance(entry, dict):
+            continue
+        metrics = entry.get("metrics", entry)
+        if not isinstance(metrics, dict):
+            continue
+        for name, m in metrics.items():
+            if not isinstance(m, dict):
+                continue
+            value = m.get("value")
+            if isinstance(value, bool) or not isinstance(value, int | float):
+                continue
+            bodies.append(
+                {
+                    # deterministic id: re-judging overwrites instead of duplicating
+                    "id": f"{trace_id}-{name}",
+                    "traceId": trace_id,
+                    "name": f"eval_{name}",
+                    "value": value,
+                    "dataType": "NUMERIC",
+                    "comment": str(m.get("reason") or "")[:1000],
+                }
+            )
+    return bodies
+
+
 def post_langfuse_scores(outputs: dict[str, dict], results: dict[str, dict]) -> int:
     """POST /api/public/scores for every metric. Returns the number of scores posted."""
     from jobmatch.config import get_settings
@@ -243,27 +278,12 @@ def post_langfuse_scores(outputs: dict[str, dict], results: dict[str, dict]) -> 
     posted = 0
     try:
         with httpx.Client(timeout=5.0, auth=auth) as client:
-            for case_id, metrics in results.items():
-                trace_id = outputs[case_id].get("trace_id")
-                if not trace_id:
+            for body in langfuse_score_bodies(outputs, results):
+                resp = client.post(url, json=body)
+                if resp.status_code >= 300:
+                    logger.warning("score rejected %s: %s", resp.status_code, resp.text)
                     continue
-                for name, m in metrics.items():
-                    if m["value"] is None:
-                        continue
-                    body = {
-                        # deterministic id: re-judging overwrites instead of duplicating
-                        "id": f"{trace_id}-{name}",
-                        "traceId": trace_id,
-                        "name": f"eval_{name}",
-                        "value": m["value"],
-                        "dataType": "NUMERIC",
-                        "comment": (m.get("reason") or "")[:1000],
-                    }
-                    resp = client.post(url, json=body)
-                    if resp.status_code >= 300:
-                        logger.warning("score rejected %s: %s", resp.status_code, resp.text)
-                        continue
-                    posted += 1
+                posted += 1
     except httpx.HTTPError as exc:
         logger.info("langfuse unreachable, scores skipped (%s)", exc)
     return posted

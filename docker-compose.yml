@@ -75,8 +75,10 @@ services:
     depends_on:
       app-db:
         condition: service_healthy
+      # Soft dependency: started first, but the API never waits for (or needs) a healthy
+      # jevos; without it analyses degrade to LLM-only results and /ready reports "degraded".
       jevos:
-        condition: service_healthy
+        condition: service_started
       langfuse-web:
         condition: service_healthy
 

@@ -39,6 +39,7 @@ class FakeLLM:
         self.text_response = text_response
         self.calls: dict[str, list[list[BaseMessage]]] = defaultdict(list)
         self.schemas: list[type[BaseModel]] = []  # exact schema of every structured call
+        self.llm_kwargs: list[dict[str, Any]] = []  # get_llm() kwargs, one per model built
 
     def with_structured_output(self, schema: type[BaseModel], **kwargs: Any) -> "_Structured":
         assert kwargs.get("method") == "json_schema" and kwargs.get("include_raw") is True
@@ -84,7 +85,12 @@ def install_fake_llm(monkeypatch: pytest.MonkeyPatch) -> Callable[..., FakeLLM]:
 
     def install(responses: dict[type, list[Any]] | None = None, **kwargs: Any) -> FakeLLM:
         fake = FakeLLM(responses, **kwargs)
-        monkeypatch.setattr("jobmatch.llm.get_llm", lambda temperature=None: fake)
+
+        def get_llm(temperature: float | None = None, **kw: Any) -> FakeLLM:
+            fake.llm_kwargs.append({"temperature": temperature, **kw})
+            return fake
+
+        monkeypatch.setattr("jobmatch.llm.get_llm", get_llm)
         return fake
 
     return install

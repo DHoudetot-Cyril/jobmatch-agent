@@ -12,6 +12,7 @@ import time
 from collections.abc import Callable
 from typing import Any
 
+from langgraph.errors import GraphBubbleUp
 from prometheus_client import Counter, Gauge, Histogram
 
 # --- HTTP (API) ---
@@ -69,6 +70,11 @@ DECISION_AGREEMENT = Counter(
     "Decision model vs LLM verdict on the same question",
     ["task", "agree"],  # agree: true|false
 )
+SKILL_RESOLUTION = Counter(
+    "jobmatch_skill_resolution_total",
+    "verify_skills fusion v2 outcome per offer skill",
+    ["resolution"],  # llm|resolved_partial|conflict
+)
 CLAIMS_DISMISSED = Counter(
     "jobmatch_claims_dismissed_total",
     "Reviewer 'unsupported claim' issues dismissed by the decision model",
@@ -79,10 +85,16 @@ for _task in ("skill_evidence", "claim_supported"):  # export zeros before the f
         DECISIONS.labels(task=_task, outcome=_outcome)
     for _agree in ("true", "false"):
         DECISION_AGREEMENT.labels(task=_task, agree=_agree)
+for _resolution in ("llm", "resolved_partial", "conflict"):
+    SKILL_RESOLUTION.labels(resolution=_resolution)
 
 
 def instrument_node(node: str) -> Callable:
-    """Decorator measuring latency and errors of a graph node (sync or async)."""
+    """Decorator measuring latency and errors of a graph node (sync or async).
+
+    LangGraph control flow is NOT an error: `GraphBubbleUp` subclasses (`GraphInterrupt` raised
+    by `interrupt()` in human_review, `ParentCommand`, ...) are re-raised without counting.
+    """
 
     def deco(fn: Callable) -> Callable:
         if inspect.iscoroutinefunction(fn):
@@ -92,6 +104,8 @@ def instrument_node(node: str) -> Callable:
                 start = time.perf_counter()
                 try:
                     return await fn(*args, **kwargs)
+                except GraphBubbleUp:
+                    raise
                 except Exception:
                     NODE_ERRORS.labels(node=node).inc()
                     raise
@@ -105,6 +119,8 @@ def instrument_node(node: str) -> Callable:
             start = time.perf_counter()
             try:
                 return fn(*args, **kwargs)
+            except GraphBubbleUp:
+                raise
             except Exception:
                 NODE_ERRORS.labels(node=node).inc()
                 raise

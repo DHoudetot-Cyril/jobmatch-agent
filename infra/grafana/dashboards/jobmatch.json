@@ -18,7 +18,7 @@
   },
   "timepicker": {},
   "schemaVersion": 41,
-  "version": 2,
+  "version": 3,
   "fiscalYearStartMonth": 0,
   "liveNow": false,
   "links": [],
@@ -2166,6 +2166,79 @@
           "refId": "B",
           "range": true,
           "instant": false,
+          "editorMode": "code"
+        }
+      ]
+    },
+    {
+      "type": "bargauge",
+      "id": 29,
+      "title": "Skill resolution (fusion v2)",
+      "description": "verify_skills fusion v2 outcome per offer skill over the selected range (jobmatch_skill_resolution_total): llm = LLM rating kept, resolved_partial = LLM 'partial' replaced by the calibrated P(evidence), conflict = strong LLM / decision-model disagreement -> partial credit 0.5.",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 63
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "min": 0,
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "blue"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          },
+          "decimals": 0
+        },
+        "overrides": []
+      },
+      "options": {
+        "orientation": "horizontal",
+        "displayMode": "gradient",
+        "valueMode": "color",
+        "namePlacement": "auto",
+        "showUnfilled": true,
+        "sizing": "auto",
+        "minVizHeight": 16,
+        "minVizWidth": 8,
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "legend": {
+          "showLegend": false,
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "sum by (resolution) (increase(jobmatch_skill_resolution_total[$__range]))",
+          "legendFormat": "{{resolution}}",
+          "refId": "A",
+          "range": false,
+          "instant": true,
           "editorMode": "code"
         }
       ]

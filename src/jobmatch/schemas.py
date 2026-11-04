@@ -76,7 +76,12 @@ class ScoreAssessment(BaseModel):
 class SkillCheck(BaseModel):
     """One offer skill verified by the decision model (node `verify_skills`).
 
-    final_credit = 0.5 * llm_credit + 0.5 * p_evidence; the skill is a gap if < 0.5.
+    Fusion v2 (`decisions.service.fuse_skill`), llm_credit c in {1, 0.5, 0}, calibrated p:
+      - c == 0.5 (LLM unsure)                  -> final = p    (resolution "resolved_partial")
+      - c == 1 and p < decision_conflict_low   -> final = 0.5  (resolution "conflict")
+      - c == 0 and p > decision_conflict_high  -> final = 0.5  (resolution "conflict")
+      - otherwise                              -> final = c    (resolution "llm", LLM kept)
+    The skill is a gap if final_credit < 0.5.
     """
 
     skill: str
@@ -85,6 +90,12 @@ class SkillCheck(BaseModel):
     p_evidence: float = Field(description="Calibrated P(the CV shows the skill), decision model")
     final_credit: float
     agree: bool = Field(description="LLM (credit >= 0.5) and decision model (p >= 0.5) agree")
+    # Additive (v2); "llm" default so outputs written before v2 still load.
+    resolution: Literal["llm", "resolved_partial", "conflict"] = Field(
+        default="llm",
+        description="llm: LLM rating kept; resolved_partial: 'partial' replaced by p_evidence; "
+        "conflict: strong LLM / decision-model disagreement -> partial credit 0.5",
+    )
 
 
 class ClaimCheck(BaseModel):

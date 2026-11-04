@@ -27,6 +27,7 @@ from jobmatch.schemas import (
     JobOffer,
     Review,
     ReviewerOutput,
+    SkillCheck,
     SkillLevel,
 )
 
@@ -100,14 +101,61 @@ def test_calibration_matches_bench_formula(p):
     assert service.apply_temperature(p, t) == pytest.approx(expected)
 
 
-def test_fusion_math():
-    a = SkillAssessment(skill="Docker", level="required", match="partial", evidence="")
-    c = service.fuse_skill(a, 0.8)
-    assert (c.llm_credit, c.p_evidence, c.final_credit, c.agree) == (0.5, 0.8, 0.65, True)
-    c = service.fuse_skill(a.model_copy(update={"match": "none"}), 0.9)
-    assert (c.final_credit, c.agree) == (0.45, False)  # still a gap (< 0.5)
-    c = service.fuse_skill(a.model_copy(update={"match": "full"}), 0.0)
-    assert (c.final_credit, c.agree) == (0.5, False)  # a "full" skill never becomes a gap
+@pytest.mark.parametrize(
+    ("match", "p", "final", "resolution", "agree"),
+    [
+        ("partial", 0.8, 0.8, "resolved_partial", True),  # unsure LLM: System 1 decides
+        ("partial", 0.1, 0.1, "resolved_partial", False),
+        ("full", 0.6, 1.0, "llm", True),  # no systematic down-bias (v1 gave 0.8)
+        ("full", 0.3, 1.0, "llm", False),  # mild disagreement: LLM kept
+        ("full", 0.1, 0.5, "conflict", False),  # strong disagreement: partial credit
+        ("none", 0.5, 0.0, "llm", False),
+        ("none", 0.9, 0.5, "conflict", False),
+        ("none", 0.05, 0.0, "llm", True),
+    ],
+)
+def test_fusion_v2(match, p, final, resolution, agree):
+    a = SkillAssessment(skill="Docker", level="required", match=match, evidence="")
+    c = service.fuse_skill(a, p)
+    assert (c.final_credit, c.resolution, c.agree) == (final, resolution, agree)
+    assert c.llm_credit == service.LLM_CREDIT[match] and c.p_evidence == p
+
+
+def test_fusion_thresholds_come_from_settings(monkeypatch):
+    a = SkillAssessment(skill="Docker", level="required", match="full", evidence="")
+    assert service.fuse_skill(a, 0.3).resolution == "llm"
+    monkeypatch.setattr(get_settings(), "decision_conflict_low", 0.4)
+    assert service.fuse_skill(a, 0.3).resolution == "conflict"
+    monkeypatch.setattr(get_settings(), "decision_conflict_high", 0.95)
+    b = a.model_copy(update={"match": "none"})
+    assert service.fuse_skill(b, 0.9).resolution == "llm"
+
+
+def test_skill_check_resolution_defaults_for_old_outputs():
+    old = {"skill": "Go", "level": "required", "llm_credit": 1.0, "p_evidence": 0.9}
+    assert SkillCheck.model_validate({**old, "final_credit": 0.95, "agree": True}).resolution == (
+        "llm"
+    )
+
+
+def test_non_jevos_backend_is_uncalibrated(monkeypatch, caplog):
+    monkeypatch.setattr(service, "_warned_uncalibrated", False)
+    assert (
+        service.calibration_temperature("skill_evidence") == service.TEMPERATURE["skill_evidence"]
+    )
+    monkeypatch.setattr(get_settings(), "decisions_backend", "qwen-logits")
+    with caplog.at_level("WARNING"):
+        assert service.calibration_temperature("skill_evidence") == 1.0
+        assert service.calibration_temperature("claim_supported") == 1.0
+    assert sum("no calibration temperature" in r.message for r in caplog.records) == 1
+
+
+async def test_non_jevos_backend_returns_raw_probabilities(install_fake_decisions, monkeypatch):
+    monkeypatch.setattr(get_settings(), "decisions_backend", "laya")
+    install_fake_decisions(lambda state, q: 0.7)
+    a = SkillAssessment(skill="Go", level="required", match="partial", evidence="")
+    (check,) = await service.check_skill_evidence("CV", [a])
+    assert check.p_evidence == pytest.approx(0.7)
 
 
 # ------------------------------------------------------------------ verify_skills
@@ -125,9 +173,10 @@ async def test_verify_skills_fuses_and_recomputes(
         for k, p in {"hi": 0.9, "lo": 0.2}.items()
     }
     checks = {c.skill: c for c in match.skill_checks}
-    assert checks["Python"].final_credit == pytest.approx(0.5 + 0.5 * cal["hi"], abs=1e-4)
-    assert checks["Apache Spark"].final_credit == pytest.approx(0.25 + 0.5 * cal["hi"], abs=1e-4)
-    assert checks["Kafka"].final_credit == pytest.approx(0.5 * cal["lo"], abs=1e-4)
+    assert checks["Python"].final_credit == 1.0  # "full" + evidence: LLM kept
+    assert checks["Apache Spark"].final_credit == pytest.approx(cal["hi"], abs=1e-4)
+    assert checks["Kafka"].final_credit == 0.0  # "none" + low evidence: LLM kept
+    assert [c.resolution for c in match.skill_checks] == ["llm", "resolved_partial", "llm"]
     assert [c.agree for c in match.skill_checks] == [True, True, True]
     expected = round(
         100
@@ -139,7 +188,7 @@ async def test_verify_skills_fuses_and_recomputes(
             + WEIGHT_EXPERIENCE * 0.8
         )
     )
-    assert match.score == expected == 73  # LLM-only: (1 + 0.5) / 2 * 70 + 0 + 12 = 64.5 -> 64
+    assert match.score == expected == 80  # LLM-only: (1 + 0.5) / 2 * 70 + 0 + 12 = 64.5 -> 64
     # the partial skill is confirmed by the decision model: matched, no longer a gap
     assert match.matched_skills == ["Python", "Apache Spark"]
     assert [g.skill for g in match.gaps] == ["Kafka"]

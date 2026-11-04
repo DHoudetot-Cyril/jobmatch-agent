@@ -9,10 +9,12 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.types import interrupt
 
 from jobmatch import documents
+from jobmatch.api import routes
 from jobmatch.api.main import create_app
+from jobmatch.api.models import AnalysisView, DependencyCheck
 from jobmatch.config import get_settings
 from jobmatch.observability import tracing
-from jobmatch.schemas import CoverLetter, MatchResult
+from jobmatch.schemas import ClaimCheck, CoverLetter, MatchResult, Review
 from jobmatch.state import JobMatchState
 
 
@@ -217,3 +219,89 @@ def test_langfuse_run_config_sets_session():
     cfg = tracing.langfuse_run_config("abc")
     assert cfg["metadata"]["langfuse_session_id"] == "abc"
     assert "jobmatch" in cfg["metadata"]["langfuse_tags"]
+
+
+# ------------------------------------------------------------------ /ready: decisions check
+
+
+async def _llm_ok() -> DependencyCheck:
+    return DependencyCheck(ok=True, detail="fake")
+
+
+def _jevos_transport(monkeypatch, handler) -> None:
+    real = httpx.AsyncClient
+
+    def client(*args, **kwargs):
+        return real(*args, transport=httpx.MockTransport(handler), **kwargs)
+
+    monkeypatch.setattr(routes.httpx, "AsyncClient", client)
+
+
+async def test_ready_reports_decisions_ok(client, monkeypatch):
+    monkeypatch.setattr(routes, "_check_llm", _llm_ok)
+    monkeypatch.setattr(get_settings(), "decisions_enabled", True)
+    monkeypatch.setattr(get_settings(), "decisions_backend", "jevos")
+    _jevos_transport(monkeypatch, lambda req: httpx.Response(200, json={"status": "ready"}))
+    r = await client.get("/ready")
+    body = r.json()
+    assert r.status_code == 200 and body["ready"] is True and body["degraded"] is False
+    assert body["checks"]["decisions"]["ok"] is True
+    assert body["checks"]["decisions"]["critical"] is False
+
+
+async def test_ready_stays_ready_when_jevos_is_down(client, monkeypatch):
+    monkeypatch.setattr(routes, "_check_llm", _llm_ok)
+    monkeypatch.setattr(get_settings(), "decisions_enabled", True)
+    monkeypatch.setattr(get_settings(), "decisions_backend", "jevos")
+
+    def down(req):
+        raise httpx.ConnectError("refused", request=req)
+
+    _jevos_transport(monkeypatch, down)
+    r = await client.get("/ready")
+    body = r.json()
+    assert r.status_code == 200 and body["ready"] is True and body["degraded"] is True
+    assert body["checks"]["decisions"]["ok"] is False
+    assert "LLM-only" in body["checks"]["decisions"]["detail"]
+
+
+async def test_ready_decisions_disabled(client, monkeypatch):
+    monkeypatch.setattr(routes, "_check_llm", _llm_ok)
+    monkeypatch.setattr(get_settings(), "decisions_enabled", False)
+    body = (await client.get("/ready")).json()
+    assert body["ready"] is True and body["degraded"] is False
+    assert body["checks"]["decisions"]["detail"].startswith("disabled")
+
+
+async def test_ready_llm_down_is_not_ready(client, monkeypatch):
+    async def llm_down() -> DependencyCheck:
+        return DependencyCheck(ok=False, detail="down")
+
+    monkeypatch.setattr(routes, "_check_llm", llm_down)
+    monkeypatch.setattr(get_settings(), "decisions_enabled", False)
+    r = await client.get("/ready")
+    assert r.status_code == 503 and r.json()["ready"] is False
+
+
+# ------------------------------------------------------------------ OpenAPI: review fields
+
+
+async def test_openapi_exposes_review_decision_fields(client):
+    spec = (await client.get("/openapi.json")).json()
+    props = spec["components"]["schemas"]["ReviewView"]["properties"]
+    assert {"unsupported_claims", "claim_checks"} <= set(props)
+    # the LLM-facing schema is unchanged
+    assert "claim_checks" not in Review.model_json_schema()["properties"]
+
+
+def test_analysis_view_serializes_review_decision_fields():
+    review = Review(
+        approved=False,
+        issues=["x"],
+        unsupported_claims=["c"],
+        claim_checks=[ClaimCheck(claim="c", p_supported=0.1, dismissed=False)],
+    )
+    view = AnalysisView(id="a", status="completed", review=review)
+    dumped = view.model_dump()["review"]
+    assert dumped["unsupported_claims"] == ["c"]
+    assert dumped["claim_checks"][0]["p_supported"] == 0.1

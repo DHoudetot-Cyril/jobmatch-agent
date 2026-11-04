@@ -32,6 +32,10 @@ class Settings(BaseSettings):
     decisions_timeout_s: float = 30.0  # per decision HTTP call
     decisions_concurrency: int = 4  # in-flight decisions per event loop
     claim_dismiss_threshold: float = 0.8  # calibrated P(supported) >= this -> issue dismissed
+    # Skill fusion v2 (verify_skills): a firm LLM rating is overridden to partial credit (0.5)
+    # only on strong disagreement: "full" with P(evidence) < low, "none" with P > high.
+    decision_conflict_low: float = 0.2
+    decision_conflict_high: float = 0.8
 
     # --- LangGraph checkpointer (application Postgres, NOT Langfuse's) ---
     database_url: str = "postgresql://jobmatch:jobmatch@localhost:5433/jobmatch"

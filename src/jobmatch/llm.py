@@ -11,6 +11,7 @@ The model is Qwen served by llama.cpp `llama-server` (OpenAI-compatible API, see
 """
 
 import base64
+from enum import Enum
 
 from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import HumanMessage
@@ -19,14 +20,32 @@ from langchain_openai import ChatOpenAI
 from jobmatch.config import get_settings
 
 
-def get_llm(temperature: float | None = None) -> BaseChatModel:
+class _Default(Enum):
+    """Sentinel type: "use the configured value" (distinct from None = "no limit")."""
+
+    token = 0
+
+
+DEFAULT = _Default.token
+
+
+def get_llm(
+    temperature: float | None = None, max_tokens: int | None | _Default = DEFAULT
+) -> BaseChatModel:
+    """Chat model for the agents.
+
+    max_tokens: DEFAULT = `settings.llm_max_tokens`; an int overrides it; None = NO cap
+    (`max_tokens` is not sent at all, langchain-openai drops None-valued params, so generation
+    is bounded only by the llama-server slot context). Reasoning ("thinking") tokens count
+    toward this budget.
+    """
     s = get_settings()
     return ChatOpenAI(
         base_url=s.llm_base_url,
         model=s.llm_model,
         api_key=s.llm_api_key,
         temperature=s.llm_temperature if temperature is None else temperature,
-        max_tokens=s.llm_max_tokens,
+        max_tokens=s.llm_max_tokens if max_tokens is DEFAULT else max_tokens,
         timeout=s.llm_timeout_s,
         max_retries=2,
     )
