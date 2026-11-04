@@ -133,16 +133,18 @@ variables ignored). Names are case-insensitive.
 | `LLM_MODEL` | `qwen` | yes | Model name (the llama-server `--alias`). |
 | `LLM_API_KEY` | `not-needed` | no | Sent to the endpoint; llama-server ignores it. |
 | `LLM_TEMPERATURE` | `0.2` | no | Sampling temperature of agent calls. |
-| `LLM_MAX_TOKENS` | `4096` | no | Max completion tokens per call. |
+| `LLM_MAX_TOKENS` | `4096` | no | Max completion tokens per call, thinking tokens included. The reviewer (`review_letter`) ignores it and runs uncapped (`REVIEWER_MAX_TOKENS = None` in `graph/teams/writing.py`), bounded only by the 16k per-slot context. |
 | `LLM_TIMEOUT_S` | `300.0` | no | Per-call HTTP timeout (seconds). |
 | `MAX_REVIEW_ITERATIONS` | `2` | no | Number of reviews per writing round (writer/reviewer loop cap). |
 | `MIN_TEXT_CHARS_FOR_PDF` | `200` | no | Below this many extracted characters a PDF is treated as scanned and read with vision. |
-| `DECISIONS_ENABLED` | `true` | no | Decision layer on/off. `false` = the historical LLM-only pipeline (A/B switch). |
-| `DECISIONS_BACKEND` | `jevos` | no | Backend name from `decisions/registry.py`. Only `jevos` is benchmarked and calibrated. |
-| `JEVOS_URL` | `http://127.0.0.1:8017` | no | jevos server. Compose sets `http://jevos:8017` for the api container. |
-| `DECISIONS_TIMEOUT_S` | `30.0` | no | Timeout of one decision HTTP call. |
-| `DECISIONS_CONCURRENCY` | `4` | no | Max in-flight decisions per event loop. |
-| `CLAIM_DISMISS_THRESHOLD` | `0.8` | no | A reviewer-flagged claim is dismissed when calibrated P(supported) ≥ this. |
+| `DECISIONS_ENABLED` | `true` | yes | Decision layer on/off. `false` = the historical LLM-only pipeline (A/B switch). |
+| `DECISIONS_BACKEND` | `jevos` | yes | Backend name from `decisions/registry.py`. Only `jevos` is benchmarked and calibrated; any other backend runs with raw probabilities (T = 1.0) and a one-time warning (`calibration_temperature` in `decisions/service.py`). |
+| `JEVOS_URL` | `http://127.0.0.1:8017` | yes | jevos server. Compose sets `http://jevos:8017` for the api container. |
+| `DECISIONS_TIMEOUT_S` | `30.0` | yes | Timeout of one decision HTTP call. |
+| `DECISIONS_CONCURRENCY` | `4` | yes | Max in-flight decisions per event loop. |
+| `CLAIM_DISMISS_THRESHOLD` | `0.8` | yes | A reviewer-flagged claim is dismissed when calibrated P(supported) ≥ this. |
+| `DECISION_CONFLICT_LOW` | `0.2` | yes | Fusion v2: an LLM `full` rating becomes partial credit 0.5 (resolution `conflict`) when P(evidence) < this. |
+| `DECISION_CONFLICT_HIGH` | `0.8` | yes | Fusion v2: an LLM `none` rating becomes partial credit 0.5 (resolution `conflict`) when P(evidence) > this. |
 | `DATABASE_URL` | `postgresql://jobmatch:jobmatch@localhost:5433/jobmatch` | yes | LangGraph checkpointer (application Postgres). Compose overrides it for the api container. |
 | `LANGFUSE_ENABLED` | `true` | yes | Tracing on/off. |
 | `LANGFUSE_HOST` | `http://localhost:3000` | yes | Langfuse URL. Compose overrides it with `http://langfuse-web:3000`. |
@@ -231,7 +233,7 @@ uv sync --all-groups            # host tooling (tests, evals, bench)
 ~/start_qwen_light.sh           # separate terminal
 make up
 make ps                         # wait until every service is "healthy"
-curl -s 127.0.0.1:8000/ready    # {"ready": true, ...} = database + LLM reachable
+curl -s 127.0.0.1:8000/ready    # {"ready": true, "degraded": false, ...} = database + LLM + jevos OK
 ```
 
 What happens on the first `make up`:
@@ -251,8 +253,10 @@ What happens on the first `make up`:
 - **jevos cold start.** `jev serve` loads and warms the model before `/health` reports
   `"status": "ready"` (about 20-30 s according to `infra/jevos/Dockerfile`; the healthcheck
   allows 90 s). Check with `curl -s 127.0.0.1:8017/health`.
-- **Start order.** The api waits for `app-db`, `jevos` and `langfuse-web` to be healthy.
-  Grafana waits for Prometheus. The Langfuse services wait for their Postgres, ClickHouse,
+- **Start order.** The api waits for `app-db` and `langfuse-web` to be healthy. `jevos` is
+  a soft dependency (`condition: service_started`): it is started first, but the api does not
+  wait for it to be healthy and works without it. Until jevos is ready, analyses run LLM-only
+  and `/ready` reports `"degraded": true`. Grafana waits for Prometheus. The Langfuse services wait for their Postgres, ClickHouse,
   Redis and MinIO.
 - **Prometheus targets.** http://127.0.0.1:9090/targets should show `jobmatch-api`,
   `llama-server` and `prometheus` as `up`.
@@ -381,10 +385,27 @@ cut CV would produce false "no evidence" answers.
 
 ### The api container does not start
 
-The api waits for `jevos`, `app-db` and `langfuse-web` to be **healthy**. On the first start
-jevos and Langfuse need up to 90 s. Check `make ps`, then `make logs S=jevos` or
-`make logs S=langfuse-web`. If jevos is down later at run time, analyses still work: the
-decision layer degrades to LLM-only and counts `outcome="error"`.
+The api waits for `app-db` and `langfuse-web` to be **healthy**. On the first start Langfuse
+needs up to 90 s (ClickHouse migrations). Check `make ps`, then `make logs S=langfuse-web` or
+`make logs S=app-db`. jevos does not block the api start (soft dependency).
+
+### `/ready` says `"degraded": true`
+
+The `decisions` check (jevos `/health`) failed. It is non-critical: `ready` stays `true` and
+analyses run with LLM-only results; `jobmatch_decisions_total{outcome="error"}` counts the
+fallbacks. Check `curl -s 127.0.0.1:8017/health` and `make logs S=jevos`; on a cold start
+jevos needs 20-30 s to load and warm the model.
+
+### Analysis failed with `LengthFinishReasonError` / "truncated by the token limit"
+
+Qwen's thinking tokens count toward `max_tokens`. In the A/B eval of 2026-11-04 one case
+(`employment_gap_accountant`, decisions on) failed this way: `completion_tokens=4096`
+(`evals/results/jevos/report.md`). The reviewer now runs **without a `max_tokens` cap**
+(`REVIEWER_MAX_TOKENS = None`, `graph/teams/writing.py`), so it is bounded only by the 16k
+per-slot context. A truncated reply is no longer retried (the identical call would hit the same
+limit): `invoke_structured` fails fast with a `StructuredOutputError` that names the node and
+the token counts (`graph/structured.py`). If another node hits the limit, raise
+`LLM_MAX_TOKENS`.
 
 ### `/ready` reports the LLM as down
 

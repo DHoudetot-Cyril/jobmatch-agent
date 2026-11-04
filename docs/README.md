@@ -7,10 +7,10 @@ the overview and quick start.
 |---|---|
 | [architecture.md](architecture.md) | System overview, request lifecycle, agent graph, state, scoring, writer/reviewer loop, checkpointing, failure handling, module map |
 | [api.md](api.md) | HTTP endpoints, request/response examples, status codes, analysis status state machine |
-| [decision-layer.md](decision-layer.md) | The jevos "System 1" decision layer: `verify_skills`, `verify_claims`, calibration, degradation |
+| [decision-layer.md](decision-layer.md) | The jevos "System 1" decision layer: `verify_skills` (fusion v2), `verify_claims`, calibration, degradation, A/B eval results |
 | [observability.md](observability.md) | Langfuse traces, Prometheus metrics, Grafana dashboard |
 | [operations.md](operations.md) | Running, configuring and troubleshooting the stack |
-| [adr/](adr/README.md) | Architecture Decision Records (0001-0007) |
+| [adr/](adr/README.md) | Architecture Decision Records (0001-0008) |
 
 Related documentation outside `docs/`:
 

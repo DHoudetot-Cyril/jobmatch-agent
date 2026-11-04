@@ -27,7 +27,9 @@ The code then computes the score with a fixed rubric (`weighted_score`):
 
 Weights of an empty category are redistributed. Skill levels are taken from the parsed offer,
 not from the LLM's copy. The same function is reused by `verify_skills` with fused credits
-(`0.5 * llm_credit + 0.5 * p_evidence`, see [ADR 0006](0006-decision-layer-jevos.md)).
+(fusion v2: the LLM credit is kept unless it is `partial` or strongly contradicted, see
+[ADR 0008](0008-fusion-v2-after-ab-eval.md); v1 used `0.5 * llm_credit + 0.5 * p_evidence`,
+[ADR 0006](0006-decision-layer-jevos.md)).
 
 ## Consequences
 

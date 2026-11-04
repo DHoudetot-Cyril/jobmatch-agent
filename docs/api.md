@@ -15,7 +15,7 @@ There is no authentication: the API is bound to `127.0.0.1` only.
 | `GET` | `/analyses/{analysis_id}` | Read status and results | 200 | 404 |
 | `POST` | `/analyses/{analysis_id}/decision` | Approve / request changes / reject the letter | 202 | 404, 409, 422 |
 | `GET` | `/health` | Liveness probe | 200 | – |
-| `GET` | `/ready` | Readiness probe (database + LLM server) | 200 | 503 |
+| `GET` | `/ready` | Readiness probe (database + LLM server; decision layer reported, non-critical) | 200 | 503 |
 | `GET` | `/metrics` | Prometheus metrics (text format) | 200 | – |
 
 Typical flow: `POST /analyses` → poll `GET /analyses/{id}` until `awaiting_approval` →
@@ -43,7 +43,7 @@ stateDiagram-v2
 | Status | Meaning |
 |---|---|
 | `running` | A background task is running the graph (first run, or resume after a decision). With feedback, the writing team rewrites and reviews the letter, then the status goes back to `awaiting_approval`. |
-| `awaiting_approval` | Paused on the `human_review` interrupt; `pending_review` holds the letter and the match. Survives API restarts. |
+| `awaiting_approval` | Paused on the `human_review` interrupt; `pending_review` holds the letter and the match. Survives API restarts (the checkpoint is in Postgres). |
 | `completed` | The human approved the letter. Final. |
 | `rejected` | The human rejected the letter without feedback. Final. |
 | `failed` | The run raised an exception (`error` holds the message), or it was interrupted by an API restart while running. Final: start a new analysis. |
@@ -144,9 +144,12 @@ fictional data):
     "summary": "...",
     "skill_checks": [
       {"skill": "Python", "level": "required", "llm_credit": 1.0,
-       "p_evidence": 0.9731, "final_credit": 0.9866, "agree": true},
+       "p_evidence": 0.9731, "final_credit": 1.0, "agree": true, "resolution": "llm"},
+      {"skill": "Airflow", "level": "required", "llm_credit": 0.5,
+       "p_evidence": 0.8120, "final_credit": 0.812, "agree": true,
+       "resolution": "resolved_partial"},
       {"skill": "Kafka", "level": "nice_to_have", "llm_credit": 0.0,
-       "p_evidence": 0.0412, "final_credit": 0.0206, "agree": true}
+       "p_evidence": 0.0412, "final_credit": 0.0, "agree": true, "resolution": "llm"}
     ]
   },
   "cover_letter": {"subject": "Candidature ...", "body": "Madame, Monsieur, ...", "language": "fr"},
@@ -177,9 +180,15 @@ Field notes:
   produces them has run.
 - `match.skill_checks` and `review.claim_checks` are empty when the decision layer is
   disabled (`DECISIONS_ENABLED=false`) or unavailable.
-- `review.unsupported_claims` and `review.claim_checks` are hidden from the LLM's JSON schema
-  (`SkipJsonSchema`) and therefore **not listed in `/openapi.json`**, but they are present in
-  responses.
+- `match.skill_checks[].resolution` says how fusion v2 set `final_credit`
+  ([decision-layer.md](decision-layer.md#6-how-the-graph-uses-it)): `llm` (LLM rating kept),
+  `resolved_partial` (LLM said `partial`, `final_credit = p_evidence`) or `conflict` (strong
+  disagreement, `final_credit = 0.5`).
+- `review` is returned as `ReviewView` (`api/models.py`): the graph's `Review` plus
+  `unsupported_claims` (exact quotes still considered unsupported) and `claim_checks`
+  (`claim`, `p_supported`, `dismissed`). Both are listed in `/openapi.json`. The graph-side
+  `schemas.Review` hides them (`SkipJsonSchema`) because its JSON schema is also the reviewer
+  LLM's structured-output schema when the decision layer is off.
 - `pending_review` is the interrupt payload; it is set only when `status` is
   `awaiting_approval`.
 - `trace` lists visited nodes in order (all runs of the thread, including rewrites).
@@ -244,37 +253,69 @@ curl -s 127.0.0.1:8000/health
 
 ## `GET /ready`
 
-Readiness: checks the application database (`SELECT 1`) and the LLM server
-(`{LLM_BASE_URL}/models`, then `/health`), each with a 2-second timeout. jevos and Langfuse are
-not checked: the app works without them (degraded).
+Readiness: checks the application database (`SELECT 1`), the LLM server
+(`{LLM_BASE_URL}/models`, then `/health`) and the decision layer (`{JEVOS_URL}/health`), each
+with a 2-second timeout. `database` and `llm` are **critical**: `ready` is `true` only when
+both pass. `decisions` is **non-critical** (`critical: false`): when it fails the API stays
+ready, `degraded` is `true` and analyses run with LLM-only results. Langfuse is not checked.
+
+| `decisions` check | `ok` | `detail` |
+|---|---|---|
+| `DECISIONS_ENABLED=false` | `true` | `disabled (DECISIONS_ENABLED=false)` |
+| Backend other than jevos | `true` | `backend '<name>' (in-process, not probed)` |
+| jevos `/health` answers 200 | `true` | the probed URL |
+| jevos unreachable or not 200 | `false` | URL, error, `analyses degrade to LLM-only results` |
 
 ```bash
 curl -s 127.0.0.1:8000/ready
 ```
 
-**200** when every check is ok:
+**200** when every check is ok (response of the running stack):
 
 ```json
 {
   "ready": true,
+  "degraded": false,
   "checks": {
-    "database": {"ok": true, "detail": null},
-    "llm": {"ok": true, "detail": "http://172.17.0.1:8080/v1/models"}
+    "database": {"ok": true, "detail": null, "critical": true},
+    "llm": {"ok": true, "detail": "http://172.17.0.1:8080/v1/models", "critical": true},
+    "decisions": {"ok": true, "detail": "http://jevos:8017/health", "critical": false}
   }
 }
 ```
 
-**503** when a dependency is down (same shape, `ready: false`), for example:
+**200, degraded** when only jevos is down (illustrative):
+
+```json
+{
+  "ready": true,
+  "degraded": true,
+  "checks": {
+    "database": {"ok": true, "detail": null, "critical": true},
+    "llm": {"ok": true, "detail": "http://172.17.0.1:8080/v1/models", "critical": true},
+    "decisions": {
+      "ok": false,
+      "detail": "http://jevos:8017/health -> ConnectError; analyses degrade to LLM-only results",
+      "critical": false
+    }
+  }
+}
+```
+
+**503** when a critical dependency is down (same shape, `ready: false`), for example:
 
 ```json
 {
   "ready": false,
+  "degraded": false,
   "checks": {
-    "database": {"ok": true, "detail": null},
+    "database": {"ok": true, "detail": null, "critical": true},
     "llm": {
       "ok": false,
-      "detail": "http://172.17.0.1:8080/v1/models -> ConnectError; http://172.17.0.1:8080/health -> ConnectError"
-    }
+      "detail": "http://172.17.0.1:8080/v1/models -> ConnectError; http://172.17.0.1:8080/health -> ConnectError",
+      "critical": true
+    },
+    "decisions": {"ok": true, "detail": "http://jevos:8017/health", "critical": false}
   }
 }
 ```
@@ -310,7 +351,7 @@ standard `HTTPValidationError` shape: `{"detail": [{"type", "loc", "msg", "input
 | 413 | `POST /analyses` | Upload larger than `MAX_UPLOAD_MB` |
 | 415 | `POST /analyses` | Unsupported type, unreadable PDF, non-UTF-8 text, empty document |
 | 422 | `POST /analyses`, `POST .../decision` | Missing CV/offer, or invalid request body |
-| 503 | `GET /ready` | Database or LLM server unreachable |
+| 503 | `GET /ready` | Database or LLM server unreachable (jevos down only sets `degraded`) |
 
 Graph failures do **not** produce HTTP errors: the analysis moves to `status: "failed"` with
 an `error` message, visible through `GET /analyses/{id}`.

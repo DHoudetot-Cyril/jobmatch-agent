@@ -64,7 +64,9 @@ flowchart LR
 | `prometheus` / `grafana` | Scrapes the API and llama-server; provisioned dashboard. | `infra/prometheus/prometheus.yml`, `infra/grafana/` |
 
 Containers reach the host LLM through the Docker bridge address `172.17.0.1`. The `api`
-service waits for `app-db`, `jevos` and `langfuse-web` to be healthy before starting.
+service waits for `app-db` and `langfuse-web` to be healthy before starting. `jevos` is a soft
+dependency (`condition: service_started`): without it, analyses run with LLM-only results and
+`GET /ready` reports `degraded`.
 
 ## 2. Request lifecycle
 
@@ -151,13 +153,13 @@ flowchart TD
 | Node | Team | Does | Model |
 |---|---|---|---|
 | `supervisor` | top level | Routes with `next_step(state)`; sets `status` | none |
-| `parse_offer` | analysis | Offer text to `JobOffer` (title, skills with level, language...) | Qwen, temperature 0 |
+| `parse_offer` | analysis | Offer text to `JobOffer` (title, skills with level, language...); duplicate skills merged (`dedupe_skills`) | Qwen, temperature 0 |
 | `parse_cv` | analysis | CV text to `CandidateProfile` (runs in parallel with `parse_offer`) | Qwen, temperature 0 |
 | `score_match` | matching | Rates every offer skill `full` / `partial` / `none` with evidence, plus `experience_fit`; score computed in code | Qwen, temperature 0 |
-| `verify_skills` | matching | Asks jevos "does the CV show X?" per skill, fuses with the LLM rating, recomputes the score | jevos |
+| `verify_skills` | matching | Asks jevos "does the CV show X?" per skill, fuses with the LLM rating (fusion v2), recomputes the score | jevos |
 | `analyze_gaps` | matching | Writes concrete advice for each gap (skipped if no gaps) | Qwen, default temperature (0.2) |
 | `write_letter` | writing | Writes or revises the cover letter in the offer's language | Qwen, temperature 0.5 |
-| `review_letter` | writing | Checks the letter against the offer, profile and raw CV text; lists unsupported claims | Qwen, temperature 0 |
+| `review_letter` | writing | Checks the letter against the offer, profile and raw CV text; lists unsupported claims | Qwen, temperature 0, no `max_tokens` cap |
 | `verify_claims` | writing | Asks jevos whether each flagged claim is supported; dismisses reviewer false positives | jevos |
 | `human_review` | top level | `interrupt()` with the letter and match; applies the human decision on resume | none |
 
@@ -221,24 +223,39 @@ A skill category with no skills is left out, so its weight is redistributed over
 (for an offer with no nice-to-have skills, the effective weights are 0.70/0.85 and 0.15/0.85).
 The skill level is taken from the parsed offer, not from the LLM's copy of it.
 
+**One entry per skill.** The LLM sometimes lists a skill twice (for example "AWS" as both
+required and nice-to-have). `parse_offer` merges offer skills by case-insensitive name, keeping
+the first occurrence and the strongest level (required wins, `dedupe_skills` in
+`graph/teams/analysis.py`). `score_match` also keeps a single rating per skill, so a duplicate
+can no longer be counted twice in the score.
+
 ### Credits
 
 | Mode | Credit per skill | Matched | Gap |
 |---|---|---|---|
 | LLM only (`score_match`, or decision layer off/unavailable) | `full` = 1, `partial` = 0.5, `none` = 0 | `match != "none"` | `match != "full"` |
-| Fused (`verify_skills`) | `final_credit = 0.5 * llm_credit + 0.5 * p_evidence` | `final_credit >= 0.5` | `final_credit < 0.5` |
+| Fused (`verify_skills`, fusion v2) | see the table below | `final_credit >= 0.5` | `final_credit < 0.5` |
 
 `p_evidence` is jevos' P(yes) to an English question ("Does the CV show that the person has
 actually used X?"), calibrated with temperature scaling (`T = 0.735` for `skill_evidence`,
-fitted by the benchmark: `bench/decisions/results/summary.json`). Consequences of the fusion:
+fitted by the benchmark: `bench/decisions/results/summary.json`). Fusion v2
+(`fuse_skill` in `decisions/service.py`), with `c` the LLM credit and `p` = `p_evidence`:
 
-- a `full` skill always stays matched (credit >= 0.5);
-- a `partial` skill becomes matched only if `p_evidence >= 0.5`, otherwise a gap. In LLM-only
-  mode a `partial` skill is listed both in `matched_skills` and in `gaps`;
-- the score moves continuously with the decision model's confidence.
+| LLM rating | Condition | `final_credit` | `resolution` |
+|---|---|---|---|
+| `partial` (c = 0.5) | always | `p` (jevos decides) | `resolved_partial` |
+| `full` (c = 1) | `p < DECISION_CONFLICT_LOW` (0.2) | 0.5 (stays matched, half credit) | `conflict` |
+| `none` (c = 0) | `p > DECISION_CONFLICT_HIGH` (0.8) | 0.5 (becomes matched, half credit) | `conflict` |
+| `full` or `none` | otherwise | `c` (LLM kept) | `llm` |
+
+Why v2: the v1 rule `0.5 * llm_credit + 0.5 * p_evidence` biased scores down, because `p`
+rarely reaches 1.0, while jevos agreed with the LLM on 96% of skills in the A/B eval
+([ADR 0008](adr/0008-fusion-v2-after-ab-eval.md),
+[decision-layer.md](decision-layer.md#end-to-end-impact-ab-evaluation)). v2 changes the score
+only where the LLM is unsure or strongly contradicted.
 
 Each fused skill is stored in `match.skill_checks[]` (`llm_credit`, `p_evidence`,
-`final_credit`, `agree`).
+`final_credit`, `agree`, `resolution`) and counted in `jobmatch_skill_resolution_total`.
 
 ## 6. Writer/reviewer loop and claim verification
 
@@ -258,6 +275,11 @@ flowchart LR
 - **Reviewer as hallucination guard.** `review_letter` receives the structured profile *and*
   the raw CV text and must flag every claim not supported by the CV. Any open issue forces
   `approved = false`.
+- **No token cap on the reviewer.** `review_letter` runs with `max_tokens` unset
+  (`REVIEWER_MAX_TOKENS = None`), bounded only by the 16k per-slot context. With the default
+  4096-token budget, Qwen's thinking plus a long review was cut (`finish_reason=length`) and
+  the analysis failed: this happened once in the A/B eval
+  (`evals/results/jevos/report.md`, case `employment_gap_accountant`).
 - **Decision layer on** (`DECISIONS_ENABLED=true`, default). The reviewer uses
   `REVIEW_LETTER_CLAIMS_PROMPT` and the `ReviewerOutput` schema: unsupported claims are listed
   separately as exact quotes (`unsupported_claims`), other problems go in `issues`. Each claim
@@ -308,14 +330,16 @@ Rationale: [ADR 0004](adr/0004-hitl-interrupt-postgres.md).
 | Failure | Behaviour | Where |
 |---|---|---|
 | LLM output does not match the schema | One retry with the parsing error appended, then `StructuredOutputError` | `graph/structured.py` |
+| LLM reply cut by the token limit (`LengthFinishReasonError`) | No retry (the same call would hit the same limit): `StructuredOutputError` naming the node and token counts. The reviewer has no cap | `graph/structured.py`, `graph/teams/writing.py` |
 | LLM HTTP error / timeout | `ChatOpenAI(max_retries=2, timeout=300 s)` | `llm.py`, `config.py` |
-| Any exception in a node | `jobmatch_agent_node_errors_total{node}` incremented, exception propagates | `observability/metrics.py` |
+| Any exception in a node | `jobmatch_agent_node_errors_total{node}` incremented, exception propagates. LangGraph control flow (`GraphInterrupt` from `human_review`) is re-raised without counting | `observability/metrics.py` |
 | Exception in a background run | Logged, `status=failed` + `error` (max 1000 chars) written to the checkpoint; in-memory fallback if that write fails; `jobmatch_analyses_total{status="failed"}` | `api/service.py` |
 | jevos down, error, or decision layer disabled | `check_skill_evidence` / `check_claims` return `[]`; the graph keeps the LLM-only result. Warning logged once, then debug; `jobmatch_decisions_total{outcome="error"}` | `decisions/service.py` |
 | CV longer than 24,000 characters (jevos context is 8192 tokens, no truncation) or HTTP 422 from jevos | Decision skipped (`outcome="skipped"`), LLM-only result kept | `decisions/service.py` |
 | Langfuse unreachable or disabled | No callback handler, the run continues untraced. Health check cached for 30 s | `observability/tracing.py` |
 | Upload too large, unsupported type, empty text | 413 / 415 before any graph run | `api/routes.py`, `documents.py` |
-| Database or LLM down | `GET /ready` returns 503 with per-dependency details (jevos and Langfuse are not checked) | `api/routes.py` |
+| Database or LLM down | `GET /ready` returns 503 with per-dependency details | `api/routes.py` |
+| jevos down at startup or run time | The api still starts (soft compose dependency); `GET /ready` stays 200 with `degraded: true`; analyses run LLM-only | `docker-compose.yml`, `api/routes.py` |
 | Postgres unreachable at startup | Pool opening waits up to 15 s, then the app fails to start | `api/main.py` |
 
 ## 9. Module map
@@ -338,7 +362,7 @@ Rationale: [ADR 0004](adr/0004-hitl-interrupt-postgres.md).
 | `src/jobmatch/graph/teams/_common.py` | `TeamInput` schema (state without `trace`), `to_json()` |
 | `src/jobmatch/decisions/base.py` | `DecisionModel` / `Question` / `Decision` contract |
 | `src/jobmatch/decisions/registry.py` | Backend registry with lazy imports (`jevos`, `laya`, `qwen-logits`, `qwen-logits-perm`) |
-| `src/jobmatch/decisions/service.py` | `check_skill_evidence()`, `check_claims()`: English questions, calibration, fusion, degradation |
+| `src/jobmatch/decisions/service.py` | `check_skill_evidence()`, `check_claims()`, `fuse_skill()`: English questions, calibration (jevos only), fusion v2, degradation |
 | `src/jobmatch/decisions/jevos_backend.py` | HTTP client for `jev serve`; can spawn a local binary if no server answers |
 | `src/jobmatch/decisions/laya_backend.py` | Laya encoder backend (benchmark only, needs the `decisions` dependency group) |
 | `src/jobmatch/decisions/qwen_logits.py` | Option-letter logprob decisions from llama-server (benchmark only) |

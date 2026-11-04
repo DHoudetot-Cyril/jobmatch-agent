@@ -116,7 +116,7 @@ depends on them).
 | `jobmatch_http_requests_total` | counter | `method`, `route`, `status` | HTTP requests. `route` is the route **template** (low cardinality); `/metrics` itself is not counted. | `HttpMetricsMiddleware`, `api/main.py` |
 | `jobmatch_http_request_duration_seconds` | histogram | `method`, `route` | HTTP latency. | `HttpMetricsMiddleware`, `api/main.py` |
 | `jobmatch_agent_node_duration_seconds` | histogram (0.1 … 300 s) | `node` | Duration of one graph node execution. | `@instrument_node`, every node |
-| `jobmatch_agent_node_errors_total` | counter | `node` | Exceptions raised inside a node. | `@instrument_node` |
+| `jobmatch_agent_node_errors_total` | counter | `node` | Exceptions raised inside a node (LangGraph interrupts excluded). | `@instrument_node` |
 | `jobmatch_llm_tokens_total` | counter | `node`, `kind` (`prompt` / `completion`) | LLM tokens from the response usage metadata. | `record_llm_usage`, called by `graph/structured.py` |
 | `jobmatch_analyses_total` | counter | `status` (`completed` / `rejected` / `failed`) | Finished analyses. | `AnalysisService._after_run` / `_mark_failed`, `api/service.py` |
 | `jobmatch_analyses_in_progress` | gauge | – | Graph runs currently executing (an analysis waiting for approval is not running). | `AnalysisService._run` |
@@ -125,6 +125,7 @@ depends on them).
 | `jobmatch_decision_duration_seconds` | histogram (0.01 … 10 s) | `task` (`skill_evidence` / `claim_supported`) | Duration of one decision-model call, as seen by the api. | `decisions/service.py` `_ask_yes` |
 | `jobmatch_decisions_total` | counter | `task`, `outcome` (`yes` / `no` / `error` / `skipped`) | Decision answers (calibrated P(yes) ≥ 0.5 = `yes`). `error` = backend unreachable or failed, `skipped` = disabled, state too long, or HTTP 422. | `decisions/service.py` `_ask_yes` / `_degrade` |
 | `jobmatch_decision_llm_agreement_total` | counter | `task`, `agree` (`true` / `false`) | Decision model vs LLM on the same question. | `check_skill_evidence`, `check_claims` |
+| `jobmatch_skill_resolution_total` | counter | `resolution` (`llm` / `resolved_partial` / `conflict`) | Fusion v2 outcome per offer skill: `llm` = LLM rating kept, `resolved_partial` = LLM `partial` replaced by the calibrated P(evidence), `conflict` = strong disagreement, partial credit 0.5. | `check_skill_evidence`, `decisions/service.py` |
 | `jobmatch_claims_dismissed_total` | counter | – | Reviewer "unsupported claim" issues dismissed by the decision model. | `verify_claims`, `graph/teams/writing.py` |
 
 Decision-metric label combinations are pre-created at import, so they export zeros before the
@@ -136,12 +137,11 @@ How agreement is defined:
 - `claim_supported`: the reviewer said "unsupported", so the model agrees when
   P(supported) < 0.5.
 
-> **Known caveat.** `human_review` pauses the graph with LangGraph's `interrupt()`, which
-> raises `GraphInterrupt`, a subclass of `Exception`. `@instrument_node` counts it, so
-> `jobmatch_agent_node_errors_total{node="human_review"}` increases once per approval pause,
-> and the node duration recorded for that pause is the time until the interrupt, not a
-> failure. Ignore `human_review` in the error panel, or exclude `GraphInterrupt` in the
-> decorator.
+LangGraph control flow is not counted as an error: `@instrument_node` re-raises
+`GraphBubbleUp` subclasses (`GraphInterrupt` raised by `interrupt()` in `human_review`,
+`ParentCommand`, ...) without incrementing `jobmatch_agent_node_errors_total`. An approval
+pause therefore does not show up in the error panel. The duration recorded for that pause is
+the time until the interrupt.
 
 ### llama.cpp metrics used
 
@@ -191,6 +191,7 @@ Default range: last 6 h, refresh 30 s.
 | | Reviewer claims dismissed | How many reviewer false positives the decision model caught. |
 | | Decisions / min by task and outcome | yes / no volume, plus `error` (fallback to LLM-only) and `skipped` (state too long). |
 | | Decision latency p50 / p95 by task | Is jevos still in the ~50 ms range? |
+| | Skill resolution (fusion v2) | Per offer skill: LLM rating kept, `partial` resolved by jevos, or strong conflict (partial credit). Many `conflict` = System 1 and System 2 disagree often. |
 
 ### Example PromQL
 
@@ -269,4 +270,6 @@ flowchart TD
    `/ready` and `curl -s http://172.17.0.1:8080/health`.
 6. **Decision layer row.** `outcome="error"` means jevos was unreachable (the analysis
    continued LLM-only); `skipped` means the CV was too long for jevos' 8192-token context.
-   Check `curl -s 127.0.0.1:8017/health` (`"status": "ready"`).
+   Check `curl -s 127.0.0.1:8017/health` (`"status": "ready"`); `GET /ready` then shows
+   `"degraded": true` with the `decisions` check failing. The "Skill resolution" panel shows
+   how often fusion v2 actually changed a skill credit (`resolved_partial`, `conflict`).

@@ -9,7 +9,8 @@ Short records of the main design choices: context, decision, consequences.
 | [0003](0003-score-computed-in-code.md) | Match score computed in code from per-skill LLM ratings | accepted |
 | [0004](0004-hitl-interrupt-postgres.md) | Human-in-the-loop with LangGraph `interrupt` and a Postgres checkpointer | accepted |
 | [0005](0005-langfuse-and-prometheus.md) | Self-hosted Langfuse v4 for traces, Prometheus + Grafana for metrics | accepted |
-| [0006](0006-decision-layer-jevos.md) | Decision layer: jevos only, yes/no only, English questions, calibrated | accepted |
+| [0006](0006-decision-layer-jevos.md) | Decision layer: jevos only, yes/no only, English questions, calibrated | accepted, fusion rule amended by 0008 |
 | [0007](0007-local-qwen-judge.md) | Local Qwen as the DeepEval judge | accepted |
+| [0008](0008-fusion-v2-after-ab-eval.md) | Skill fusion v2 (keep the LLM rating unless partial or strongly contradicted) after the A/B eval | accepted |
 
 New record: copy the structure of an existing one, take the next number, and add it to this table.

@@ -1,6 +1,9 @@
 # ADR 0006: Decision layer, jevos only, yes/no only, English questions, calibrated
 
 - **Status:** accepted
+- **Update (2026-11-04):** the 50/50 fusion of `verify_skills` biased scores down in the A/B
+  eval and was replaced by fusion v2; see [ADR 0008](0008-fusion-v2-after-ab-eval.md). The rest
+  of this record still applies.
 - **Related code:** `src/jobmatch/decisions/service.py`, `src/jobmatch/decisions/registry.py`,
   `src/jobmatch/graph/teams/matching.py` (`verify_skills`),
   `src/jobmatch/graph/teams/writing.py` (`verify_claims`), `infra/jevos/Dockerfile`.
@@ -30,7 +33,8 @@ Use **jevos-v5** (CPU, OpenVINO) and trust it only where the benchmark says so:
   The question templates in `service.py` are copied from the benchmark so the numbers apply.
 - **Calibrated.** Temperature scaling fitted on the calib split: T = 0.735 (skill_evidence),
   T = 0.886 (claim_supported), from `bench/decisions/results/summary.json`.
-- **Two uses.** `verify_skills` fuses P(evidence) with the LLM credit (50/50);
+- **Two uses.** `verify_skills` fuses P(evidence) with the LLM credit (50/50 in v1,
+  replaced by fusion v2, ADR 0008);
   `verify_claims` dismisses a reviewer-flagged claim when P(supported) >= 0.8.
 - **A/B switch.** `DECISIONS_ENABLED=false` restores the historical LLM-only pipeline.
 - **Never fail.** Any error, timeout or too-long CV degrades to the LLM-only result.
@@ -50,5 +54,6 @@ values, and Laya's dependencies (`decisions` group) are not installed in the API
   7/7), so the results separate "usable" from "not usable", not fine differences.
 - **Bad:** jevos has an 8192-token context with no truncation; CVs above 24,000 characters skip
   the decision layer.
-- **Open:** the end-to-end eval of the graph with the decision layer on
-  (`make eval ARGS="--label jevos --decisions on"`) has no committed summary yet.
+- **Update:** the end-to-end eval with the decision layer on (`--label jevos`, v1 fusion) was
+  run on 2026-11-04; its results led to [ADR 0008](0008-fusion-v2-after-ab-eval.md). v2 is not
+  evaluated yet.

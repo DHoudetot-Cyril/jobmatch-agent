@@ -99,11 +99,11 @@ make eval ARGS="--label jevos --decisions on"        # named result set, decisio
 `evals/baseline/` is a committed snapshot of the Qwen-only graph (before the decision
 layer): same layout as a label directory. The new graph adds a "System 1" decision model
 (jevos) that verifies each skill credit (`match.skill_checks[]`: `llm_credit`,
-`p_evidence`, `final_credit`, `agree`) and each reviewer claim (`review.claim_checks[]`,
+`p_evidence`, `final_credit`, `agree`, `resolution`) and each reviewer claim (`review.claim_checks[]`,
 `review.unsupported_claims[]`), in the `verify_skills` / `verify_claims` nodes.
 
 ```bash
-make eval ARGS="--label jevos --decisions on"        # 8 cases, ~25-30 min (GPU)
+make eval ARGS="--label jevos --decisions on"        # 8 cases, ~25-35 min (GPU + judging)
 make eval-compare                                    # = python evals/compare.py evals/baseline evals/results/jevos
 uv run --group eval python evals/compare.py A_DIR B_DIR [--out file.md]
 ```
@@ -124,6 +124,25 @@ snapshot (e.g. `graph_seconds` in the baseline summary) are derived from `output
 `--decisions off` must reproduce the baseline behaviour exactly, so differences between
 `baseline` and an `off` run measure the run-to-run noise of the LLM.
 
+### Labels used so far (2026-11-04)
+
+| Label | Config | Graph code |
+|---|---|---|
+| `evals/baseline/` | decisions off, 8 cases (committed snapshot) | before the decision layer |
+| `jevos` | `--decisions on`, 8 cases | decision layer **v1** (50/50 fusion, reviewer capped at 4096 tokens) |
+| `stability_off` / `stability_on` | `make eval-stability` (2 cases × 3 runs) | v1 for `on` |
+
+Results and diagnosis: [`docs/decision-layer.md`](../docs/decision-layer.md#end-to-end-impact-ab-evaluation)
+(`evals/results/` is git-ignored, so the key numbers are copied there). The current graph uses
+**fusion v2** and an uncapped reviewer ([ADR 0008](../docs/adr/0008-fusion-v2-after-ab-eval.md));
+**v2 has not been evaluated with this suite yet**. Use a new label, since the cache is per label:
+
+```bash
+make eval ARGS="--label jevos_v2 --decisions on"
+make eval-compare A=evals/baseline B=evals/results/jevos_v2
+make eval-compare A=evals/results/jevos B=evals/results/jevos_v2
+```
+
 ## Score stability
 
 The graph is not deterministic (sampling, 2 slots in parallel): one run per case cannot tell
@@ -138,8 +157,8 @@ make eval-stability            # STAB_CASES=english_offer_ml,few_skills_logistic
 
 Each run is stored as `outputs/<case>__r<i>.json`; the summary/report give per case the
 mean, sample std, min and max of `match.score`. Only r0 is judged (G-Eval) unless
-`--judge-all`. Budget ~6 min per graph run, 2 in parallel: 2 cases × 3 runs ≈ 18-20 min per
-config, ~40 min for both. A score delta between A and B smaller than the per-case std is
+`--judge-all`. Budget ~6.5 min per graph run, 2 in parallel: 2 cases × 3 runs ≈ 20 min per
+config (measured 1179 s off, 1195 s on, plus ~2 min of judging), ~40 min for both. A score delta between A and B smaller than the per-case std is
 not significant.
 
 ## Reading the results
@@ -155,7 +174,15 @@ not significant.
 
 ## Cost / time
 
-No API cost (local GPU). On an RX 7900 XTX (~37 tok/s, 2 slots): ~5-6 min per graph run,
-so ~20-25 min for the 8 cases with a cold cache, and ~30-60 s of judging per case.
-With a warm cache only the judging runs (~5 min for 8 cases). The time cost of the decision
+No API cost (local GPU). Measured on an RX 7900 XTX (~37 tok/s, 2 slots), runs of 2026-11-04
+(`summary.json`: `graph_seconds`, `judge_seconds`, per-case `elapsed_s`):
+
+| | baseline (off) | jevos v1 (on) |
+|---|---|---|
+| One graph run, average per case | 386 s | 379 s |
+| Graph phase, 8 cases, 2 in parallel | 1141 s (~19 min) | 1569 s (~26 min) |
+| Judging, 8 cases | 403 s (~7 min) | 334 s (~6 min) |
+
+So one graph run takes about 6-7 min, and a cold-cache run of the 8 cases about 25-35 min in
+total. With a warm cache only the judging runs (~6-7 min for 8 cases). The time cost of the decision
 layer is reported by `compare.py` (avg graph seconds per case).

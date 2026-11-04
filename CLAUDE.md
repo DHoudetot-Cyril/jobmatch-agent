@@ -16,7 +16,15 @@ Portfolio project: code quality, observability and evaluation matter as much as 
   Used ONLY for calibrated yes/no checks with ENGLISH questions (see bench/decisions):
   `verify_skills` (skill evidence in the CV) and `verify_claims` (reviewer-flagged letter claims).
   Qwen stays "System 2" for everything else. `DECISIONS_ENABLED=false` = historical LLM-only
-  pipeline (A/B switch); if jevos is down the graph degrades to LLM-only results, never fails.
+  pipeline (A/B switch); if jevos is down the graph degrades to LLM-only results, never fails
+  (`/ready` stays ready, `degraded: true`; compose api does not wait for jevos).
+  Fusion v2 (`decisions/service.py:fuse_skill`, ADR 0008): LLM rating kept unless `partial`
+  (→ P(evidence)) or strong conflict (`full` & P < `DECISION_CONFLICT_LOW`=0.2, `none` &
+  P > `DECISION_CONFLICT_HIGH`=0.8 → 0.5); `SkillCheck.resolution` + metric
+  `jobmatch_skill_resolution_total`. Claims dismissed at P(supported) ≥ `CLAIM_DISMISS_THRESHOLD`
+  (0.8). Jevos temperatures apply to jevos only (other backends T=1.0). v2 is NOT yet evaluated
+  end-to-end (v1 A/B results: docs/decision-layer.md).
+- Reviewer (`review_letter`) runs with no `max_tokens` cap (thinking + long review hit 4096).
 - FastAPI API, Langfuse v4 (self-hosted) tracing, Prometheus + Grafana, DeepEval evals.
 
 ## Layout
@@ -40,6 +48,7 @@ evals/                 DeepEval suite + dataset (fictional data only)
 data/samples/          fictional offers & CVs; data/private/ is git-ignored (real personal data)
 bench/decisions/       decision-model benchmark (questions, calibration temperatures used by service.py)
 infra/                 prometheus/, grafana/ (provisioning + dashboards), jevos/ (Dockerfile)
+docs/                  architecture, api, operations, observability, decision-layer, adr/ (keep in sync)
 docker-compose.yml     full stack
 ```
 
