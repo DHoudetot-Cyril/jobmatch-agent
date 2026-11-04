@@ -1,0 +1,1698 @@
+{
+ "about": "Curated learning resources for the career advisor (official docs, official free tutorials/courses, well-known free courses, official certification pages). Every URL link-checked (HEAD, GET fallback, redirects followed, 2xx/3xx kept) on `verified_at`; re-check with scripts/verify_learning_resources.py. est_hours only when stated by the provider (Kaggle Learn estimatedTimeHours), else null.",
+ "resources": [
+  {
+   "skill": "Kafka",
+   "aliases": [
+    "Apache Kafka",
+    "streaming",
+    "event streaming"
+   ],
+   "title": "Apache Kafka Quickstart",
+   "url": "https://kafka.apache.org/quickstart",
+   "provider": "Apache Software Foundation",
+   "kind": "tutorial",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Kafka",
+   "aliases": [
+    "Apache Kafka"
+   ],
+   "title": "Apache Kafka documentation",
+   "url": "https://kafka.apache.org/documentation/",
+   "provider": "Apache Software Foundation",
+   "kind": "docs",
+   "free": true,
+   "level": "intermediate",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Kafka",
+   "aliases": [
+    "Apache Kafka"
+   ],
+   "title": "Kafka 101 (Confluent Developer)",
+   "url": "https://developer.confluent.io/courses/apache-kafka/events/",
+   "provider": "Confluent",
+   "kind": "course",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "dbt",
+   "aliases": [
+    "data build tool",
+    "dbt core"
+   ],
+   "title": "dbt Fundamentals",
+   "url": "https://learn.getdbt.com/courses/dbt-fundamentals",
+   "provider": "dbt Labs",
+   "kind": "course",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "dbt",
+   "aliases": [
+    "data build tool"
+   ],
+   "title": "dbt Quickstart guides",
+   "url": "https://docs.getdbt.com/guides",
+   "provider": "dbt Labs",
+   "kind": "tutorial",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Terraform",
+   "aliases": [
+    "infrastructure as code",
+    "IaC",
+    "HCL"
+   ],
+   "title": "Get started with Terraform (AWS)",
+   "url": "https://developer.hashicorp.com/terraform/tutorials/aws-get-started",
+   "provider": "HashiCorp",
+   "kind": "tutorial",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Terraform",
+   "aliases": [
+    "infrastructure as code",
+    "IaC"
+   ],
+   "title": "Terraform documentation",
+   "url": "https://developer.hashicorp.com/terraform/docs",
+   "provider": "HashiCorp",
+   "kind": "docs",
+   "free": true,
+   "level": "intermediate",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Terraform",
+   "aliases": [
+    "Terraform Associate"
+   ],
+   "title": "HashiCorp certifications (incl. Terraform Associate)",
+   "url": "https://developer.hashicorp.com/certifications",
+   "provider": "HashiCorp",
+   "kind": "certification",
+   "free": false,
+   "level": "intermediate",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Kubernetes",
+   "aliases": [
+    "k8s",
+    "EKS",
+    "container orchestration"
+   ],
+   "title": "Kubernetes Basics (interactive tutorial)",
+   "url": "https://kubernetes.io/docs/tutorials/kubernetes-basics/",
+   "provider": "Kubernetes (CNCF)",
+   "kind": "tutorial",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Kubernetes",
+   "aliases": [
+    "k8s"
+   ],
+   "title": "Kubernetes documentation",
+   "url": "https://kubernetes.io/docs/home/",
+   "provider": "Kubernetes (CNCF)",
+   "kind": "docs",
+   "free": true,
+   "level": "intermediate",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Kubernetes",
+   "aliases": [
+    "k8s"
+   ],
+   "title": "Introduction to Kubernetes (LFS158)",
+   "url": "https://training.linuxfoundation.org/training/introduction-to-kubernetes/",
+   "provider": "The Linux Foundation",
+   "kind": "course",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Kubernetes",
+   "aliases": [
+    "CKA",
+    "k8s"
+   ],
+   "title": "Certified Kubernetes Administrator (CKA)",
+   "url": "https://training.linuxfoundation.org/certification/certified-kubernetes-administrator-cka/",
+   "provider": "The Linux Foundation / CNCF",
+   "kind": "certification",
+   "free": false,
+   "level": "advanced",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Helm",
+   "aliases": [
+    "Helm charts"
+   ],
+   "title": "Helm documentation",
+   "url": "https://helm.sh/docs/",
+   "provider": "Helm (CNCF)",
+   "kind": "docs",
+   "free": true,
+   "level": "intermediate",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "AWS",
+   "aliases": [
+    "Amazon Web Services",
+    "cloud"
+   ],
+   "title": "AWS Cloud Practitioner training (incl. free Cloud Practitioner Essentials)",
+   "url": "https://aws.amazon.com/training/learn-about/cloud-practitioner/",
+   "provider": "AWS Skill Builder",
+   "kind": "course",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "AWS",
+   "aliases": [
+    "AWS certification"
+   ],
+   "title": "AWS Certified Cloud Practitioner",
+   "url": "https://aws.amazon.com/certification/certified-cloud-practitioner/",
+   "provider": "Amazon Web Services",
+   "kind": "certification",
+   "free": false,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "AWS",
+   "aliases": [
+    "AWS Solutions Architect"
+   ],
+   "title": "AWS Certified Solutions Architect – Associate",
+   "url": "https://aws.amazon.com/certification/certified-solutions-architect-associate/",
+   "provider": "Amazon Web Services",
+   "kind": "certification",
+   "free": false,
+   "level": "intermediate",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Amazon S3",
+   "aliases": [
+    "S3"
+   ],
+   "title": "Amazon S3 User Guide",
+   "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html",
+   "provider": "Amazon Web Services",
+   "kind": "docs",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "AWS Glue",
+   "aliases": [
+    "Glue"
+   ],
+   "title": "AWS Glue Developer Guide",
+   "url": "https://docs.aws.amazon.com/glue/latest/dg/what-is-glue.html",
+   "provider": "Amazon Web Services",
+   "kind": "docs",
+   "free": true,
+   "level": "intermediate",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Amazon Redshift",
+   "aliases": [
+    "Redshift"
+   ],
+   "title": "Amazon Redshift Getting Started Guide",
+   "url": "https://docs.aws.amazon.com/redshift/latest/gsg/new-user-serverless.html",
+   "provider": "Amazon Web Services",
+   "kind": "tutorial",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Amazon EKS",
+   "aliases": [
+    "EKS"
+   ],
+   "title": "Amazon EKS User Guide",
+   "url": "https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html",
+   "provider": "Amazon Web Services",
+   "kind": "docs",
+   "free": true,
+   "level": "intermediate",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Microsoft Azure",
+   "aliases": [
+    "Azure",
+    "AZ-900"
+   ],
+   "title": "Microsoft Azure Fundamentals (AZ-900) learning path",
+   "url": "https://learn.microsoft.com/en-us/training/courses/az-900t00",
+   "provider": "Microsoft Learn",
+   "kind": "course",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Google Cloud",
+   "aliases": [
+    "GCP"
+   ],
+   "title": "Google Skills (formerly Google Cloud Skills Boost)",
+   "url": "https://www.skills.google/",
+   "provider": "Google Cloud",
+   "kind": "course",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Apache Airflow",
+   "aliases": [
+    "Airflow",
+    "orchestration"
+   ],
+   "title": "Airflow tutorial: Fundamental concepts",
+   "url": "https://airflow.apache.org/docs/apache-airflow/stable/tutorial/fundamentals.html",
+   "provider": "Apache Software Foundation",
+   "kind": "tutorial",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Apache Airflow",
+   "aliases": [
+    "Airflow"
+   ],
+   "title": "Apache Airflow documentation",
+   "url": "https://airflow.apache.org/docs/apache-airflow/stable/index.html",
+   "provider": "Apache Software Foundation",
+   "kind": "docs",
+   "free": true,
+   "level": "intermediate",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Apache Spark",
+   "aliases": [
+    "Spark",
+    "PySpark"
+   ],
+   "title": "Spark Quick Start",
+   "url": "https://spark.apache.org/docs/latest/quick-start.html",
+   "provider": "Apache Software Foundation",
+   "kind": "tutorial",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Apache Spark",
+   "aliases": [
+    "PySpark"
+   ],
+   "title": "PySpark documentation – Getting Started",
+   "url": "https://spark.apache.org/docs/latest/api/python/getting_started/index.html",
+   "provider": "Apache Software Foundation",
+   "kind": "docs",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Docker",
+   "aliases": [
+    "containers",
+    "Docker Compose"
+   ],
+   "title": "Docker: Get started",
+   "url": "https://docs.docker.com/get-started/",
+   "provider": "Docker",
+   "kind": "tutorial",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Docker",
+   "aliases": [
+    "Docker Compose"
+   ],
+   "title": "Docker Compose documentation",
+   "url": "https://docs.docker.com/compose/",
+   "provider": "Docker",
+   "kind": "docs",
+   "free": true,
+   "level": "intermediate",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "GitLab CI",
+   "aliases": [
+    "CI/CD",
+    "continuous integration",
+    "GitLab CI/CD"
+   ],
+   "title": "Get started with GitLab CI/CD",
+   "url": "https://docs.gitlab.com/ci/",
+   "provider": "GitLab",
+   "kind": "docs",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "GitHub Actions",
+   "aliases": [
+    "CI/CD",
+    "continuous integration"
+   ],
+   "title": "GitHub Actions documentation",
+   "url": "https://docs.github.com/en/actions",
+   "provider": "GitHub",
+   "kind": "docs",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Ansible",
+   "aliases": [
+    "configuration management"
+   ],
+   "title": "Ansible interactive labs (Red Hat)",
+   "url": "https://www.redhat.com/en/interactive-labs/ansible",
+   "provider": "Red Hat",
+   "kind": "tutorial",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Prometheus",
+   "aliases": [
+    "monitoring",
+    "observability"
+   ],
+   "title": "Prometheus: Getting started",
+   "url": "https://prometheus.io/docs/prometheus/latest/getting_started/",
+   "provider": "Prometheus (CNCF)",
+   "kind": "tutorial",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Grafana",
+   "aliases": [
+    "dashboards",
+    "observability"
+   ],
+   "title": "Grafana tutorials",
+   "url": "https://grafana.com/tutorials/",
+   "provider": "Grafana Labs",
+   "kind": "tutorial",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Linux",
+   "aliases": [
+    "Linux administration",
+    "system administration"
+   ],
+   "title": "Introduction to Linux (LFS101)",
+   "url": "https://training.linuxfoundation.org/training/introduction-to-linux/",
+   "provider": "The Linux Foundation",
+   "kind": "course",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Bash",
+   "aliases": [
+    "shell scripting",
+    "shell"
+   ],
+   "title": "GNU Bash Reference Manual",
+   "url": "https://www.gnu.org/software/bash/manual/bash.html",
+   "provider": "GNU Project",
+   "kind": "docs",
+   "free": true,
+   "level": "intermediate",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Git",
+   "aliases": [
+    "version control",
+    "GitHub"
+   ],
+   "title": "Pro Git book",
+   "url": "https://git-scm.com/book/en/v2",
+   "provider": "git-scm.com",
+   "kind": "docs",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Python",
+   "aliases": [
+    "Python programming"
+   ],
+   "title": "The Python Tutorial",
+   "url": "https://docs.python.org/3/tutorial/",
+   "provider": "Python Software Foundation",
+   "kind": "tutorial",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Python",
+   "aliases": [
+    "Python programming"
+   ],
+   "title": "Le tutoriel Python (français)",
+   "url": "https://docs.python.org/fr/3/tutorial/",
+   "provider": "Python Software Foundation",
+   "kind": "tutorial",
+   "free": true,
+   "level": "beginner",
+   "language": "fr",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Python",
+   "aliases": [
+    "Python programming"
+   ],
+   "title": "Kaggle Learn: Python",
+   "url": "https://www.kaggle.com/learn/python",
+   "provider": "Kaggle",
+   "kind": "course",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": 5,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "pandas",
+   "aliases": [
+    "data analysis",
+    "dataframes"
+   ],
+   "title": "Kaggle Learn: Pandas",
+   "url": "https://www.kaggle.com/learn/pandas",
+   "provider": "Kaggle",
+   "kind": "course",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": 4,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "pandas",
+   "aliases": [
+    "dataframes"
+   ],
+   "title": "pandas: Getting started tutorials",
+   "url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/index.html",
+   "provider": "pandas (NumFOCUS)",
+   "kind": "tutorial",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "SQL",
+   "aliases": [
+    "requêtes SQL",
+    "databases"
+   ],
+   "title": "Kaggle Learn: Intro to SQL",
+   "url": "https://www.kaggle.com/learn/intro-to-sql",
+   "provider": "Kaggle",
+   "kind": "course",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": 3,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "SQL",
+   "aliases": [
+    "databases"
+   ],
+   "title": "SQLBolt – interactive SQL lessons",
+   "url": "https://sqlbolt.com/",
+   "provider": "SQLBolt",
+   "kind": "tutorial",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "SQL",
+   "aliases": [
+    "PostgreSQL"
+   ],
+   "title": "PostgreSQL Tutorial (official docs)",
+   "url": "https://www.postgresql.org/docs/current/tutorial.html",
+   "provider": "PostgreSQL Global Development Group",
+   "kind": "tutorial",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "PostgreSQL",
+   "aliases": [
+    "Postgres"
+   ],
+   "title": "PostgreSQL documentation",
+   "url": "https://www.postgresql.org/docs/current/",
+   "provider": "PostgreSQL Global Development Group",
+   "kind": "docs",
+   "free": true,
+   "level": "intermediate",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Machine Learning",
+   "aliases": [
+    "apprentissage automatique",
+    "ML"
+   ],
+   "title": "Machine Learning Crash Course",
+   "url": "https://developers.google.com/machine-learning/crash-course",
+   "provider": "Google for Developers",
+   "kind": "course",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Machine Learning",
+   "aliases": [
+    "apprentissage automatique",
+    "ML"
+   ],
+   "title": "Kaggle Learn: Intro to Machine Learning",
+   "url": "https://www.kaggle.com/learn/intro-to-machine-learning",
+   "provider": "Kaggle",
+   "kind": "course",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": 3,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "scikit-learn",
+   "aliases": [
+    "sklearn",
+    "machine learning"
+   ],
+   "title": "scikit-learn User Guide",
+   "url": "https://scikit-learn.org/stable/user_guide.html",
+   "provider": "scikit-learn",
+   "kind": "docs",
+   "free": true,
+   "level": "intermediate",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "scikit-learn",
+   "aliases": [
+    "sklearn"
+   ],
+   "title": "scikit-learn MOOC: Machine learning in Python",
+   "url": "https://inria.github.io/scikit-learn-mooc/",
+   "provider": "Inria",
+   "kind": "course",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "PyTorch",
+   "aliases": [
+    "deep learning"
+   ],
+   "title": "Learn the Basics (PyTorch tutorials)",
+   "url": "https://docs.pytorch.org/tutorials/beginner/basics/intro.html",
+   "provider": "PyTorch Foundation",
+   "kind": "tutorial",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Deep Learning",
+   "aliases": [
+    "neural networks"
+   ],
+   "title": "Practical Deep Learning for Coders",
+   "url": "https://course.fast.ai/",
+   "provider": "fast.ai",
+   "kind": "course",
+   "free": true,
+   "level": "intermediate",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "MLflow",
+   "aliases": [
+    "experiment tracking",
+    "model registry",
+    "MLOps"
+   ],
+   "title": "MLflow documentation",
+   "url": "https://mlflow.org/docs/latest/index.html",
+   "provider": "MLflow (Linux Foundation)",
+   "kind": "docs",
+   "free": true,
+   "level": "intermediate",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Statistics",
+   "aliases": [
+    "statistiques",
+    "probability"
+   ],
+   "title": "Statistics and Probability",
+   "url": "https://www.khanacademy.org/math/statistics-probability",
+   "provider": "Khan Academy",
+   "kind": "course",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Time series forecasting",
+   "aliases": [
+    "forecasting",
+    "séries temporelles"
+   ],
+   "title": "Kaggle Learn: Time Series",
+   "url": "https://www.kaggle.com/learn/time-series",
+   "provider": "Kaggle",
+   "kind": "course",
+   "free": true,
+   "level": "intermediate",
+   "language": "en",
+   "est_hours": 5,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Data visualisation",
+   "aliases": [
+    "data visualization",
+    "dataviz"
+   ],
+   "title": "Kaggle Learn: Data Visualization",
+   "url": "https://www.kaggle.com/learn/data-visualization",
+   "provider": "Kaggle",
+   "kind": "course",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": 4,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Healthcare to data reconversion",
+   "aliases": [
+    "reconversion data",
+    "data analyst",
+    "health data"
+   ],
+   "title": "Google Data Analytics Professional Certificate",
+   "url": "https://www.coursera.org/professional-certificates/google-data-analytics",
+   "provider": "Google / Coursera",
+   "kind": "certification",
+   "free": false,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Healthcare to data reconversion",
+   "aliases": [
+    "reconversion data",
+    "data science"
+   ],
+   "title": "Elements of AI",
+   "url": "https://www.elementsofai.com/",
+   "provider": "University of Helsinki / MinnaLearn",
+   "kind": "course",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Healthcare to data reconversion",
+   "aliases": [
+    "reconversion",
+    "formation",
+    "CPF"
+   ],
+   "title": "Mon Compte Formation (CPF)",
+   "url": "https://www.moncompteformation.gouv.fr/",
+   "provider": "Caisse des Dépôts (gouv.fr)",
+   "kind": "docs",
+   "free": true,
+   "level": "beginner",
+   "language": "fr",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "React",
+   "aliases": [
+    "React.js",
+    "ReactJS"
+   ],
+   "title": "Learn React (react.dev)",
+   "url": "https://react.dev/learn",
+   "provider": "Meta / React team",
+   "kind": "tutorial",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "TypeScript",
+   "aliases": [
+    "TS"
+   ],
+   "title": "The TypeScript Handbook",
+   "url": "https://www.typescriptlang.org/docs/handbook/intro.html",
+   "provider": "Microsoft / TypeScript",
+   "kind": "docs",
+   "free": true,
+   "level": "intermediate",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "JavaScript",
+   "aliases": [
+    "JS",
+    "ECMAScript"
+   ],
+   "title": "MDN JavaScript Guide",
+   "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide",
+   "provider": "MDN Web Docs (Mozilla)",
+   "kind": "docs",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "JavaScript",
+   "aliases": [
+    "JS"
+   ],
+   "title": "MDN – Guide JavaScript (français)",
+   "url": "https://developer.mozilla.org/fr/docs/Web/JavaScript/Guide",
+   "provider": "MDN Web Docs (Mozilla)",
+   "kind": "docs",
+   "free": true,
+   "level": "beginner",
+   "language": "fr",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "HTML/CSS",
+   "aliases": [
+    "HTML",
+    "CSS",
+    "web development"
+   ],
+   "title": "MDN Learn web development",
+   "url": "https://developer.mozilla.org/en-US/docs/Learn_web_development",
+   "provider": "MDN Web Docs (Mozilla)",
+   "kind": "course",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Next.js",
+   "aliases": [
+    "NextJS"
+   ],
+   "title": "Next.js Learn course",
+   "url": "https://nextjs.org/learn",
+   "provider": "Vercel",
+   "kind": "course",
+   "free": true,
+   "level": "intermediate",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Next.js",
+   "aliases": [
+    "NextJS"
+   ],
+   "title": "Next.js documentation",
+   "url": "https://nextjs.org/docs",
+   "provider": "Vercel",
+   "kind": "docs",
+   "free": true,
+   "level": "intermediate",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Jest",
+   "aliases": [
+    "unit tests",
+    "tests unitaires",
+    "JavaScript testing"
+   ],
+   "title": "Jest: Getting Started",
+   "url": "https://jestjs.io/docs/getting-started",
+   "provider": "Jest (OpenJS Foundation)",
+   "kind": "docs",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Cypress",
+   "aliases": [
+    "tests end-to-end",
+    "tests e2e",
+    "end-to-end testing",
+    "E2E"
+   ],
+   "title": "Cypress documentation",
+   "url": "https://docs.cypress.io/",
+   "provider": "Cypress.io",
+   "kind": "docs",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Cypress",
+   "aliases": [
+    "tests e2e",
+    "end-to-end testing"
+   ],
+   "title": "Cypress Real World Testing course",
+   "url": "https://learn.cypress.io/",
+   "provider": "Cypress.io",
+   "kind": "course",
+   "free": true,
+   "level": "intermediate",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Playwright",
+   "aliases": [
+    "end-to-end testing",
+    "tests e2e"
+   ],
+   "title": "Playwright: Getting started",
+   "url": "https://playwright.dev/docs/intro",
+   "provider": "Microsoft / Playwright",
+   "kind": "docs",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "GraphQL",
+   "aliases": [],
+   "title": "Learn GraphQL",
+   "url": "https://graphql.org/learn/",
+   "provider": "GraphQL Foundation",
+   "kind": "tutorial",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Web accessibility",
+   "aliases": [
+    "accessibilité",
+    "RGAA",
+    "WCAG",
+    "a11y"
+   ],
+   "title": "RGAA – Référentiel général d'amélioration de l'accessibilité",
+   "url": "https://accessibilite.numerique.gouv.fr/",
+   "provider": "DINUM (gouv.fr)",
+   "kind": "docs",
+   "free": true,
+   "level": "intermediate",
+   "language": "fr",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Web accessibility",
+   "aliases": [
+    "WCAG",
+    "a11y"
+   ],
+   "title": "Introduction to Web Accessibility",
+   "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/",
+   "provider": "W3C WAI",
+   "kind": "docs",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Web performance",
+   "aliases": [
+    "Core Web Vitals"
+   ],
+   "title": "Web Vitals",
+   "url": "https://web.dev/articles/vitals",
+   "provider": "Google (web.dev)",
+   "kind": "docs",
+   "free": true,
+   "level": "intermediate",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "pytest",
+   "aliases": [
+    "tests automatisés",
+    "unit testing",
+    "Python testing"
+   ],
+   "title": "pytest: Get Started",
+   "url": "https://docs.pytest.org/en/stable/getting-started.html",
+   "provider": "pytest",
+   "kind": "docs",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Software testing",
+   "aliases": [
+    "tests logiciels",
+    "test automation",
+    "ISTQB"
+   ],
+   "title": "ISTQB Certified Tester Foundation Level",
+   "url": "https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/",
+   "provider": "ISTQB",
+   "kind": "certification",
+   "free": false,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Django",
+   "aliases": [
+    "Django REST Framework",
+    "DRF"
+   ],
+   "title": "Writing your first Django app",
+   "url": "https://docs.djangoproject.com/en/stable/intro/tutorial01/",
+   "provider": "Django Software Foundation",
+   "kind": "tutorial",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Django",
+   "aliases": [
+    "Django REST Framework",
+    "DRF",
+    "API REST"
+   ],
+   "title": "Django REST framework tutorial",
+   "url": "https://www.django-rest-framework.org/tutorial/quickstart/",
+   "provider": "Encode / DRF",
+   "kind": "tutorial",
+   "free": true,
+   "level": "intermediate",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "FastAPI",
+   "aliases": [
+    "API REST"
+   ],
+   "title": "FastAPI Tutorial – User Guide",
+   "url": "https://fastapi.tiangolo.com/tutorial/",
+   "provider": "FastAPI",
+   "kind": "tutorial",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Celery",
+   "aliases": [
+    "task queue"
+   ],
+   "title": "Celery: First steps",
+   "url": "https://docs.celeryq.dev/en/stable/getting-started/first-steps-with-celery.html",
+   "provider": "Celery Project",
+   "kind": "tutorial",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Redis",
+   "aliases": [
+    "cache"
+   ],
+   "title": "Redis documentation",
+   "url": "https://redis.io/docs/latest/",
+   "provider": "Redis",
+   "kind": "docs",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "ITIL",
+   "aliases": [
+    "ITIL 4",
+    "IT service management",
+    "ITSM"
+   ],
+   "title": "ITIL 4 Foundation certification",
+   "url": "https://www.peoplecert.org/browse-certifications/it-governance-and-service-management/ITIL-1/itil-4-foundation-2565",
+   "provider": "PeopleCert / AXELOS",
+   "kind": "certification",
+   "free": false,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Active Directory",
+   "aliases": [
+    "AD DS",
+    "Windows Server"
+   ],
+   "title": "Active Directory Domain Services overview",
+   "url": "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/virtual-dc/active-directory-domain-services-overview",
+   "provider": "Microsoft Learn",
+   "kind": "docs",
+   "free": true,
+   "level": "intermediate",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Microsoft 365",
+   "aliases": [
+    "Office 365",
+    "M365"
+   ],
+   "title": "Microsoft 365 Certified: Fundamentals (MS-900)",
+   "url": "https://learn.microsoft.com/en-us/credentials/certifications/microsoft-365-fundamentals/",
+   "provider": "Microsoft Learn",
+   "kind": "certification",
+   "free": false,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "GLPI",
+   "aliases": [
+    "ticketing",
+    "helpdesk"
+   ],
+   "title": "GLPI documentation",
+   "url": "https://help.glpi-project.org",
+   "provider": "Teclib' / GLPI project",
+   "kind": "docs",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "IT support",
+   "aliases": [
+    "support informatique",
+    "help desk",
+    "technical support"
+   ],
+   "title": "Google IT Support Professional Certificate",
+   "url": "https://www.coursera.org/professional-certificates/google-it-support",
+   "provider": "Google / Coursera",
+   "kind": "certification",
+   "free": false,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Excel",
+   "aliases": [
+    "Microsoft Excel",
+    "tableur",
+    "tableaux croisés dynamiques",
+    "pivot tables"
+   ],
+   "title": "Excel help & learning (Microsoft Support)",
+   "url": "https://support.microsoft.com/en-us/excel/",
+   "provider": "Microsoft Support",
+   "kind": "tutorial",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Excel",
+   "aliases": [
+    "tableaux croisés dynamiques",
+    "pivot tables"
+   ],
+   "title": "Create a PivotTable to analyze worksheet data",
+   "url": "https://support.microsoft.com/en-us/excel/get-started/create-a-pivottable-to-analyze-worksheet-data",
+   "provider": "Microsoft Support",
+   "kind": "tutorial",
+   "free": true,
+   "level": "intermediate",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Power BI",
+   "aliases": [
+    "business intelligence",
+    "dataviz"
+   ],
+   "title": "Power BI training (Microsoft Learn)",
+   "url": "https://learn.microsoft.com/en-us/training/powerplatform/power-bi",
+   "provider": "Microsoft Learn",
+   "kind": "course",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Power BI",
+   "aliases": [
+    "PL-300"
+   ],
+   "title": "Microsoft Certified: Power BI Data Analyst Associate (PL-300)",
+   "url": "https://learn.microsoft.com/en-us/credentials/certifications/data-analyst-associate/",
+   "provider": "Microsoft Learn",
+   "kind": "certification",
+   "free": false,
+   "level": "intermediate",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "SAP",
+   "aliases": [
+    "SAP S/4HANA",
+    "ERP"
+   ],
+   "title": "SAP Learning (free learning journeys)",
+   "url": "https://learning.sap.com/",
+   "provider": "SAP",
+   "kind": "course",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "CACES",
+   "aliases": [
+    "CACES R489",
+    "chariot élévateur",
+    "cariste",
+    "forklift"
+   ],
+   "title": "Questions-réponses sur la formation, l'autorisation de conduite et le CACES (INRS ED 6348)",
+   "url": "https://www.inrs.fr/media.html?refINRS=ED%206348",
+   "provider": "INRS",
+   "kind": "docs",
+   "free": true,
+   "level": "beginner",
+   "language": "fr",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Occupational safety",
+   "aliases": [
+    "sécurité au travail",
+    "santé et sécurité",
+    "health and safety"
+   ],
+   "title": "INRS – Santé et sécurité au travail",
+   "url": "https://www.inrs.fr/",
+   "provider": "INRS",
+   "kind": "docs",
+   "free": true,
+   "level": "beginner",
+   "language": "fr",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Accounting",
+   "aliases": [
+    "comptabilité",
+    "comptabilité générale",
+    "bookkeeping"
+   ],
+   "title": "Autorité des normes comptables – normes comptables françaises (PCG)",
+   "url": "https://www.anc.gouv.fr/",
+   "provider": "Autorité des normes comptables",
+   "kind": "docs",
+   "free": true,
+   "level": "intermediate",
+   "language": "fr",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "VAT",
+   "aliases": [
+    "TVA",
+    "déclaration de TVA"
+   ],
+   "title": "TVA – professionnels (impots.gouv.fr)",
+   "url": "https://www.impots.gouv.fr/professionnel/tva",
+   "provider": "DGFiP (impots.gouv.fr)",
+   "kind": "docs",
+   "free": true,
+   "level": "intermediate",
+   "language": "fr",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Pennylane",
+   "aliases": [
+    "logiciel comptable"
+   ],
+   "title": "Centre d'aide Pennylane",
+   "url": "https://help.pennylane.com/fr/",
+   "provider": "Pennylane",
+   "kind": "docs",
+   "free": true,
+   "level": "beginner",
+   "language": "fr",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Payroll",
+   "aliases": [
+    "paie",
+    "DSN"
+   ],
+   "title": "DSN – informations (net-entreprises)",
+   "url": "https://www.net-entreprises.fr/declaration/dsn-info/",
+   "provider": "net-entreprises.fr",
+   "kind": "docs",
+   "free": true,
+   "level": "intermediate",
+   "language": "fr",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Agile/Scrum",
+   "aliases": [
+    "Scrum",
+    "agile",
+    "Kanban"
+   ],
+   "title": "The Scrum Guide",
+   "url": "https://scrumguides.org/scrum-guide.html",
+   "provider": "Scrum.org / Schwaber & Sutherland",
+   "kind": "docs",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Data engineering",
+   "aliases": [
+    "ETL",
+    "data pipelines",
+    "data warehouse"
+   ],
+   "title": "Data Engineering Zoomcamp",
+   "url": "https://github.com/DataTalksClub/data-engineering-zoomcamp",
+   "provider": "DataTalks.Club",
+   "kind": "course",
+   "free": true,
+   "level": "intermediate",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "MLOps",
+   "aliases": [
+    "model deployment",
+    "ML in production"
+   ],
+   "title": "MLOps Zoomcamp",
+   "url": "https://github.com/DataTalksClub/mlops-zoomcamp",
+   "provider": "DataTalks.Club",
+   "kind": "course",
+   "free": true,
+   "level": "intermediate",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Cybersecurity",
+   "aliases": [
+    "sécurité informatique",
+    "information security"
+   ],
+   "title": "MOOC SecNumacadémie",
+   "url": "https://secnumacademie.gouv.fr/",
+   "provider": "ANSSI (gouv.fr)",
+   "kind": "course",
+   "free": true,
+   "level": "beginner",
+   "language": "fr",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Java",
+   "aliases": [],
+   "title": "Learn Java (dev.java)",
+   "url": "https://dev.java/learn/",
+   "provider": "Oracle",
+   "kind": "tutorial",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Go",
+   "aliases": [
+    "Golang"
+   ],
+   "title": "A Tour of Go",
+   "url": "https://go.dev/tour/",
+   "provider": "The Go Authors",
+   "kind": "tutorial",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Node.js",
+   "aliases": [
+    "Node"
+   ],
+   "title": "Introduction to Node.js",
+   "url": "https://nodejs.org/learn/getting-started/introduction-to-nodejs",
+   "provider": "OpenJS Foundation",
+   "kind": "tutorial",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "REST API",
+   "aliases": [
+    "API REST",
+    "HTTP APIs"
+   ],
+   "title": "MDN – HTTP overview",
+   "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Overview",
+   "provider": "MDN Web Docs (Mozilla)",
+   "kind": "docs",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "CS fundamentals",
+   "aliases": [
+    "programming",
+    "computer science"
+   ],
+   "title": "CS50x: Introduction to Computer Science",
+   "url": "https://cs50.harvard.edu/x/",
+   "provider": "Harvard University",
+   "kind": "course",
+   "free": true,
+   "level": "beginner",
+   "language": "en",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "VAT",
+   "aliases": [
+    "TVA",
+    "déclaration de TVA"
+   ],
+   "title": "Déclarer et payer la TVA (Service Public Entreprendre)",
+   "url": "https://entreprendre.service-public.gouv.fr/vosdroits/F23566",
+   "provider": "Service Public (gouv.fr)",
+   "kind": "docs",
+   "free": true,
+   "level": "beginner",
+   "language": "fr",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  },
+  {
+   "skill": "Occupational safety",
+   "aliases": [
+    "logistique",
+    "entrepôt",
+    "sécurité au travail"
+   ],
+   "title": "Logistique – prévention des risques (INRS)",
+   "url": "https://www.inrs.fr/metiers/logistique.html",
+   "provider": "INRS",
+   "kind": "docs",
+   "free": true,
+   "level": "beginner",
+   "language": "fr",
+   "est_hours": null,
+   "verified_at": "2026-11-04"
+  }
+ ]
+}
