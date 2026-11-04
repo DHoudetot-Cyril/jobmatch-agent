@@ -56,8 +56,10 @@ jobmatch-analysis
 Inside the nodes you find the `ChatOpenAI` generations (prompt, completion, token usage,
 latency) and the LangChain runnables of structured output parsing. The decision-model calls
 (jevos) are plain HTTP calls: they show up as the duration of `verify_skills` /
-`verify_claims`, and their results are in the node outputs (`match.skill_checks`,
-`review.claim_checks`).
+`verify_claims` (and of `career_tools` for `check_cv_evidence`), and their results are in the
+node outputs (`match.skill_checks`, `review.claim_checks`). In `career_team`, each
+`career_advisor` turn is a generation whose tool calls (names and arguments) are visible, and
+each `career_tools` span shows the tool results fed back to the LLM.
 
 ### Opening a trace
 
@@ -135,6 +137,13 @@ depends on them).
 Decision-metric label combinations are pre-created at import, so they export zeros before the
 first decision. The Python client also exports `*_created` series for counters and histograms.
 
+**Caveat: career evidence checks share the `skill_evidence` metrics.** `check_cv_evidence`
+calls `check_skill_evidence` with an LLM rating of `partial`, so every career CV check is also
+counted in `jobmatch_decisions_total{task="skill_evidence"}`,
+`jobmatch_decision_duration_seconds`, `jobmatch_decision_llm_agreement_total` (where "agree"
+then only means P ≥ 0.5) and `jobmatch_skill_resolution_total{resolution="resolved_partial"}`.
+With the career advisor on, read those panels as "verify_skills + career checks".
+
 How agreement is defined:
 
 - `skill_evidence`: agree when (LLM credit ≥ 0.5) == (P(evidence) ≥ 0.5).
@@ -196,6 +205,9 @@ Default range: last 6 h, refresh 30 s.
 | | Decisions / min by task and outcome | yes / no volume, plus `error` (fallback to LLM-only) and `skipped` (state too long). |
 | | Decision latency p50 / p95 by task | Is jevos still in the ~50 ms range? |
 | | Skill resolution (fusion v2) | Per offer skill: LLM rating kept, `partial` resolved by jevos, or strong conflict (partial credit). Many `conflict` = System 1 and System 2 disagree often. |
+| **Career advisor (agent)** | Career tool calls / min by tool and status | Which tools does the autonomous advisor choose, and do they return something (`ok` / `empty` / `error`)? |
+| | Career advisor tool rounds per run | Does the ReAct loop stop on its own or hit `CAREER_MAX_TOOL_ROUNDS`? |
+| | Hallucinated resource URLs dropped | How many URLs the LLM put in the plan that no tool returned (removed by post-validation). |
 
 ### Example PromQL
 

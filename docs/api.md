@@ -152,6 +152,19 @@ fictional data):
        "p_evidence": 0.0412, "final_credit": 0.0, "agree": true, "resolution": "llm"}
     ]
   },
+  "career_plan": {
+    "summary": "...",
+    "gaps": [
+      {"skill": "Kafka", "esco_uri": null, "esco_label": null,
+       "transferable_skills": ["..."],
+       "resources": [
+         {"title": "Apache Kafka Quickstart", "url": "https://kafka.apache.org/quickstart",
+          "provider": "Apache Software Foundation", "free": true, "est_hours": null}
+       ],
+       "actions": ["...", "...", "..."], "priority": "medium"}
+    ],
+    "tool_calls": 19
+  },
   "cover_letter": {"subject": "Candidature ...", "body": "Madame, Monsieur, ...", "language": "fr"},
   "review": {
     "approved": true,
@@ -164,11 +177,14 @@ fictional data):
   },
   "review_iterations": 1,
   "trace": ["supervisor", "parse_offer", "parse_cv", "supervisor", "score_match",
-            "verify_skills", "analyze_gaps", "supervisor", "write_letter", "review_letter",
-            "verify_claims", "supervisor"],
+            "verify_skills", "analyze_gaps", "supervisor", "career_advisor", "career_tools",
+            "career_advisor", "career_tools", "career_advisor", "career_tools",
+            "career_advisor", "career_plan", "supervisor",
+            "write_letter", "review_letter", "verify_claims", "supervisor"],
   "pending_review": {
     "cover_letter": {"subject": "...", "body": "...", "language": "fr"},
-    "match": {"score": 82, "matched_skills": ["..."], "gaps": ["..."], "...": "..."}
+    "match": {"score": 82, "matched_skills": ["..."], "gaps": ["..."], "...": "..."},
+    "career_plan": {"summary": "...", "gaps": ["..."], "tool_calls": 19}
   },
   "error": null
 }
@@ -176,8 +192,8 @@ fictional data):
 
 Field notes:
 
-- `offer`, `profile`, `match`, `cover_letter`, `review` are `null` until the node that
-  produces them has run.
+- `offer`, `profile`, `match`, `career_plan`, `cover_letter`, `review` are `null` until the
+  node that produces them has run.
 - `match.skill_checks` and `review.claim_checks` are empty when the decision layer is
   disabled (`DECISIONS_ENABLED=false`) or unavailable.
 - `match.skill_checks[].resolution` says how fusion v2 set `final_credit`
@@ -189,9 +205,13 @@ Field notes:
   (`claim`, `p_supported`, `dismissed`). Both are listed in `/openapi.json`. The graph-side
   `schemas.Review` hides them (`SkipJsonSchema`) because its JSON schema is also the reviewer
   LLM's structured-output schema when the decision layer is off.
-- `career_plan` (additive, also in `pending_review`): the career advisor's plan per skill gap
-  (ESCO concept, verified transferable skills, catalog resources, actions, `tool_calls`);
-  `null` when `CAREER_ADVISOR_ENABLED=false`.
+- `career_plan` (additive, also in `pending_review`): the career advisor's plan
+  (`schemas.CareerPlan`): a `summary` and one entry per skill gap with the ESCO concept
+  (`esco_uri` / `esco_label`, `null` when ESCO has none), `transferable_skills` (only those the
+  decision model found in the CV), `resources` (only catalog entries returned by a tool),
+  `actions` and `priority` (`high` / `medium` / `low`); `tool_calls` is counted by the code.
+  With no gap, `gaps` is empty and `summary` says so. `null` when
+  `CAREER_ADVISOR_ENABLED=false`. Summary and actions are written in the offer's language.
 - `pending_review` is the interrupt payload; it is set only when `status` is
   `awaiting_approval`.
 - `trace` lists visited nodes in order (all runs of the thread, including rewrites).

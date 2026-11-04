@@ -145,6 +145,10 @@ variables ignored). Names are case-insensitive.
 | `CLAIM_DISMISS_THRESHOLD` | `0.8` | yes | A reviewer-flagged claim is dismissed when calibrated P(supported) ≥ this. |
 | `DECISION_CONFLICT_LOW` | `0.2` | yes | Fusion v2: an LLM `full` rating becomes partial credit 0.5 (resolution `conflict`) when P(evidence) < this. |
 | `DECISION_CONFLICT_HIGH` | `0.8` | yes | Fusion v2: an LLM `none` rating becomes partial credit 0.5 (resolution `conflict`) when P(evidence) > this. |
+| `CAREER_ADVISOR_ENABLED` | `true` | yes | Career advisor (autonomous tool-using agent) on/off. `false` = the supervisor skips `career_team`: previous pipeline, `career_plan` is `null`. |
+| `CAREER_MAX_TOOL_ROUNDS` | `6` | yes | Tool-calling LLM turns allowed before the final plan is forced. |
+| `CAREER_TIMEOUT_S` | `120` | yes | Wall-time budget of the tool loop (seconds). The final structured call then gets at least 180 s more (`MIN_PLAN_BUDGET_S` in `graph/teams/career.py`), so the team can take up to about 300 s. |
+| `CAREER_DATA_DIR` | `data/career` | yes | ESCO snapshot + learning catalog. A relative path is resolved against the working directory, then the repository root; in the image it is `/app/data/career`. |
 | `DATABASE_URL` | `postgresql://jobmatch:jobmatch@localhost:5433/jobmatch` | yes | LangGraph checkpointer (application Postgres). Compose overrides it for the api container. |
 | `LANGFUSE_ENABLED` | `true` | yes | Tracing on/off. |
 | `LANGFUSE_HOST` | `http://localhost:3000` | yes | Langfuse URL. Compose overrides it with `http://langfuse-web:3000`. |
@@ -157,6 +161,7 @@ Other variables read by the code:
 | Variable | Default | Meaning |
 |---|---|---|
 | `LOG_LEVEL` | `INFO` | Root log level of the API (`api/main.py`). |
+| `ESCO_CACHE_DIR` | `~/.cache/jobmatch/esco` | Raw ESCO API responses cached by `scripts/build_esco_snapshot.py` (build time only). |
 | `JEVOS_BIN` | unset | Path of a `jev` binary the jevos backend may spawn when nothing answers at `JEVOS_URL` (`decisions/jevos_backend.py`). |
 
 ### Stack variables (`.env.example`, used by `docker-compose.yml`)
@@ -250,6 +255,9 @@ What happens on the first `make up`:
   from `infra/grafana/`. Open http://127.0.0.1:3001/d/jobmatch-overview (`admin` / `admin`).
   The dashboard file is re-read every 30 s; UI edits are allowed but are not written back to
   the JSON file.
+- **Career data.** The api image copies `data/career/` (ESCO snapshot + learning catalog) to
+  `/app/data/career`; the career tools read it offline, no network access is needed at run
+  time.
 - **jevos cold start.** `jev serve` loads and warms the model before `/health` reports
   `"status": "ready"` (about 20-30 s according to `infra/jevos/Dockerfile`; the healthcheck
   allows 90 s). Check with `curl -s 127.0.0.1:8017/health`.
@@ -310,6 +318,25 @@ Procedure:
   beyond `127.0.0.1`, change every password and secret (Langfuse secrets with
   `openssl rand -hex 32`), and put an authenticating reverse proxy in front of the API: the
   API itself has no authentication.
+
+### Career advisor data (`data/career/`)
+
+The two files are built once and committed; details, sources and licence in
+[`data/career/README.md`](../data/career/README.md). Both scripts need network access; the
+app never does.
+
+```bash
+# rebuild the ESCO snapshot from the public ESCO API (273 seeds; raw responses cached)
+uv run python scripts/build_esco_snapshot.py            # reuse the cache (~2 min cold)
+uv run python scripts/build_esco_snapshot.py --no-cache
+# re-check every learning-resource URL (HEAD, then GET fallback, redirects followed)
+uv run python scripts/verify_learning_resources.py --dry-run   # report only
+uv run python scripts/verify_learning_resources.py             # drop dead links, stamp verified_at
+```
+
+To add a skill to the snapshot, add it to `SEEDS_EN` / `SEEDS_FR` in `scripts/build_esco_snapshot.py` and
+rebuild. To add a resource, edit `learning_resources.json`, then run the link check. Rebuild
+the api image afterwards (`make up`), since the data is copied into it.
 
 ## 9. Backup and clean-up
 
@@ -419,3 +446,13 @@ Installing Docker and adding your user to the `docker` group need `sudo` with a 
 prompt. In this project, `sudo` typed through Claude Code's `!` shell prefix could not read the
 password: run those commands from a regular terminal, then log out and in again for the group
 change.
+
+### Analyses take ~8 min / the career plan looks like a fallback
+
+The career advisor adds about 170 s per analysis (one measured run: 491 s in total versus
+about 320-360 s without it), most of it in two LLM phases: the tool loop and the final
+structured `career_plan` call, which needs about 80 s with Qwen's thinking on. If
+`career_plan` fails or times out, the log says `career_plan: structured answer failed ...,
+deterministic fallback` and the summary starts with "Plan établi automatiquement" / "Plan
+built automatically": the plan then holds the tool results and the gap advice only. To run
+without the agent, set `CAREER_ADVISOR_ENABLED=false` (exact previous pipeline).

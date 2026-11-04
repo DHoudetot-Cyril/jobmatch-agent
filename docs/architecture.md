@@ -1,7 +1,7 @@
 # Architecture
 
-How JobMatch Agent turns a job offer and a CV into a match score, skill gaps and an approved
-cover letter. Every statement below is taken from the code; file paths are given so you can
+How JobMatch Agent turns a job offer and a CV into a match score, skill gaps, a career plan
+and an approved cover letter. Every statement below is taken from the code; file paths are given so you can
 check.
 
 - [1. System overview](#1-system-overview)
@@ -9,10 +9,11 @@ check.
 - [3. Agent graph](#3-agent-graph)
 - [4. State](#4-state)
 - [5. Scoring](#5-scoring)
-- [6. Writer/reviewer loop and claim verification](#6-writerreviewer-loop-and-claim-verification)
-- [7. Checkpointing and resume](#7-checkpointing-and-resume)
-- [8. Failure handling and degradation](#8-failure-handling-and-degradation)
-- [9. Module map](#9-module-map)
+- [6. Career advisor agent](#6-career-advisor-agent)
+- [7. Writer/reviewer loop and claim verification](#7-writerreviewer-loop-and-claim-verification)
+- [8. Checkpointing and resume](#8-checkpointing-and-resume)
+- [9. Failure handling and degradation](#9-failure-handling-and-degradation)
+- [10. Module map](#10-module-map)
 
 Design decisions are recorded separately in [`adr/`](adr/README.md).
 
@@ -92,7 +93,7 @@ sequenceDiagram
     S->>G: create_task(graph.ainvoke(input))
     R-->>C: 202 id, status running
     G->>P: checkpoint after each step
-    Note over G: supervisor, analysis, matching,<br/>writing teams, then human_review
+    Note over G: supervisor, analysis, matching,<br/>career, writing teams, then human_review
     G->>P: interrupt(payload) saved
     C->>R: GET /analyses/{id}
     R->>S: get(id)
@@ -109,15 +110,19 @@ sequenceDiagram
 ```
 
 With `approved=false` and a `feedback` text, the resume goes back through the writing team and
-pauses again on `human_review` (see [section 6](#6-writerreviewer-loop-and-claim-verification)).
+pauses again on `human_review` (see [section 7](#7-writerreviewer-loop-and-claim-verification)).
 The status state machine is in [`api.md`](api.md#analysis-status-state-machine).
 
 ## 3. Agent graph
 
-The top-level graph (`src/jobmatch/graph/build.py`) has five nodes: the `supervisor`, three
-team subgraphs and `human_review`. Every node hands control back to the supervisor. Inside the
-teams there are ten instrumented node names in total, which are also the Prometheus `node`
-label and the Langfuse span names.
+The top-level graph (`src/jobmatch/graph/build.py`) has six nodes: the `supervisor`, four
+team subgraphs and `human_review`. Every node hands control back to the supervisor. There are
+thirteen instrumented node names in total, which are also the Prometheus `node` label and the
+Langfuse span names.
+
+Everything is a deterministic **workflow** (the code fixes the order) except `career_team`,
+the one **autonomous agent**, where the LLM chooses its next tool call inside bounds set by
+the code ([section 6](#6-career-advisor-agent), [ADR 0009](adr/0009-workflow-plus-autonomous-agent.md)).
 
 ```mermaid
 flowchart TD
@@ -171,7 +176,7 @@ flowchart TD
 | `write_letter` | writing | Writes or revises the cover letter in the offer's language | Qwen, temperature 0.5 |
 | `review_letter` | writing | Checks the letter against the offer, profile and raw CV text; lists unsupported claims | Qwen, temperature 0, no `max_tokens` cap |
 | `verify_claims` | writing | Asks jevos whether each flagged claim is supported; dismisses reviewer false positives | jevos |
-| `human_review` | top level | `interrupt()` with the letter and match; applies the human decision on resume | none |
+| `human_review` | top level | `interrupt()` with the letter, the match and the career plan; applies the human decision on resume | none |
 
 Supervisor routing table (`src/jobmatch/graph/supervisor.py`, first matching rule wins):
 
@@ -200,10 +205,10 @@ not appended twice.
 | Field | Type | Written by | Read by |
 |---|---|---|---|
 | `offer_text` | `str` | API (graph input) | `parse_offer` |
-| `cv_text` | `str` | API (graph input) | `parse_cv`, `verify_skills`, `review_letter`, `verify_claims` |
-| `offer` | `JobOffer` | `parse_offer` | supervisor, `score_match`, `analyze_gaps`, `write_letter`, `review_letter`, API |
-| `profile` | `CandidateProfile` | `parse_cv` | supervisor, `score_match`, `analyze_gaps`, `write_letter`, `review_letter`, API |
-| `match` | `MatchResult` | `score_match` (creates), `verify_skills`, `analyze_gaps` (update) | supervisor, `write_letter`, `human_review`, API, metrics |
+| `cv_text` | `str` | API (graph input) | `parse_cv`, `verify_skills`, `check_cv_evidence` (injected into the career tool), `review_letter`, `verify_claims` |
+| `offer` | `JobOffer` | `parse_offer` | supervisor, `score_match`, `analyze_gaps`, career team, `write_letter`, `review_letter`, API |
+| `profile` | `CandidateProfile` | `parse_cv` | supervisor, `score_match`, `analyze_gaps`, `career_advisor`, `write_letter`, `review_letter`, API |
+| `match` | `MatchResult` | `score_match` (creates), `verify_skills`, `analyze_gaps` (update) | supervisor, career team (`match.gaps`), `write_letter`, `human_review`, API, metrics |
 | `score_assessment` | `ScoreAssessment` | `score_match` | `verify_skills` |
 | `career_plan` | `CareerPlan` | `career_plan` (career team; its tool-loop `messages` stay in the subgraph state) | supervisor, `human_review`, API |
 | `cover_letter` | `CoverLetter` | `write_letter` | supervisor, `write_letter` (revision), `review_letter`, `human_review`, API |
@@ -269,7 +274,54 @@ only where the LLM is unsure or strongly contradicted.
 Each fused skill is stored in `match.skill_checks[]` (`llm_credit`, `p_evidence`,
 `final_credit`, `agree`, `resolution`) and counted in `jobmatch_skill_resolution_total`.
 
-## 6. Writer/reviewer loop and claim verification
+## 6. Career advisor agent
+
+`career_team` (`src/jobmatch/graph/teams/career.py`) is the only place where the LLM decides
+the next step. It runs after `matching_team`, reads `offer`, `profile`, `match.gaps` and
+`cv_text`, and writes `career_plan` (`CareerPlan`: a `summary` and one `GapPlan` per gap with
+ESCO concept, verified transferable skills, catalog resources, actions and priority). Why an
+agent here and a workflow elsewhere: [ADR 0009](adr/0009-workflow-plus-autonomous-agent.md).
+
+```mermaid
+flowchart LR
+    S((START)) -->|gaps| CA["career_advisor<br/>Qwen + bind_tools"]
+    S -->|no gap| CP
+    S -->|CAREER_ADVISOR_ENABLED=false| E((END))
+    CA -->|"tool calls, rounds ≤ max<br/>and time left"| CT["career_tools<br/>ToolNode (parallel)"]
+    CT -->|"rounds < max<br/>and time left"| CA
+    CT -->|bound reached| CP
+    CA -->|"no tool call / bound reached"| CP["career_plan<br/>structured CareerPlan<br/>+ post-validation"]
+    CP --> E
+```
+
+| Tool | Does | Source |
+|---|---|---|
+| `search_skill_taxonomy(query, language, limit)` | Fuzzy EN/FR, accent-insensitive search; returns URI, labels, short description and up to 8 related skills | `data/career/esco_skills.json` (ESCO, CC BY 4.0) |
+| `check_cv_evidence(skill)` | Calibrated P(the CV shows `skill`) via `check_skill_evidence` (jevos). `cv_text` is injected from the state (`InjectedState`), the LLM never passes it. Returns `present: null` when the decision layer is off or down | decision layer |
+| `search_learning_resources(skill, limit)` | Curated resources (title, URL, provider, kind, free, level, language, hours); the only allowed source of URLs | `data/career/learning_resources.json` |
+
+Bounds and guardrails, all in code:
+
+| Guardrail | Value | Where |
+|---|---|---|
+| Tool-calling LLM turns | `CAREER_MAX_TOOL_ROUNDS` (6) | `route_after_advisor`, `route_after_tools` |
+| Wall time of the loop | `CAREER_TIMEOUT_S` (120 s), from the first advisor turn | `career_advisor`, routing |
+| Final structured call | at least `MIN_PLAN_BUDGET_S` (180 s), then deterministic fallback | `career_plan` |
+| `limit` argument chosen by the LLM | clamped to 1-10 | `_limit`, `career/tools.py` |
+| Research digest fed to `career_plan` | 12,000 characters max | `Evidence.research` |
+| Unknown ESCO URIs / resource URLs in the plan | dropped (URLs counted in `jobmatch_career_resources_dropped_total`) | `ground_plan` |
+| Transferable skills | kept only if `check_cv_evidence` returned present with p ≥ 0.5 | `ground_plan` |
+| Missing gap in the LLM plan | rebuilt from that gap's tool results and its advice | `ground_plan` |
+
+The tool-loop `messages` live in the subgraph state (`CareerState`) and are not copied to
+`JobMatchState`. `career_plan.tool_calls` is set by the code. The plan is returned by the API
+and shown in the human review payload; the writing team does not read it.
+
+Smoke run on `data/samples` (2026-11-04, one run, not an evaluation): `career_team` took
+about 167 s (advisor 87 s, tools 0.5 s, final plan 79 s) for 4 gaps, with 3 tool rounds and
+19 tool calls; the whole analysis took 491 s.
+
+## 7. Writer/reviewer loop and claim verification
 
 ```mermaid
 flowchart LR
@@ -311,7 +363,7 @@ Why `verify_claims` exists: in the baseline evals the reviewer approved 12% of t
 and used an average of 2.00 review iterations, i.e. it almost always hit the cap
 (`evals/results/compare_baseline_vs_baseline.md`, "Graph behaviour").
 
-## 7. Checkpointing and resume
+## 8. Checkpointing and resume
 
 - **Checkpointer.** `AsyncPostgresSaver` on a `psycopg` pool (`max_size=10`, autocommit) to
   `app-db`, created in the FastAPI lifespan (`api/main.py`). `saver.setup()` creates its
@@ -323,7 +375,8 @@ and used an average of 2.00 review iterations, i.e. it almost always hit the cap
   running tasks and failures in memory.
 - **Pause.** The supervisor sets `status = awaiting_approval` *before* entering
   `human_review`, because `interrupt()` pauses inside the node. The interrupt payload
-  (`cover_letter` + `match`) is returned by the API as `pending_review`.
+  (`cover_letter` + `match` + `career_plan`, `null` when the advisor is disabled) is returned
+  by the API as `pending_review`.
 - **Resume.** `POST /analyses/{id}/decision` runs `graph.ainvoke(Command(resume=decision))`
   with the same thread id. `human_review` re-runs from the top and `interrupt()` returns the
   decision. A global `asyncio.Lock` around the status check prevents two concurrent decisions
@@ -337,7 +390,7 @@ and used an average of 2.00 review iterations, i.e. it almost always hit the cap
 
 Rationale: [ADR 0004](adr/0004-hitl-interrupt-postgres.md).
 
-## 8. Failure handling and degradation
+## 9. Failure handling and degradation
 
 | Failure | Behaviour | Where |
 |---|---|---|
@@ -348,13 +401,16 @@ Rationale: [ADR 0004](adr/0004-hitl-interrupt-postgres.md).
 | Exception in a background run | Logged, `status=failed` + `error` (max 1000 chars) written to the checkpoint; in-memory fallback if that write fails; `jobmatch_analyses_total{status="failed"}` | `api/service.py` |
 | jevos down, error, or decision layer disabled | `check_skill_evidence` / `check_claims` return `[]`; the graph keeps the LLM-only result. Warning logged once, then debug; `jobmatch_decisions_total{outcome="error"}` | `decisions/service.py` |
 | CV longer than 24,000 characters (jevos context is 8192 tokens, no truncation) or HTTP 422 from jevos | Decision skipped (`outcome="skipped"`), LLM-only result kept | `decisions/service.py` |
+| Career tool error or empty result | The tool returns a `note` instead of raising (`status="error"` / `"empty"` in `jobmatch_career_tool_calls_total`); the advisor can try another query | `graph/teams/career.py` `_run_tool`, `career/tools.py` |
+| Career advisor LLM call fails or the loop exceeds `CAREER_TIMEOUT_S` / `CAREER_MAX_TOOL_ROUNDS` | The final answer is forced: `career_plan` runs with what the tools returned | `graph/teams/career.py` |
+| `career_plan` structured call fails or times out (budget ≥ 180 s) | Deterministic fallback plan from the tool results and the gap advice; the analysis continues | `graph/teams/career.py` `ground_plan` |
 | Langfuse unreachable or disabled | No callback handler, the run continues untraced. Health check cached for 30 s | `observability/tracing.py` |
 | Upload too large, unsupported type, empty text | 413 / 415 before any graph run | `api/routes.py`, `documents.py` |
 | Database or LLM down | `GET /ready` returns 503 with per-dependency details | `api/routes.py` |
 | jevos down at startup or run time | The api still starts (soft compose dependency); `GET /ready` stays 200 with `degraded: true`; analyses run LLM-only | `docker-compose.yml`, `api/routes.py` |
 | Postgres unreachable at startup | Pool opening waits up to 15 s, then the app fails to start | `api/main.py` |
 
-## 9. Module map
+## 10. Module map
 
 | Module | Purpose |
 |---|---|
@@ -363,13 +419,15 @@ Rationale: [ADR 0004](adr/0004-hitl-interrupt-postgres.md).
 | `src/jobmatch/schemas.py` | Pydantic domain models shared by graph, API and evals |
 | `src/jobmatch/state.py` | `JobMatchState` and the documented graph interface |
 | `src/jobmatch/documents.py` | `load_document()`: txt/md, PDF text layer, scanned PDF (first 3 pages) and images via vision |
-| `src/jobmatch/prompts/` | Prompt templates, one module per team (`analysis`, `matching`, `writing`) |
+| `src/jobmatch/prompts/` | Prompt templates, one module per team (`analysis`, `matching`, `career`, `writing`) |
 | `src/jobmatch/graph/build.py` | `build_graph(checkpointer)` and `checkpoint_serializer()` |
 | `src/jobmatch/graph/supervisor.py` | Deterministic `next_step()` routing and the `supervisor` node |
 | `src/jobmatch/graph/human_review.py` | `human_review` node (`interrupt()` and decision handling) |
 | `src/jobmatch/graph/structured.py` | `invoke_structured()`: structured output, token metrics, one retry |
 | `src/jobmatch/graph/teams/analysis.py` | `parse_offer` and `parse_cv` in parallel |
 | `src/jobmatch/graph/teams/matching.py` | `score_match`, `verify_skills`, `analyze_gaps`, scoring rubric |
+| `src/jobmatch/graph/teams/career.py` | `career_advisor`, `career_tools`, `career_plan`: bounded ReAct loop, tool wrappers, post-validation (`ground_plan`) |
+| `src/jobmatch/career/tools.py` | The three local career tools (ESCO search, CV evidence, learning catalog); no network at runtime |
 | `src/jobmatch/graph/teams/writing.py` | `write_letter`, `review_letter`, `verify_claims`, loop routing |
 | `src/jobmatch/graph/teams/_common.py` | `TeamInput` schema (state without `trace`), `to_json()` |
 | `src/jobmatch/decisions/base.py` | `DecisionModel` / `Question` / `Decision` contract |
@@ -384,6 +442,8 @@ Rationale: [ADR 0004](adr/0004-hitl-interrupt-postgres.md).
 | `src/jobmatch/api/routes.py` | HTTP endpoints (see [`api.md`](api.md)) |
 | `src/jobmatch/api/service.py` | `AnalysisService`: background runs, status derivation, resume, failure marking |
 | `src/jobmatch/api/models.py` | HTTP response models |
+| `data/career/` | ESCO snapshot (272 concepts, CC BY 4.0) and curated learning catalog (107 entries) read by the career tools ([README](../data/career/README.md)) |
+| `scripts/` | `build_esco_snapshot.py` (rebuild the ESCO snapshot from the public ESCO API), `verify_learning_resources.py` (link check of the catalog) |
 | `evals/` | DeepEval suite with local Qwen judge ([`evals/README.md`](../evals/README.md)) |
 | `bench/decisions/` | Decision-model benchmark ([`bench/decisions/README.md`](../bench/decisions/README.md)) |
 | `infra/` | Prometheus config, Grafana provisioning and dashboard, jevos Dockerfile |

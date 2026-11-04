@@ -12,5 +12,6 @@ Short records of the main design choices: context, decision, consequences.
 | [0006](0006-decision-layer-jevos.md) | Decision layer: jevos only, yes/no only, English questions, calibrated | accepted, fusion rule amended by 0008 |
 | [0007](0007-local-qwen-judge.md) | Local Qwen as the DeepEval judge | accepted |
 | [0008](0008-fusion-v2-after-ab-eval.md) | Skill fusion v2 (keep the LLM rating unless partial or strongly contradicted) after the A/B eval | accepted |
+| [0009](0009-workflow-plus-autonomous-agent.md) | Deterministic workflow for the pipeline plus one bounded autonomous ReAct agent (career advisor) | accepted |
 
 New record: copy the structure of an existing one, take the next number, and add it to this table.

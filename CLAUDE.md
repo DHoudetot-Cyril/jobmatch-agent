@@ -24,6 +24,12 @@ Portfolio project: code quality, observability and evaluation matter as much as 
   `jobmatch_skill_resolution_total`. Claims dismissed at P(supported) ≥ `CLAIM_DISMISS_THRESHOLD`
   (0.8). Jevos temperatures apply to jevos only (other backends T=1.0). v2 is NOT yet evaluated
   end-to-end (v1 A/B results: docs/decision-layer.md).
+- Career advisor (`graph/teams/career.py`, ADR 0009): the ONE autonomous agent (bounded ReAct
+  loop, Qwen + 3 local tools); everything else is a deterministic workflow. Bounds in code:
+  `CAREER_MAX_TOOL_ROUNDS` (6), `CAREER_TIMEOUT_S` (120 s loop), final plan ≥ `MIN_PLAN_BUDGET_S`
+  (180 s) then deterministic fallback. CV injected via `InjectedState`; plan post-validated
+  (URLs/ESCO URIs not returned by a tool dropped, transferable skills need p ≥ 0.5).
+  `CAREER_ADVISOR_ENABLED=false` = previous pipeline. Data: `CAREER_DATA_DIR` (offline).
 - Reviewer (`review_letter`) runs with no `max_tokens` cap (thinking + long review hit 4096).
 - FastAPI API, Langfuse v4 (self-hosted) tracing, Prometheus + Grafana, DeepEval evals.
 
@@ -47,6 +53,8 @@ src/jobmatch/
 tests/                 unit tests, no LLM needed (use fake chat models); `@pytest.mark.llm` = needs llama-server
 evals/                 DeepEval suite + dataset (fictional data only)
 data/samples/          fictional offers & CVs; data/private/ is git-ignored (real personal data)
+data/career/           ESCO snapshot + curated learning catalog (read offline, shipped in the image)
+scripts/               build_esco_snapshot.py, verify_learning_resources.py (network, build time only)
 bench/decisions/       decision-model benchmark (questions, calibration temperatures used by service.py)
 infra/                 prometheus/, grafana/ (provisioning + dashboards), jevos/ (Dockerfile)
 docs/                  architecture, api, operations, observability, decision-layer, adr/ (keep in sync)
