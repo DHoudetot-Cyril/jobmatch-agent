@@ -1,0 +1,163 @@
+{
+  "case_id": "english_offer_ml",
+  "analysis_id": "eval-english_offer_ml-ccfc679e",
+  "trace_seed": "eval-english_offer_ml-20261104T132919",
+  "trace_id": "5380acd517f56c99bfe6ee71f558595f",
+  "created_at": "20261104T132919",
+  "elapsed_s": 312.2,
+  "offer": {
+    "title": "Machine Learning Engineer",
+    "company": "Tulipwise",
+    "location": "Amsterdam (hybrid)",
+    "seniority": "mid",
+    "skills": [
+      {
+        "name": "Python",
+        "level": "required"
+      },
+      {
+        "name": "PyTorch",
+        "level": "required"
+      },
+      {
+        "name": "TensorFlow",
+        "level": "required"
+      },
+      {
+        "name": "Docker",
+        "level": "required"
+      },
+      {
+        "name": "Kubernetes",
+        "level": "required"
+      },
+      {
+        "name": "MLflow",
+        "level": "required"
+      },
+      {
+        "name": "SQL",
+        "level": "required"
+      },
+      {
+        "name": "Time-series forecasting",
+        "level": "nice_to_have"
+      },
+      {
+        "name": "Dutch",
+        "level": "nice_to_have"
+      }
+    ],
+    "responsibilities": [
+      "Design, train and deploy forecasting and recommendation models.",
+      "Build training and serving pipelines and monitor models in production.",
+      "Work with product managers to turn business questions into ML problems."
+    ],
+    "language": "en"
+  },
+  "profile": {
+    "name": "Sofiane Haddad",
+    "headline": "Data Scientist",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "scikit-learn",
+      "LightGBM",
+      "pandas",
+      "SQL",
+      "BigQuery",
+      "FastAPI",
+      "Docker",
+      "Git",
+      "statsmodels",
+      "Séries temporelles"
+    ],
+    "experiences": [
+      {
+        "role": "Data Scientist",
+        "company": "Nordpanier",
+        "duration_months": 41,
+        "highlights": [
+          "Modèles de prévision des ventes par magasin (séries temporelles, LightGBM puis PyTorch).",
+          "Réduction de 12 % des ruptures de stock sur le périmètre frais.",
+          "Mise à disposition des modèles via une API FastAPI conteneurisée avec Docker.",
+          "Requêtes SQL sur l'entrepôt de données (BigQuery)."
+        ]
+      },
+      {
+        "role": "Data Analyst (alternance)",
+        "company": "Assurances du Nord",
+        "duration_months": 20,
+        "highlights": [
+          "Tableaux de bord et analyses statistiques en Python (pandas, statsmodels)."
+        ]
+      }
+    ],
+    "education": [
+      "Diplôme d'ingénieur, spécialité data science — École Centrale de Lille (2021)"
+    ],
+    "languages": [
+      "Français (natif)",
+      "anglais (courant, C1)",
+      "arabe (conversationnel)"
+    ]
+  },
+  "match": {
+    "score": 58,
+    "matched_skills": [
+      "Python",
+      "PyTorch",
+      "Docker",
+      "SQL",
+      "Time-series forecasting"
+    ],
+    "gaps": [
+      {
+        "skill": "TensorFlow",
+        "level": "required",
+        "advice": "Complete a hands-on TensorFlow/Keras course such as the TensorFlow Developer Certificate or fast.ai, and port one of your PyTorch forecasting models to TensorFlow as a small project. In the application, state that your PyTorch and scikit-learn experience makes the TensorFlow transition straightforward and that you can ramp up quickly."
+      },
+      {
+        "skill": "Kubernetes",
+        "level": "required",
+        "advice": "Leverage your Docker and FastAPI experience by deploying your containerized forecasting API to a local Kubernetes cluster using k3d or Minikube, then document the deployment steps. In the interview, explain that you can build and debug Kubernetes manifests/Helm charts from your containerization background while learning cluster operations."
+      },
+      {
+        "skill": "MLflow",
+        "level": "required",
+        "advice": "Add MLflow to your existing PyTorch/LightGBM forecasting workflow by logging parameters, metrics, and model artifacts, and create a simple model registry for your Nordpanier sales-forecasting project. Mention this as a concrete MLOps project and acknowledge that you are expanding from manual experiment tracking to production-grade MLflow pipelines."
+      },
+      {
+        "skill": "Dutch",
+        "level": "nice_to_have",
+        "advice": "Start a structured A1 Dutch course such as NT2, Duolingo, or a local Amsterdam language program, and commit to 30 minutes daily. In the application, honestly state that you do not speak Dutch yet but have C1 English and are actively learning Dutch for the hybrid role."
+      }
+    ],
+    "strengths": [
+      "Strong relevant forecasting experience: built store-level sales forecasting models using time-series methods, LightGBM, and PyTorch.",
+      "Practical deployment experience: exposed models through a FastAPI service containerized with Docker.",
+      "Solid data engineering foundation: used SQL and BigQuery for data access and analysis.",
+      "Mid-level profile with several years of data science experience and a data science engineering degree."
+    ],
+    "summary": "The candidate is a strong partial fit for the Machine Learning Engineer role, with clear experience in Python, PyTorch, Docker, SQL, and time-series forecasting. The main gaps are TensorFlow, Kubernetes, and MLflow, which are required for the role's production MLOps stack. Overall, the candidate's forecasting and model deployment experience aligns well with the job, but the missing infrastructure and experiment-tracking skills reduce the fit."
+  },
+  "cover_letter": {
+    "subject": "Application for Machine Learning Engineer – Sofiane Haddad",
+    "body": "Dear Tulipwise Hiring Team,\n\nI am writing to apply for the Machine Learning Engineer position in Amsterdam. As a Data Scientist with a data science engineering degree from École Centrale de Lille, I am interested in designing, training, and deploying forecasting models for Tulipwise.\n\nAt Nordpanier, I developed store-level sales forecasting models using time-series methods, LightGBM, and PyTorch. This work contributed to a 12% reduction in stockouts for the fresh product perimeter. I also exposed the models through a FastAPI service containerized with Docker, and used SQL and BigQuery to query and prepare the data needed for training and evaluation. These experiences align closely with the role’s focus on building training and serving pipelines and turning business questions into practical ML solutions.\n\nI understand that TensorFlow, Kubernetes, and MLflow are required for this role. I am eager to learn them and to build on my Python, PyTorch, Docker, and SQL experience as I contribute to production machine learning work. I work comfortably in English at a C1 level.\n\nI would be glad to bring my forecasting experience, data engineering skills, and enthusiasm for production machine learning to Tulipwise. Thank you for considering my application.\n\nSincerely,\nSofiane Haddad",
+    "language": "en"
+  },
+  "review": {
+    "approved": false,
+    "issues": [
+      "Claim: 'I understand that TensorFlow, Kubernetes, and MLflow are required for this role. I am eager to learn them...' — The candidate profile and CV do not show any experience with TensorFlow, Kubernetes, or MLflow. Stating that the candidate is 'eager to learn' them is not a factual claim, but the letter presents these as required skills while the candidate lacks them. This is not a hallucination, but it is a material mismatch with the required skills and should be addressed more explicitly rather than framed only as eagerness to learn.",
+      "Claim: 'I would be glad to bring my forecasting experience, data engineering skills, and enthusiasm for production machine learning to Tulipwise.' — 'Data engineering skills' is not explicitly supported by the profile or CV. The candidate has data-related and deployment-related skills (SQL, BigQuery, FastAPI, Docker), but the CV does not describe a data engineering role or data engineering experience. This wording overstates the candidate's profile."
+    ],
+    "suggestions": [
+      "The letter is in English, tailored to the role and company, and has no placeholders. It is professional and within the requested length.",
+      "Consider explicitly acknowledging the gap in TensorFlow, Kubernetes, and MLflow as a learning objective, while emphasizing transferable experience with PyTorch, Docker, SQL, and model serving via FastAPI.",
+      "Replace 'data engineering skills' with a more precise phrase such as 'data preparation and model deployment experience' to stay strictly aligned with the CV."
+    ]
+  },
+  "review_iterations": 2,
+  "status": "awaiting_approval"
+}

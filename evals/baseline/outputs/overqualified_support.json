@@ -1,0 +1,131 @@
+{
+  "case_id": "overqualified_support",
+  "analysis_id": "eval-overqualified_support-ac7c4cb4",
+  "trace_seed": "eval-overqualified_support-20261104T134704",
+  "trace_id": "dbab2884f1bece84dd0f8b62e6e2fbe4",
+  "created_at": "20261104T134704",
+  "elapsed_s": 330.7,
+  "offer": {
+    "title": "Technicien Support Informatique N1 (H/F)",
+    "company": "Breizh Mutuelle Services",
+    "location": "Rennes",
+    "seniority": "junior",
+    "skills": [
+      {
+        "name": "Windows",
+        "level": "required"
+      },
+      {
+        "name": "Office 365",
+        "level": "required"
+      },
+      {
+        "name": "Active Directory",
+        "level": "required"
+      },
+      {
+        "name": "ITIL",
+        "level": "required"
+      },
+      {
+        "name": "GLPI",
+        "level": "nice_to_have"
+      }
+    ],
+    "responsibilities": [
+      "Prise en charge des appels et tickets utilisateurs (outil GLPI).",
+      "Résolution des incidents de premier niveau sur postes Windows et Office 365.",
+      "Gestion des comptes dans Active Directory (création, réinitialisation de mots de passe).",
+      "Préparation et installation des postes de travail."
+    ],
+    "language": "fr"
+  },
+  "profile": {
+    "name": "Patrick Le Goff",
+    "headline": "Responsable des systèmes d'information",
+    "skills": [
+      "Windows",
+      "Windows Server",
+      "Active Directory",
+      "Office 365",
+      "GLPI",
+      "ITIL v4",
+      "Windows 10",
+      "GPO"
+    ],
+    "experiences": [
+      {
+        "role": "Responsable des systèmes d'information",
+        "company": "Groupe Armorique Distribution",
+        "duration_months": 108,
+        "highlights": [
+          "Direction d'une équipe de 8 personnes (support, infrastructure, applications).",
+          "Pilotage de la migration de 600 postes vers Windows 10 et Office 365.",
+          "Mise en place d'un centre de services selon ITIL v4 (outil GLPI).",
+          "Gestion d'un budget annuel de 1,2 M€."
+        ]
+      },
+      {
+        "role": "Administrateur systèmes Windows",
+        "company": "Ouest Logistique",
+        "duration_months": 72,
+        "highlights": [
+          "Administration Active Directory, GPO, serveurs Windows Server.",
+          "Support N2/N3 aux utilisateurs."
+        ]
+      },
+      {
+        "role": "Technicien support",
+        "company": "Bretagne Informatique Services",
+        "duration_months": 36,
+        "highlights": [
+          "Support N1 téléphonique et sur site, installation de postes."
+        ]
+      }
+    ],
+    "education": [
+      "Master Management des systèmes d'information — IAE de Rennes (2006)"
+    ],
+    "languages": [
+      "Français",
+      "anglais (courant)"
+    ]
+  },
+  "match": {
+    "score": 96,
+    "matched_skills": [
+      "Windows",
+      "Office 365",
+      "Active Directory",
+      "ITIL",
+      "GLPI"
+    ],
+    "gaps": [],
+    "strengths": [
+      "Expérience directe en support N1 : « Support N1 téléphonique et sur site, installation de postes » chez Bretagne Informatique Services.",
+      "Solide maîtrise opérationnelle de Windows, Active Directory, GPO et Office 365, avec une migration de 600 postes vers Windows 10 et Office 365.",
+      "Connaissance pratique de GLPI et d’ITIL v4, notamment via la mise en place d’un centre de services.",
+      "Capacité à gérer des environnements utilisateurs et infrastructurels, avec une expérience N2/N3 et une direction d’équipe de 8 personnes."
+    ],
+    "summary": "Le candidat présente un très bon alignement technique avec le poste, car toutes les compétences requises sont clairement démontrées dans son CV. Son profil est toutefois nettement plus senior que le niveau junior recherché, avec 18 ans d’expérience et des responsabilités de direction SI. Il serait donc un excellent candidat si la mission opérationnelle N1 correspond à ses attentes et si l’entreprise accepte un profil surqualifié."
+  },
+  "cover_letter": {
+    "subject": "Candidature – Technicien Support Informatique N1 (H/F)",
+    "body": "Madame, Monsieur,\n\nAprès avoir exercé en tant que responsable des systèmes d'information, je souhaite mettre mon expérience opérationnelle en support informatique au service de Breizh Mutuelle Services. Votre annonce correspond à un socle technique que j'ai pratiqué concrètement : prise en charge des utilisateurs, résolution des incidents Windows et Office 365, gestion des comptes Active Directory et suivi des tickets via GLPI.\n\nChez Bretagne Informatique Services, j'ai assuré le support N1 téléphonique et sur site, ainsi que l'installation de postes de travail. Cette expérience m'a permis de développer une approche simple et efficace de la résolution des incidents de premier niveau, avec une attention particulière portée à la clarté des échanges et à la satisfaction des utilisateurs. J'ai également administré Active Directory, GPO et Windows Server chez Ouest Logistique, ce qui me permet de gérer les créations de comptes, les réinitialisations de mots de passe et les configurations de postes en toute rigueur.\n\nAu sein du Groupe Armorique Distribution, j'ai piloté la migration de 600 postes vers Windows 10 et Office 365, puis mis en place un centre de services selon ITIL v4 avec l'outil GLPI. Ces réalisations m'ont donné une connaissance pratique des processus de gestion des tickets, de la standardisation des incidents et de l'amélioration continue du service. Je sais donc travailler avec des outils de ticketing, suivre les demandes utilisateurs et contribuer à un support structuré, même si mon parcours m'a aussi amené à piloter une équipe de 8 personnes.\n\nVotre poste de Technicien Support Informatique N1 me semble une belle opportunité pour exercer au plus près du terrain, avec des missions concrètes d'accompagnement des utilisateurs, de préparation des postes et de gestion des comptes. Je serais heureux d'échanger avec vous pour vous présenter plus en détail ma manière de travailler et ma motivation à rejoindre votre équipe.\n\nCordialement,\nPatrick Le Goff",
+    "language": "fr"
+  },
+  "review": {
+    "approved": false,
+    "issues": [
+      "Claim: “résolution des incidents Windows et Office 365” — The CV/profile supports Windows support, Windows administration, and Office 365 migration, but does not explicitly state that the candidate resolved Office 365 incidents. This specific Office 365 incident-resolution claim is not directly supported.",
+      "Claim: “gestion des comptes Active Directory” and later “créations de comptes, les réinitialisations de mots de passe” — The CV/profile supports “Administration Active Directory,” but does not explicitly mention account creation or password reset. These specific account-management tasks are not directly evidenced in the provided profile/CV."
+    ],
+    "suggestions": [
+      "The letter is in French, tailored to the role and company, and professionally written.",
+      "The letter is approximately 300 words, within the requested 250–400 word range.",
+      "To strengthen factual alignment, explicitly link the candidate’s support N1 experience to incident resolution and, if true, specify any direct Office 365 support or AD account-management tasks from the CV."
+    ]
+  },
+  "review_iterations": 2,
+  "status": "awaiting_approval"
+}

@@ -1,0 +1,210 @@
+{
+  "case_id": "partial_fit_devops",
+  "analysis_id": "eval-partial_fit_devops-ac5c13c2",
+  "trace_seed": "eval-partial_fit_devops-20261104T134022",
+  "trace_id": "2f52543ca4e0c78163883ae58594f5c4",
+  "created_at": "20261104T134022",
+  "elapsed_s": 429.5,
+  "offer": {
+    "title": "Ingénieur DevOps Cloud (H/F)",
+    "company": "Aérovia Services",
+    "location": "Toulouse",
+    "seniority": "mid",
+    "skills": [
+      {
+        "name": "AWS",
+        "level": "required"
+      },
+      {
+        "name": "Terraform",
+        "level": "required"
+      },
+      {
+        "name": "Kubernetes",
+        "level": "required"
+      },
+      {
+        "name": "Helm",
+        "level": "required"
+      },
+      {
+        "name": "Prometheus",
+        "level": "required"
+      },
+      {
+        "name": "Grafana",
+        "level": "required"
+      },
+      {
+        "name": "Ansible",
+        "level": "required"
+      },
+      {
+        "name": "Linux",
+        "level": "required"
+      },
+      {
+        "name": "Docker",
+        "level": "required"
+      },
+      {
+        "name": "Bash",
+        "level": "required"
+      },
+      {
+        "name": "Python",
+        "level": "required"
+      },
+      {
+        "name": "AWS",
+        "level": "nice_to_have"
+      },
+      {
+        "name": "CKA",
+        "level": "nice_to_have"
+      },
+      {
+        "name": "GitLab CI",
+        "level": "nice_to_have"
+      }
+    ],
+    "responsibilities": [
+      "Construire et maintenir l'infrastructure AWS en Infrastructure as Code (Terraform).",
+      "Administrer nos clusters Kubernetes (EKS) et industrialiser les déploiements (Helm).",
+      "Mettre en place l'observabilité (Prometheus, Grafana) et les alertes.",
+      "Automatiser les configurations serveurs (Ansible)."
+    ],
+    "language": "fr"
+  },
+  "profile": {
+    "name": "Nadia Benali",
+    "headline": "Administratrice systèmes Linux",
+    "skills": [
+      "Linux",
+      "Bash",
+      "Ansible",
+      "Docker",
+      "Zabbix",
+      "VMware",
+      "TCP/IP",
+      "Python",
+      "Debian",
+      "Rocky Linux",
+      "Docker Compose",
+      "VMware vSphere",
+      "Windows"
+    ],
+    "experiences": [
+      {
+        "role": "Administratrice systèmes et réseaux",
+        "company": "Clinique des Pins",
+        "duration_months": 68,
+        "highlights": [
+          "Administration d'un parc de 120 serveurs Linux (Debian, Rocky Linux) sur site.",
+          "Automatisation des configurations avec Ansible (60 rôles écrits).",
+          "Supervision avec Zabbix, scripts Bash de sauvegarde et de rotation des logs.",
+          "Mise en place de quelques services conteneurisés avec Docker Compose (wiki, outils internes).",
+          "Virtualisation VMware vSphere."
+        ]
+      },
+      {
+        "role": "Technicienne systèmes",
+        "company": "InfoSud Maintenance",
+        "duration_months": 29,
+        "highlights": [
+          "Support N2, installation de postes et de serveurs Windows et Linux."
+        ]
+      }
+    ],
+    "education": [
+      "BTS Systèmes numériques option Informatique et Réseaux (2016)"
+    ],
+    "languages": [
+      "Français",
+      "anglais technique"
+    ]
+  },
+  "match": {
+    "score": 40,
+    "matched_skills": [
+      "Ansible",
+      "Linux",
+      "Docker",
+      "Bash",
+      "Python"
+    ],
+    "gaps": [
+      {
+        "skill": "AWS",
+        "level": "nice_to_have",
+        "advice": "Passez la certification AWS Cloud Practitioner ou le parcours AWS Skill Builder « Foundations of AWS » et créez un projet EKS/Terraform de démo. En entretien, présentez votre expérience VMware/Linux comme base de virtualisation et exprimez votre volonté de migrer vers AWS."
+      },
+      {
+        "skill": "Terraform",
+        "level": "required",
+        "advice": "Suivez le cours « Terraform: Infrastructure as Code » de HashiCorp et reproduisez un projet EKS + VPC + S3 en mode IAC. Valorisez vos 60 rôles Ansible comme preuve d'automatisation et dites que vous adaptez cette rigueur à Terraform."
+      },
+      {
+        "skill": "Kubernetes",
+        "level": "required",
+        "advice": "Installez un cluster local kind/k3s, déployez un service avec ingress et RBAC, puis documentez l'administration. Appuyez-vous sur Docker Compose et Linux pour montrer votre maîtrise des conteneurs et des réseaux, et annoncez un plan de montée en compétence Kubernetes."
+      },
+      {
+        "skill": "Helm",
+        "level": "required",
+        "advice": "Créez une charte Helm simple pour un service web (values, templates, upgrade) et publiez-la sur Git. Reliez cette démarche à vos déploiements Docker Compose et à vos automatisations Ansible pour prouver votre capacité à industrialiser les déploiements."
+      },
+      {
+        "skill": "Prometheus",
+        "level": "required",
+        "advice": "Mettez en place Prometheus + node_exporter sur une VM Linux et comparez vos alertes Zabbix existantes. En entretien, expliquez que vous maîtrisez déjà la supervision et que vous transposerez vos règles d'alerting vers Prometheus."
+      },
+      {
+        "skill": "Grafana",
+        "level": "required",
+        "advice": "Construisez des dashboards Grafana pour Prometheus (CPU, mémoire, latence) et intégrez-les à votre projet d'observabilité. Présentez votre expérience Zabbix comme une base solide de supervision et votre capacité à créer des tableaux de bord exploitables."
+      },
+      {
+        "skill": "AWS",
+        "level": "nice_to_have",
+        "advice": "Passez la certification AWS Cloud Practitioner ou le parcours AWS Skill Builder « Foundations of AWS » et créez un projet EKS/Terraform de démo. En entretien, présentez votre expérience VMware/Linux comme base de virtualisation et exprimez votre volonté de migrer vers AWS."
+      },
+      {
+        "skill": "CKA",
+        "level": "nice_to_have",
+        "advice": "Planifiez la certification CKA avec le lab « Kubernetes Administrator » de Linux Academy ou la formation officielle, en commençant par les labs de cluster administration. En entretien, présentez-la comme un objectif à court terme et appuyez-vous sur votre expérience Docker/Linux pour montrer votre capacité à apprendre rapidement."
+      },
+      {
+        "skill": "GitLab CI",
+        "level": "nice_to_have",
+        "advice": "Créez un pipeline GitLab CI simple qui build une image Docker, exécute des tests et déploie sur un cluster Kubernetes local. Valorisez vos scripts Bash et Ansible comme preuve d'automatisation et dites que vous adaptez cette logique aux pipelines CI/CD."
+      }
+    ],
+    "strengths": [
+      "Solide expérience d'administration Linux sur un parc important de 120 serveurs Debian/Rocky Linux.",
+      "Pratique concrète de l'automatisation avec Ansible, avec 60 rôles écrits.",
+      "Bases opérationnelles en conteneurisation Docker/Docker Compose et en scripting Bash.",
+      "Expérience de supervision et d'exploitation de serveurs, même si l'outil est Zabbix plutôt que Prometheus/Grafana."
+    ],
+    "summary": "La candidate possède un bon socle en administration Linux, Ansible, Bash et Docker, mais le poste exige un profil DevOps Cloud avec AWS, Terraform, Kubernetes, Helm et observabilité Prometheus/Grafana, qui ne sont pas démontrés. Son expérience est plutôt orientée systèmes on-premise et ne couvre pas les responsabilités cloud et Kubernetes du poste. Elle pourrait convenir pour un rôle d'administration Linux/automatisation, mais pas pour un poste mid DevOps Cloud sans montée en compétences significative."
+  },
+  "cover_letter": {
+    "subject": "Candidature – Ingénieur DevOps Cloud (H/F)",
+    "body": "Madame, Monsieur,\n\nAdministratrice systèmes Linux, je vous adresse ma candidature pour le poste d’Ingénieur DevOps Cloud (H/F) chez Aérovia Services à Toulouse. Votre offre, centrée sur l’industrialisation de l’infrastructure, l’automatisation et la supervision, correspond aux compétences que j’ai développées dans l’administration de parcs de serveurs.\n\nChez Clinique des Pins, j’ai administré un parc de 120 serveurs Linux Debian et Rocky Linux. J’ai automatisé les configurations avec Ansible en écrivant 60 rôles, une pratique qui me semble directement transposable à la mise en œuvre de configurations serveurs dans votre environnement. J’ai également utilisé Docker Compose pour déployer quelques services conteneurisés, notamment un wiki et des outils internes, et j’ai développé des scripts Bash pour les sauvegardes et la rotation des logs. J’ai utilisé Zabbix pour la supervision de ces serveurs, ce qui m’a donnée une expérience concrète de l’exploitation et du suivi de l’infrastructure.\n\nLe poste requiert AWS, Terraform, Kubernetes, Helm, Prometheus et Grafana. Je n’ai pas encore d’expérience directe sur l’ensemble de ces technologies, mais je dispose d’un socle solide en Linux, Bash, Ansible et Docker, ainsi que de notions de Python. Je souhaite monter rapidement en compétences sur l’Infrastructure as Code, les clusters Kubernetes et l’observabilité, en m’appuyant sur mes pratiques d’automatisation et de supervision.\n\nJe serais ravie de vous présenter mes motivations et d’échanger sur la manière dont je pourrais contribuer à la construction et à la maintenance de votre infrastructure chez Aérovia Services.\n\nCordialement,\nNadia Benali",
+    "language": "fr"
+  },
+  "review": {
+    "approved": false,
+    "issues": [
+      "The letter states: 'Le poste requiert AWS, Terraform, Kubernetes, Helm, Prometheus et Grafana.' This is not fully supported by the job offer. The offer lists AWS, Terraform, Kubernetes, Helm, Prometheus, Grafana, Ansible, Linux, Docker, Bash, and Python as required skills. The sentence omits several required skills and presents an incomplete list as if it were the full set of required technologies.",
+      "The letter states: 'Je n’ai pas encore d’expérience directe sur l’ensemble de ces technologies.' This is not supported by the candidate profile or CV. The candidate has direct experience with Docker (Docker Compose), Linux, Bash, Ansible, and Python (notions). The statement is too broad and could imply no direct experience with any of the listed technologies, which is inaccurate."
+    ],
+    "suggestions": [
+      "Revise the sentence about required technologies to accurately reflect the job offer, e.g., 'Le poste requiert notamment AWS, Terraform, Kubernetes, Helm, Prometheus, Grafana, Ansible, Linux, Docker, Bash et Python.'",
+      "Clarify the candidate's lack of experience by specifying the missing technologies, e.g., 'Je n’ai pas encore d’expérience directe sur AWS, Terraform, Kubernetes, Helm, Prometheus et Grafana, mais je dispose d’un socle solide en Linux, Bash, Ansible et Docker, ainsi que de notions de Python.'",
+      "Consider adding a brief mention of the candidate's willingness to obtain relevant certifications (e.g., CKA) if applicable, as it is listed as a nice-to-have in the job offer."
+    ]
+  },
+  "review_iterations": 2,
+  "status": "awaiting_approval"
+}

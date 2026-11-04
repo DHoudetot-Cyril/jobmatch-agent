@@ -1,0 +1,166 @@
+{
+  "case_id": "few_skills_logistics",
+  "analysis_id": "eval-few_skills_logistics-2aa65bcb",
+  "trace_seed": "eval-few_skills_logistics-20261104T135235",
+  "trace_id": "87a5bf989e2c3da9f55781a20062298a",
+  "created_at": "20261104T135235",
+  "elapsed_s": 407.5,
+  "offer": {
+    "title": "Chef d'équipe logistique (H/F)",
+    "company": "Loirexpress",
+    "location": "Orléans",
+    "seniority": "mid",
+    "skills": [
+      {
+        "name": "Logistique",
+        "level": "required"
+      },
+      {
+        "name": "Encadrement",
+        "level": "required"
+      },
+      {
+        "name": "CACES 1",
+        "level": "required"
+      },
+      {
+        "name": "CACES 3",
+        "level": "required"
+      },
+      {
+        "name": "CACES 5",
+        "level": "required"
+      },
+      {
+        "name": "WMS",
+        "level": "required"
+      },
+      {
+        "name": "SAP",
+        "level": "required"
+      },
+      {
+        "name": "Excel",
+        "level": "nice_to_have"
+      }
+    ],
+    "responsibilities": [
+      "Encadrer une équipe de 15 préparateurs de commandes et caristes.",
+      "Organiser les flux de réception et d'expédition, suivre les indicateurs (productivité, taux d'erreur).",
+      "Veiller au respect des règles de sécurité.",
+      "Réaliser les inventaires."
+    ],
+    "language": "fr"
+  },
+  "profile": {
+    "name": "Mickaël Rousseau",
+    "headline": null,
+    "skills": [
+      "Préparation de commandes",
+      "Gestion d'équipe",
+      "Planification",
+      "Formation",
+      "Inventaires tournants",
+      "Reporting productivité",
+      "Conduite de chariots",
+      "Réception de camions",
+      "Scanner",
+      "CACES 1",
+      "CACES 3",
+      "CACES 5",
+      "SST"
+    ],
+    "experiences": [
+      {
+        "role": "Chef d'équipe (intérim puis CDI)",
+        "company": "Entrepôt Val de Loire Distribution",
+        "duration_months": null,
+        "highlights": [
+          "J'organise le travail d'une équipe de 8 personnes en préparation de commandes",
+          "je fais les plannings",
+          "je forme les nouveaux arrivants",
+          "Je m'occupe des inventaires tournants",
+          "je remonte les chiffres de productivité au responsable de site chaque semaine"
+        ]
+      },
+      {
+        "role": "Cariste puis préparateur de commandes",
+        "company": "Logicentre",
+        "duration_months": 60,
+        "highlights": [
+          "Conduite de chariots",
+          "réception des camions",
+          "préparation sur scanner",
+          "Titulaire des CACES 1, 3 et 5 (recyclage en 2023)"
+        ]
+      },
+      {
+        "role": "Manutentionnaire en intérim",
+        "company": null,
+        "duration_months": 24,
+        "highlights": [
+          "plusieurs missions"
+        ]
+      }
+    ],
+    "education": [
+      "CAP Opérateur logistique (2014)",
+      "Formation Sauveteur Secouriste du Travail (SST), 2022"
+    ],
+    "languages": []
+  },
+  "match": {
+    "score": 61,
+    "matched_skills": [
+      "Logistique",
+      "Encadrement",
+      "CACES 1",
+      "CACES 3",
+      "CACES 5"
+    ],
+    "gaps": [
+      {
+        "skill": "WMS",
+        "level": "required",
+        "advice": "Précisez dans votre CV et à l'entretien que votre préparation sur scanner et vos inventaires tournants s'effectuent via un WMS (nommez-le si possible, ex. SAP EWM, Manhattan, JDA), et demandez à votre ancien employeur de confirmer le nom de l'outil. Si ce n'est pas le cas, suivez une formation courte WMS et préparez un mini-projet de modélisation des flux réception/préparation/expédition pour montrer votre maîtrise des processus."
+      },
+      {
+        "skill": "SAP",
+        "level": "required",
+        "advice": "Si vous avez déjà touché SAP, ajoutez-le explicitement (SAP EWM, SAP WM, SAP MM) avec les transactions ou processus utilisés ; sinon, indiquez honnêtement que vous êtes opérationnel sur les processus logistiques et en cours de formation SAP. Complétez par un module openSAP/SAP Learning Hub sur la logistique et un petit exercice de saisie de mouvements de stock, bons de commande et inventaires."
+      },
+      {
+        "skill": "Excel",
+        "level": "nice_to_have",
+        "advice": "Valorisez votre reporting productivité en précisant qu'il est réalisé sous Excel (tableaux croisés, graphiques, suivi productivité/taux d'erreur) et joignez un exemple de tableau de bord. Si l'outil n'est pas Excel, suivez une formation Excel intermédiaire et créez un tableau de bord logistique simple pour prouver votre capacité à suivre les indicateurs."
+      }
+    ],
+    "strengths": [
+      "Expérience directe d'encadrement en préparation de commandes : organisation du travail, plannings et formation des nouveaux arrivants.",
+      "Maîtrise opérationnelle des flux logistiques : réception de camions, préparation sur scanner, inventaires tournants et suivi de productivité.",
+      "CACES 1, 3 et 5 à jour avec recyclage en 2023, ainsi qu'une formation SST, ce qui correspond aux exigences de sécurité et de conduite de chariots."
+    ],
+    "summary": "Le candidat présente un bon profil opérationnel pour un poste de chef d'équipe logistique, avec une expérience d'encadrement, de préparation de commandes, d'inventaires et de suivi de productivité. Son niveau d'expérience correspond à un poste intermédiaire, même si l'équipe encadrée est plus petite que les 15 personnes attendues. Les principales limites concernent l'absence de preuve d'utilisation de WMS et de SAP."
+  },
+  "cover_letter": {
+    "subject": "Candidature au poste de Chef d’équipe logistique",
+    "body": "Madame, Monsieur,\n\nJe vous adresse ma candidature pour le poste de Chef d’équipe logistique au sein de Loirexpress à Orléans. Mon parcours en préparation de commandes, ma pratique de la réception de camions et mon expérience d’encadrement me motivent à rejoindre votre équipe.\n\nAu sein d’Entrepôt Val de Loire Distribution, en tant que chef d’équipe (intérim puis CDI), j’ai organisé le travail d’une équipe de huit personnes, réalisé les plannings, formé les nouveaux arrivants et mené les inventaires tournants. Chaque semaine, j’ai remonté les chiffres de productivité au responsable de site. Ces missions m’ont permis de développer une organisation rigoureuse, une écoute des besoins terrain et une attention constante aux règles de sécurité, notamment grâce à ma formation Sauveteur Secouriste du Travail.\n\nAuparavant, chez Logicentre, j’ai exercé comme cariste puis préparateur de commandes. J’ai notamment assuré la réception des camions, la préparation sur scanner et la conduite de chariots. Titulaire des CACES 1, 3 et 5, recyclés en 2023, je connais bien les contraintes opérationnelles des préparateurs et des caristes. Je souhaite appliquer cette expérience à une équipe de quinze personnes et contribuer aux opérations de réception et de préparation de commandes, en m’appropriant rapidement les flux d’expédition.\n\nJe n’ai pas encore d’expérience directe avec WMS et SAP. Je suis prêt à m’approprier ces outils rapidement, en m’appuyant sur ma pratique quotidienne de la préparation, des inventaires et du suivi de la productivité. Je serais ravi d’échanger avec vous afin de vous présenter plus en détail ma motivation et mon expérience.\n\nCordialement,\nMickaël Rousseau",
+    "language": "fr"
+  },
+  "review": {
+    "approved": false,
+    "issues": [
+      "The letter claims: 'une attention constante aux règles de sécurité, notamment grâce à ma formation Sauveteur Secouriste du Travail.' The candidate profile and CV support the SST training, but they do not support a demonstrated 'constant attention to safety rules' as a professional behavior or achievement. This is an unsupported inference/hallucinated quality.",
+      "The letter claims: 'Je suis prêt à m’approprier ces outils rapidement, en m’appuyant sur ma pratique quotidienne de la préparation, des inventaires et du suivi de la productivité.' The profile/CV support preparation, inventories, and productivity reporting, but they do not support that these practices are 'quotidienne' (daily). The CV says productivity figures are reported 'chaque semaine', not daily, and does not state daily inventory or preparation practice.",
+      "The letter claims: 'en m’appropriant rapidement les flux d’expédition.' The candidate profile/CV mention 'réception de camions' and 'préparation de commandes', but do not mention experience with outbound/expedition flows. This is an unsupported claim about the candidate's ability to take over outbound flows quickly."
+    ],
+    "suggestions": [
+      "Replace 'une attention constante aux règles de sécurité' with a safer phrasing such as 'une vigilance aux règles de sécurité, renforcée par ma formation SST' if you want to avoid implying a proven track record.",
+      "Change 'pratique quotidienne' to 'pratique régulière' or 'expérience en préparation, inventaires et suivi de productivité' to stay strictly aligned with the CV.",
+      "Soften 'en m’appropriant rapidement les flux d’expédition' to 'en m’appropriant rapidement les flux de réception et d’expédition' or 'en contribuant aux flux de réception et d’expédition' to avoid claiming unverified outbound experience.",
+      "The letter is in French, tailored to Loirexpress and the role, and has no placeholders. The main blockers are the unsupported safety, daily-practice, and outbound-flow claims."
+    ]
+  },
+  "review_iterations": 2,
+  "status": "awaiting_approval"
+}

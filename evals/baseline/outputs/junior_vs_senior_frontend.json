@@ -1,0 +1,157 @@
+{
+  "case_id": "junior_vs_senior_frontend",
+  "analysis_id": "eval-junior_vs_senior_frontend-b0ab92cf",
+  "trace_seed": "eval-junior_vs_senior_frontend-20261104T134022",
+  "trace_id": "adb5f9dbcbb07bef3f546c789cfc47e6",
+  "created_at": "20261104T134022",
+  "elapsed_s": 402.2,
+  "offer": {
+    "title": "Lead Développeur Frontend (H/F)",
+    "company": "Vinéo",
+    "location": "Bordeaux",
+    "seniority": "senior",
+    "skills": [
+      {
+        "name": "React",
+        "level": "required"
+      },
+      {
+        "name": "TypeScript",
+        "level": "required"
+      },
+      {
+        "name": "Next.js",
+        "level": "required"
+      },
+      {
+        "name": "Jest",
+        "level": "required"
+      },
+      {
+        "name": "Cypress",
+        "level": "required"
+      },
+      {
+        "name": "JavaScript",
+        "level": "required"
+      },
+      {
+        "name": "GraphQL",
+        "level": "nice_to_have"
+      },
+      {
+        "name": "E-commerce",
+        "level": "nice_to_have"
+      }
+    ],
+    "responsibilities": [
+      "Encadrer une équipe de 4 développeurs frontend (revues de code, mentorat, recrutement).",
+      "Définir l'architecture frontend (Next.js, design system).",
+      "Garantir la performance et l'accessibilité (Core Web Vitals, RGAA).",
+      "Mettre en place la stratégie de tests (Jest, Cypress)."
+    ],
+    "language": "fr"
+  },
+  "profile": {
+    "name": "Lucas Ferreira",
+    "headline": "Développeur Frontend Junior",
+    "skills": [
+      "JavaScript",
+      "React",
+      "TypeScript",
+      "HTML",
+      "CSS",
+      "Jest",
+      "Git",
+      "Figma"
+    ],
+    "experiences": [
+      {
+        "role": "Développeur Frontend",
+        "company": "Agence Pixelbleu (agence fictive)",
+        "duration_months": 13,
+        "highlights": [
+          "Intégration de maquettes Figma en composants React pour des sites vitrines.",
+          "Premiers développements en TypeScript sur un projet de prise de rendez-vous.",
+          "Tests unitaires avec Jest sur les composants principaux."
+        ]
+      },
+      {
+        "role": "Stage Développeur Web",
+        "company": "Mairie de Pessac (stage fictif)",
+        "duration_months": 4,
+        "highlights": [
+          "Refonte de pages en HTML/CSS/JavaScript."
+        ]
+      }
+    ],
+    "education": [
+      "Bachelor Développement web — École Numéris Bordeaux (école fictive), 2023"
+    ],
+    "languages": [
+      "Français",
+      "portugais",
+      "anglais (B2)"
+    ]
+  },
+  "match": {
+    "score": 48,
+    "matched_skills": [
+      "React",
+      "TypeScript",
+      "Jest",
+      "JavaScript"
+    ],
+    "gaps": [
+      {
+        "skill": "Next.js",
+        "level": "required",
+        "advice": "Suivez le parcours officiel Next.js (Learn) et reproduisez un site vitrine en Next.js avec TypeScript, en ajoutant des tests Jest sur les composants. En entretien, reconnaissez l'absence d'expérience Next.js mais valorisez votre maîtrise React/TypeScript et votre capacité à monter rapidement en compétence."
+      },
+      {
+        "skill": "Cypress",
+        "level": "required",
+        "advice": "Ajoutez 3 à 5 tests E2E Cypress sur un parcours clé de votre projet React (navigation, formulaire, état) et documentez la stratégie de tests. En entretien, appuyez-vous sur votre expérience Jest pour montrer votre culture qualité et votre capacité à industrialiser les tests."
+      },
+      {
+        "skill": "GraphQL",
+        "level": "nice_to_have",
+        "advice": "Suivez le cours officiel GraphQL ou Apollo et créez un mini-projet React/Next.js consommant une API GraphQL (par exemple Hasura). En entretien, présentez cette initiative comme un complément à votre expérience JavaScript et API, en précisant que c'est une compétence à consolider."
+      },
+      {
+        "skill": "E-commerce",
+        "level": "nice_to_have",
+        "advice": "Développez un mini e-commerce (catalogue, panier, checkout simulé) avec React/Next.js et TypeScript, en mettant l'accent sur l'accessibilité et les Core Web Vitals. En entretien, reliez cette démo à vos projets vitrines et prise de rendez-vous pour montrer votre capacité à construire des parcours utilisateurs complets."
+      }
+    ],
+    "strengths": [
+      "Expérience professionnelle en développement frontend React, notamment l’intégration de maquettes Figma en composants React.",
+      "Première expérience en TypeScript dans un contexte professionnel, sur un projet de prise de rendez-vous.",
+      "Pratique des tests unitaires avec Jest sur des composants principaux.",
+      "Profil basé à Bordeaux et francophone, cohérent avec le lieu et la langue du poste."
+    ],
+    "summary": "Lucas possède des bases frontend utiles en React, TypeScript et Jest, mais son profil est junior et ne correspond pas à la séniorité attendue pour un lead. Il manque des compétences clés du poste, notamment Next.js, Cypress et l’encadrement d’une équipe. Son expérience actuelle est trop limitée pour assumer la définition de l’architecture frontend, la stratégie de tests et le mentorat."
+  },
+  "cover_letter": {
+    "subject": "Candidature au poste de Lead Développeur Frontend – Lucas Ferreira",
+    "body": "Madame, Monsieur,\n\nJe vous adresse ma candidature pour le poste de Lead Développeur Frontend au sein de Vinéo, à Bordeaux. Mon profil est junior et je n’ai pas encore exercé de fonctions d’encadrement ni de responsabilité d’architecture. Je postule avec transparence sur cet écart, en m’appuyant sur mes premières expériences professionnelles en React, TypeScript, JavaScript et Jest, ainsi que sur ma motivation à monter rapidement en compétence sur Next.js et Cypress.\n\nChez Agence Pixelbleu, j’ai intégré des maquettes Figma en composants React pour des sites vitrines. Cette expérience m’a donné une pratique concrète de React et de JavaScript, ainsi qu’une attention au rendu des interfaces. Sur un projet de prise de rendez-vous, j’ai réalisé mes premiers développements en TypeScript, ce qui correspond à l’une des compétences techniques attendues sur votre poste. J’ai également écrit des tests unitaires avec Jest sur les composants principaux, ce qui m’a familiarisé avec la vérification du comportement des composants React.\n\nJe sais que le poste implique de définir l’architecture frontend, d’accompagner une équipe et de mettre en place une stratégie de tests. Je ne prétends pas déjà disposer de ces responsabilités. En revanche, je souhaite m’investir dans un parcours de progression structuré : approfondir Next.js à partir de mes bases React et TypeScript, apprendre Cypress en prolongement de ma pratique de Jest, et contribuer progressivement aux exigences de qualité, de performance et d’accessibilité de vos applications.\n\nBasé à Bordeaux, je serais ravi d’échanger avec vous sur la manière dont mon profil pourrait s’inscrire dans vos projets, ainsi que sur les conditions d’une montée en compétences vers des responsabilités de lead.\n\nCordialement,\nLucas Ferreira",
+    "language": "fr"
+  },
+  "review": {
+    "approved": false,
+    "issues": [
+      "The letter is not tailored to the offer’s seniority and core requirements: it explicitly presents the candidate as junior and states he has no management or architecture experience, while the offer is for a senior Lead Développeur Frontend requiring team leadership, frontend architecture, Next.js, Cypress, performance/accessibility, and test strategy. This makes the letter unsuitable for the role as written.",
+      "The letter claims the candidate can “contribuer progressivement aux exigences de qualité, de performance et d’accessibilité de vos applications.” The candidate profile and CV do not support any experience with performance, Core Web Vitals, accessibility, RGAA, or quality engineering. This is an unsupported claim of capability.",
+      "The letter says the candidate will “approfondir Next.js à partir de mes bases React et TypeScript” and “apprendre Cypress en prolongement de ma pratique de Jest.” While these are stated as intentions, they imply a foundation in Next.js and Cypress that is not supported by the profile or CV. The candidate has no listed Next.js or Cypress experience.",
+      "The letter says the candidate has “une attention au rendu des interfaces.” This is not explicitly supported by the CV; the CV only mentions Figma-to-React integration, not a demonstrated focus on interface rendering quality."
+    ],
+    "suggestions": [
+      "If the candidate is genuinely applying for a junior or intermediate role, the letter should target that role instead of a Lead position. For this Lead offer, the letter should either be rewritten to show relevant senior experience or clearly positioned as a speculative application for a junior/intermediate role with a growth path.",
+      "Remove or rephrase any implication of current capability in performance, accessibility, Next.js, or Cypress unless the candidate can provide concrete evidence in the CV.",
+      "If the candidate has any relevant projects, internships, or self-directed work involving Next.js, Cypress, accessibility, performance, or team collaboration, add them to the CV and then reference them specifically in the letter.",
+      "Keep the transparent tone, but make the mismatch with the offer explicit and professional: for example, state that the candidate is applying for a junior/intermediate frontend position or is seeking a growth-oriented role, rather than directly applying for a Lead role without supporting senior experience."
+    ]
+  },
+  "review_iterations": 2,
+  "status": "awaiting_approval"
+}

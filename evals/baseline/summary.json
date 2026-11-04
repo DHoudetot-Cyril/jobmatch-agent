@@ -1,0 +1,270 @@
+{
+  "generated_at": "2026-11-04T14:06:06+00:00",
+  "cases": [
+    "strong_fit_backend",
+    "partial_fit_devops",
+    "mismatch_nurse_data",
+    "junior_vs_senior_frontend",
+    "overqualified_support",
+    "english_offer_ml",
+    "employment_gap_accountant",
+    "few_skills_logistics"
+  ],
+  "averages": {
+    "score_in_range": 1.0,
+    "skills_recall": 1.0,
+    "gaps_recall": 1.0,
+    "letter_faithfulness": 0.925,
+    "letter_relevance": 0.713,
+    "gap_usefulness": 0.938
+  },
+  "thresholds": {
+    "letter_faithfulness": 0.7,
+    "score_in_range": 0.6
+  },
+  "failed_thresholds": [],
+  "graph_seconds": 1141.0,
+  "judge_seconds": 402.9,
+  "results": {
+    "strong_fit_backend": {
+      "score": 94,
+      "trace_id": "841ac1118f9cd8b987d0c770f19f5d86",
+      "metrics": {
+        "score_in_range": {
+          "value": 1.0,
+          "reason": "score 94, expected [75, 100]"
+        },
+        "skills_recall": {
+          "value": 1.0,
+          "reason": "all found"
+        },
+        "gaps_recall": {
+          "value": 1.0,
+          "reason": "all flagged"
+        },
+        "letter_relevance": {
+          "value": 1.0,
+          "reason": "The response is in French, matching the expected language, and follows a clear cover-letter structure with greeting, body, and closing. It explicitly links the candidate’s experience to key job requirements, including API REST development with Django REST Framework, PostgreSQL optimization, pytest, Docker, GitHub Actions, Celery/Redis, and willingness to participate in on-call rotations. The tone is professional and concise, with specific examples tied to the role rather than generic claims."
+        },
+        "letter_faithfulness": {
+          "value": 0.9,
+          "reason": "The cover letter accurately reflects the CV for all major candidate claims: Parcelia employer, Django REST Framework APIs handling 40,000 orders/day, PostgreSQL query optimization reducing average response time by a factor of three, Celery/Redis asynchronous tasks for emails and invoices, pytest coverage from 45% to 82%, GitHub Actions pipelines, Docker images, and Docker/Linux/Git/CI practices. The only weak point is the statement about not yet having Kubernetes experience, which is not explicitly stated in the CV, though it is a negative claim rather than an invented positive credential."
+        },
+        "gap_usefulness": {
+          "value": 1.0,
+          "reason": "The advice directly addresses the only identified gap, Kubernetes, with a concrete and realistic plan for a nice-to-have skill: a specific short course (KodeKloud Kubernetes Fundamentals), a hands-on project using the candidate's existing Django/Docker/Linux/CI background (deploying the API on kind/minikube with Service, Ingress, and HPA), and a clear way to present it in an interview. It is specific, actionable, and grounded in the candidate's CV."
+        }
+      }
+    },
+    "partial_fit_devops": {
+      "score": 40,
+      "trace_id": "2f52543ca4e0c78163883ae58594f5c4",
+      "metrics": {
+        "score_in_range": {
+          "value": 1.0,
+          "reason": "score 40, expected [30, 65]"
+        },
+        "skills_recall": {
+          "value": 1.0,
+          "reason": "all found"
+        },
+        "gaps_recall": {
+          "value": 1.0,
+          "reason": "all flagged"
+        },
+        "letter_relevance": {
+          "value": 0.6,
+          "reason": "The letter is in French, professionally structured, and concisely links concrete experience to several requirements (Linux administration, Ansible roles, Docker, Bash, monitoring). However, it does not substantively address the indispensable Kubernetes and Terraform requirements with relevant experience, only acknowledging gaps and willingness to learn, which weakens alignment with the core job requirements."
+        },
+        "letter_faithfulness": {
+          "value": 1.0,
+          "reason": "All factual claims about the candidate are supported by the CV: Clinique des Pins, 120 Linux servers (Debian and Rocky Linux), Ansible with 60 roles, Docker Compose for a wiki and internal tools, Bash scripts for backups and log rotation, Zabbix supervision, and skills in Linux, Bash, Ansible, Docker, and Python notions. No invented employers, figures, certifications, or inflated experience are present."
+        },
+        "gap_usefulness": {
+          "value": 0.9,
+          "reason": "The response gives concrete, actionable advice for each listed gap, naming specific resources or projects (HashiCorp Terraform course, kind/k3s cluster, Helm chart, Prometheus + node_exporter, Grafana dashboards, GitLab CI pipeline) and consistently leveraging Nadia's existing Linux, Ansible, Zabbix, and Docker Compose experience. Minor shortcomings are the repeated AWS advice for the duplicated gap and the somewhat heavy CKA recommendation for a nice-to-have, though it remains relevant and not unrealistic."
+        }
+      }
+    },
+    "mismatch_nurse_data": {
+      "score": 8,
+      "trace_id": "3c20784bc26777ef29d2c6899ca86129",
+      "metrics": {
+        "score_in_range": {
+          "value": 1.0,
+          "reason": "score 8, expected [0, 25]"
+        },
+        "skills_recall": {
+          "value": 1.0,
+          "reason": "all found"
+        },
+        "gaps_recall": {
+          "value": 1.0,
+          "reason": "all flagged"
+        },
+        "letter_faithfulness": {
+          "value": 1.0,
+          "reason": "The cover letter’s factual claims are well supported by the CV: it correctly states she is an Infirmière diplômée d’État, worked in réanimation at Hôpital Saint-Aubin with 12 critical-care beds, supervised nursing students, participated in implementing a patient record software and trained colleagues, and has Excel experience. It also accurately references her réanimation and médecine polyvalente experience and multidisciplinary teamwork. The data-science technologies are framed as skills she wants to learn rather than claimed experience, so no clear hallucination or contradiction is present."
+        },
+        "letter_relevance": {
+          "value": 0.3,
+          "reason": "The letter is in French, professional, and has a clear cover-letter structure. It effectively uses the candidate's hospital experience to address the 'hospital environment' plus and communication with medical teams. However, it does not explicitly link the candidate's experience to the core data science requirements, such as Python/pandas/scikit-learn, SQL, ML modeling, or MLOps industrialization; it mainly states intent to learn these skills, so alignment with the key job requirements is weak."
+        },
+        "gap_usefulness": {
+          "value": 0.9,
+          "reason": "Each gap receives actionable advice with named resources (Kaggle Learn, SQLBolt, Mode Analytics, scikit-learn guide) and hospital-domain projects, while leveraging the candidate's nursing, ICU, EHR, and lab-result background. Minor shortcomings are that some recommendations remain somewhat generic ('short course', 'practical course') and the PyTorch project is ambitious for a nice-to-have, though framed as short-term."
+        }
+      }
+    },
+    "junior_vs_senior_frontend": {
+      "score": 48,
+      "trace_id": "adb5f9dbcbb07bef3f546c789cfc47e6",
+      "metrics": {
+        "score_in_range": {
+          "value": 1.0,
+          "reason": "score 48, expected [30, 65]"
+        },
+        "skills_recall": {
+          "value": 1.0,
+          "reason": "all found"
+        },
+        "gaps_recall": {
+          "value": 1.0,
+          "reason": "all flagged"
+        },
+        "letter_faithfulness": {
+          "value": 0.9,
+          "reason": "The cover letter accurately reflects the CV: it identifies Lucas Ferreira as a junior frontend developer based in Bordeaux, correctly cites Agence Pixelbleu, Figma-to-React integration for showcase sites, initial TypeScript work on an appointment project, and Jest unit testing on main components. It also correctly states no prior management or architecture responsibilities. The only unsupported detail is the target employer 'Vinéo,' which is not in the CV, but it is a job-specific reference rather than a claim about the candidate's background. No invented skills, employers, durations, certifications, or inflated seniority are present."
+        },
+        "letter_relevance": {
+          "value": 0.4,
+          "reason": "The letter is in French, professional, well-structured, and concise, and it references specific job elements such as React, TypeScript, JavaScript, Jest, architecture, team support, and testing. However, it does not strongly align with the key requirements because it explicitly states the candidate is junior and lacks lead experience, architecture responsibility, Next.js production experience, and Cypress, rather than linking those core requirements to relevant experience."
+        },
+        "gap_usefulness": {
+          "value": 0.9,
+          "reason": "The advice is concrete and tailored for each gap: it uses the candidate's React, TypeScript, Jest, and showcase/appointment project experience, and proposes specific actions such as the official Next.js Learn path, 3-5 Cypress E2E tests, a GraphQL mini-project with Hasura, and a mini e-commerce demo emphasizing accessibility and Core Web Vitals. Minor deduction because the Next.js and Cypress guidance could be more specific to production-level requirements, such as SSR/data fetching or a fuller E2E test strategy."
+        }
+      }
+    },
+    "overqualified_support": {
+      "score": 96,
+      "trace_id": "dbab2884f1bece84dd0f8b62e6e2fbe4",
+      "metrics": {
+        "score_in_range": {
+          "value": 1.0,
+          "reason": "score 96, expected [65, 100]"
+        },
+        "skills_recall": {
+          "value": 1.0,
+          "reason": "all found"
+        },
+        "gaps_recall": {
+          "value": 1.0,
+          "reason": "all flagged"
+        },
+        "letter_faithfulness": {
+          "value": 1.0,
+          "reason": "All factual claims are supported by the CV: the RSSI role, N1 support at Bretagne Informatique Services, AD/GPO/Windows Server administration at Ouest Logistique, the 600-post Windows 10/Office 365 migration, ITIL v4 service center with GLPI, and management of an 8-person team are all directly stated or reasonably implied. No invented employers, skills, figures, certifications, or inflated durations are present."
+        },
+        "gap_usefulness": {
+          "value": 1.0,
+          "reason": "The identified gaps section explicitly states none, and the actual output correctly reflects that there are no gaps to address. Per the evaluation steps, this warrants the maximum score."
+        },
+        "letter_relevance": {
+          "value": 1.0,
+          "reason": "The letter is in French, professionally structured with greeting, body, and closing, and explicitly links the candidate's experience to the key job requirements: N1 support, GLPI ticketing, Windows/Office 365 incident resolution, Active Directory account management, workstation installation, and ITIL practices. It is concise and tailored to Breizh Mutuelle Services rather than generic."
+        }
+      }
+    },
+    "english_offer_ml": {
+      "score": 58,
+      "trace_id": "5380acd517f56c99bfe6ee71f558595f",
+      "metrics": {
+        "score_in_range": {
+          "value": 1.0,
+          "reason": "score 58, expected [50, 85]"
+        },
+        "skills_recall": {
+          "value": 1.0,
+          "reason": "all found"
+        },
+        "gaps_recall": {
+          "value": 1.0,
+          "reason": "all flagged"
+        },
+        "letter_relevance": {
+          "value": 0.7,
+          "reason": "The letter is in English, professionally structured, and concise. It explicitly connects relevant experience to key job requirements, including time-series forecasting, PyTorch, Docker, SQL, FastAPI serving, and translating business questions into ML solutions. However, it does not explicitly address 3+ years of experience, recommendation models, production monitoring, or MLflow/experiment tracking, and it frames TensorFlow, Kubernetes, and MLflow as skills to learn rather than demonstrated experience."
+        },
+        "letter_faithfulness": {
+          "value": 0.9,
+          "reason": "The cover letter accurately reflects the CV: Data Scientist role, École Centrale de Lille data science engineering degree, Nordpanier store-level forecasting with time-series, LightGBM, and PyTorch, 12% stockout reduction in fresh perimeter, FastAPI/Docker model exposure, SQL/BigQuery usage, Python/PyTorch/Docker/SQL experience, and C1 English. Minor phrasing such as 'data engineering skills' and 'prepare data for training and evaluation' is reasonably implied by the CV’s SQL, BigQuery, API, and Docker work, with no clear invented employer, figure, certification, or inflated duration."
+        },
+        "gap_usefulness": {
+          "value": 1.0,
+          "reason": "Each identified gap receives concrete, actionable advice tied to the candidate's CV: TensorFlow is addressed with a specific course/certification and a PyTorch-to-TensorFlow forecasting project; Kubernetes is addressed by deploying the existing Dockerized FastAPI forecasting API to k3d/Minikube; MLflow is addressed by integrating it into the existing Nordpanier forecasting workflow with a model registry; Dutch is addressed with a realistic A1 course plan and honest application framing. The advice avoids generic recommendations and is proportionate to required and nice-to-have gaps."
+        }
+      }
+    },
+    "employment_gap_accountant": {
+      "score": 71,
+      "trace_id": "c39c6304dc5dc0ba443718ca71c3f490",
+      "metrics": {
+        "score_in_range": {
+          "value": 1.0,
+          "reason": "score 71, expected [60, 95]"
+        },
+        "skills_recall": {
+          "value": 1.0,
+          "reason": "all found"
+        },
+        "gaps_recall": {
+          "value": 1.0,
+          "reason": "all flagged"
+        },
+        "letter_relevance": {
+          "value": 0.9,
+          "reason": "The letter is in French, professionally structured, and directly links the candidate’s cabinet experience to the key missions: general accounting, TVA declarations, balance sheet preparation, Sage/Excel with pivot tables, and client relations. It also transparently addresses Pennylane as a gap with a training intention. Minor shortcomings are the lack of explicit mention of balance sheet revision and the exact 40-client portfolio size, but overall alignment is strong."
+        },
+        "letter_faithfulness": {
+          "value": 0.9,
+          "reason": "The cover letter accurately reflects the CV: DCG, cabinet accountant role, 70 months at Cabinet Lemoine Expertise, 35 dossiers, TVA/bilan tasks, and daily Sage/Excel use are all supported. The only weak point is the negative claim that Pennylane is not among daily tools, which is not explicitly stated in the CV, but it is a minor unsupported inference rather than a clear hallucination."
+        },
+        "gap_usefulness": {
+          "value": 0.9,
+          "reason": "The response addresses both identified gaps with actionable advice. For Pennylane, it suggests a specific resource (Pennylane Academy/official tutorials), a concrete mini-project, and a precise way to leverage the candidate's Sage/Excel and multi-dossier experience. For Paie, it recommends a short, realistic training path and uses the candidate's DCG and accounting background to frame the gap in an interview. The main shortcoming is that the Paie advice is somewhat less specific, as it does not name a particular certification or payroll software."
+        }
+      }
+    },
+    "few_skills_logistics": {
+      "score": 61,
+      "trace_id": "87a5bf989e2c3da9f55781a20062298a",
+      "metrics": {
+        "score_in_range": {
+          "value": 1.0,
+          "reason": "score 61, expected [40, 80]"
+        },
+        "skills_recall": {
+          "value": 1.0,
+          "reason": "all found"
+        },
+        "gaps_recall": {
+          "value": 1.0,
+          "reason": "all flagged"
+        },
+        "letter_faithfulness": {
+          "value": 0.8,
+          "reason": "The cover letter accurately reflects the CV for the main factual claims: current team lead role at Entrepôt Val de Loire Distribution with 8 people, planning, training, rolling inventories, weekly productivity reporting; prior Logicentre roles as cariste and order preparer with truck reception, scanner preparation, forklift driving; CACES 1, 3, 5 with 2023 recycling; and SST training. The only notable unsupported detail is the explicit statement of no direct WMS and SAP experience, which is not stated in the CV, though it is a negative disclaimer rather than an inflated or invented positive claim."
+        },
+        "letter_relevance": {
+          "value": 0.8,
+          "reason": "The letter is in French, professionally structured, and concise. It explicitly links the candidate's experience to key missions such as team leadership, inventories, safety, productivity tracking, truck reception, and CACES 1, 3, and 5. However, it does not demonstrate WMS/SAP experience, only acknowledges a gap, and omits error-rate tracking and Excel, reducing full alignment."
+        },
+        "gap_usefulness": {
+          "value": 0.9,
+          "reason": "The advice is concrete and tied to the candidate's CV: it suggests naming the WMS used for scanner-based preparation and rolling inventories, adding specific SAP modules/transactions with an openSAP exercise, and leveraging productivity reporting with an Excel dashboard. Minor generic training suggestions prevent a perfect score."
+        }
+      }
+    }
+  }
+}

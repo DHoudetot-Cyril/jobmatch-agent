@@ -1,0 +1,193 @@
+{
+  "case_id": "mismatch_nurse_data",
+  "analysis_id": "eval-mismatch_nurse_data-aae9a4b0",
+  "trace_seed": "eval-mismatch_nurse_data-20261104T132323",
+  "trace_id": "3c20784bc26777ef29d2c6899ca86129",
+  "created_at": "20261104T132323",
+  "elapsed_s": 454.7,
+  "offer": {
+    "title": "Data Scientist (H/F)",
+    "company": "Santéclair Analytics",
+    "location": "Paris",
+    "seniority": null,
+    "skills": [
+      {
+        "name": "Python",
+        "level": "required"
+      },
+      {
+        "name": "SQL",
+        "level": "required"
+      },
+      {
+        "name": "pandas",
+        "level": "required"
+      },
+      {
+        "name": "scikit-learn",
+        "level": "required"
+      },
+      {
+        "name": "Machine Learning",
+        "level": "required"
+      },
+      {
+        "name": "Regression",
+        "level": "required"
+      },
+      {
+        "name": "Decision Trees",
+        "level": "required"
+      },
+      {
+        "name": "Cross-validation",
+        "level": "required"
+      },
+      {
+        "name": "Statistics",
+        "level": "required"
+      },
+      {
+        "name": "Hospital domain",
+        "level": "nice_to_have"
+      },
+      {
+        "name": "PyTorch",
+        "level": "nice_to_have"
+      }
+    ],
+    "responsibilities": [
+      "Concevoir, entraîner et évaluer des modèles de machine learning (prévision, classification).",
+      "Préparer et explorer les données hospitalières (SQL, Python).",
+      "Industrialiser les modèles avec l'équipe MLOps.",
+      "Présenter les résultats aux équipes médicales."
+    ],
+    "language": "fr"
+  },
+  "profile": {
+    "name": "Élodie Garnier",
+    "headline": "Infirmière diplômée d'État",
+    "skills": [
+      "Soins techniques",
+      "Gestion de l'urgence",
+      "Travail en équipe pluridisciplinaire",
+      "Microsoft Word",
+      "Microsoft Excel",
+      "Soins critiques",
+      "logiciel de dossier patient informatisé"
+    ],
+    "experiences": [
+      {
+        "role": "Infirmière en service de réanimation",
+        "company": "Hôpital Saint-Aubin (établissement fictif)",
+        "duration_months": null,
+        "highlights": [
+          "Prise en charge de patients en soins critiques (12 lits).",
+          "Encadrement des étudiants infirmiers.",
+          "Participation à la mise en place d'un nouveau logiciel de dossier patient informatisé (formation des collègues)."
+        ]
+      },
+      {
+        "role": "Infirmière en médecine polyvalente",
+        "company": "Clinique du Parc (établissement fictif)",
+        "duration_months": 36,
+        "highlights": []
+      }
+    ],
+    "education": [
+      "Diplôme d'État d'infirmier — IFSI de Créteil (2014)"
+    ],
+    "languages": [
+      "Français",
+      "anglais (notions)"
+    ]
+  },
+  "match": {
+    "score": 8,
+    "matched_skills": [
+      "Hospital domain"
+    ],
+    "gaps": [
+      {
+        "skill": "Python",
+        "level": "required",
+        "advice": "Suivez un cours court de Python pour la data science (Kaggle Learn, DataCamp) et créez un notebook d'analyse d'un jeu de données hospitalier fictif (admissions, soins, issues). Mettez en avant votre expérience du dossier patient informatisé et d'Excel comme base pour apprendre rapidement la manipulation de données cliniques."
+      },
+      {
+        "skill": "SQL",
+        "level": "required",
+        "advice": "Apprenez les bases du SQL avec un tutoriel pratique (SQLBolt, Mode Analytics) et réalisez un projet de requêtage sur un dataset hospitalier (patients, admissions, interventions). Appuyez-vous sur votre connaissance des entités cliniques pour construire des requêtes simples et pertinentes."
+      },
+      {
+        "skill": "pandas",
+        "level": "required",
+        "advice": "Suivez le cours Kaggle Learn « Pandas » et appliquez-le à un dataset hospitalier pour nettoyer, filtrer et agréger des données de soins. Votre expérience en réanimation et en médecine polyvalente vous permet de choisir des variables cliniques pertinentes pour l'analyse."
+      },
+      {
+        "skill": "scikit-learn",
+        "level": "required",
+        "advice": "Utilisez le guide officiel de scikit-learn ou un cours introductif pour construire un pipeline simple de classification ou de régression sur des données hospitalières. Présentez ce projet comme une première application concrète de vos connaissances cliniques à la modélisation."
+      },
+      {
+        "skill": "Machine Learning",
+        "level": "required",
+        "advice": "Suivez une formation courte en machine learning (Kaggle Learn, Coursera) et réalisez un projet de prédiction simple, par exemple le risque de décès ou la durée de séjour. Valorisez votre compréhension des facteurs cliniques comme atout pour formuler des hypothèses et interpréter les résultats."
+      },
+      {
+        "skill": "Regression",
+        "level": "required",
+        "advice": "Apprenez les bases de la régression linéaire et logistique via un cours de statistiques appliquées, puis appliquez-les à un dataset hospitalier. Mettez en avant votre expérience de la prise en charge de patients pour identifier des variables prédictives cliniquement plausibles."
+      },
+      {
+        "skill": "Decision Trees",
+        "level": "required",
+        "advice": "Étudiez les arbres de décision et les forêts aléatoires avec un cours pratique, puis entraînez un modèle sur un jeu de données hospitalier. Appuyez-vous sur votre expérience clinique pour expliquer les critères de décision et les rendre compréhensibles pour les équipes médicales."
+      },
+      {
+        "skill": "Cross-validation",
+        "level": "required",
+        "advice": "Apprenez à évaluer des modèles avec la validation croisée (Kaggle Learn, scikit-learn) et appliquez-la à un projet de prédiction hospitalière. Insistez sur la rigueur méthodologique, déjà présente dans votre pratique de soins critiques, pour garantir des résultats fiables."
+      },
+      {
+        "skill": "Statistics",
+        "level": "required",
+        "advice": "Suivez un cours de statistiques pour la data science et appliquez des tests simples à un dataset hospitalier (moyennes, distributions, comparaisons de groupes). Votre expérience en soins critiques et en lecture de résultats biologiques constitue une base solide pour interpréter ces analyses."
+      },
+      {
+        "skill": "PyTorch",
+        "level": "nice_to_have",
+        "advice": "Commencez par un cours introductif de deep learning avec PyTorch et réalisez un petit projet de classification sur des données hospitalières. Présentez cette compétence comme un objectif de formation à court terme, en lien avec votre motivation à évoluer vers la data science."
+      }
+    ],
+    "strengths": [
+      "Solide connaissance du domaine hospitalier, notamment en soins critiques et en réanimation.",
+      "Expérience du travail en équipe pluridisciplinaire, utile pour collaborer avec les équipes médicales.",
+      "Participation à la mise en place d'un logiciel de dossier patient informatisé, montrant une familiarité avec les outils numériques hospitaliers."
+    ],
+    "summary": "Le profil est très éloigné des exigences techniques du poste de Data Scientist, avec aucune compétence démontrée en Python, SQL, machine learning ou statistiques. En revanche, la candidate possède une forte connaissance du domaine hospitalier et une expérience clinique qui pourraient faciliter la compréhension des données et la communication avec les équipes médicales. Le fit global est donc faible pour ce rôle technique."
+  },
+  "cover_letter": {
+    "subject": "Candidature – Data Scientist (H/F)",
+    "body": "Madame, Monsieur,\n\nInfirmière diplômée d’État, je vous adresse ma candidature pour le poste de Data Scientist au sein de Santéclair Analytics. Mon expérience en réanimation et en médecine polyvalente m’a donné une connaissance concrète du terrain hospitalier, des situations cliniques et du travail en équipe pluridisciplinaire. Je souhaite aujourd’hui m’engager dans une transition vers la data science, en apprenant les compétences techniques attendues : Python, SQL, pandas, scikit-learn, machine learning, régression, arbres de décision, validation croisée et statistiques.\n\nÀ l’Hôpital Saint-Aubin, en service de réanimation, j’ai pris en charge des patients en soins critiques sur 12 lits. Cette expérience m’a appris à analyser rapidement des situations complexes et à travailler avec rigueur auprès d’équipes médicales. J’ai également encadré des étudiants infirmiers, ce qui m’a permis de développer une capacité d’explication claire, que je souhaite mobiliser pour présenter des résultats de manière accessible aux professionnels de santé.\n\nJ’ai aussi participé à la mise en place d’un logiciel de dossier patient informatisé et à la formation de mes collègues. Cet épisode m’a donné une familiarité avec les outils numériques hospitaliers et une sensibilité aux besoins d’adoption des équipes. Ma pratique d’Excel m’a également donné une première habitude du traitement de tableaux, que je souhaite approfondir avec Python, SQL et pandas pour préparer et explorer des données hospitalières.\n\nJe suis motivée pour acquérir les compétences techniques nécessaires et pour transformer mon expérience clinique en un atout pour la compréhension des enjeux hospitaliers. Je serais ravie d’échanger avec vous sur la manière dont ma rigueur, ma communication et ma motivation pourraient contribuer à votre équipe.\n\nCordialement,\nÉlodie Garnier",
+    "language": "fr"
+  },
+  "review": {
+    "approved": false,
+    "issues": [
+      "The company name is misspelled: the letter says “Santéclair Analytics”, but the offer says “Santéclair Analytics”. This is a factual error in the company name.",
+      "The letter says “en apprenant les compétences techniques attendues : Python, SQL, pandas, scikit-learn, machine learning, régression, arbres de décision, validation croisée et statistiques.” This implies the candidate is currently learning these required technical skills, but the candidate profile and CV provide no evidence of any such learning, training, course, project, or skill.",
+      "The letter says “Ma pratique d’Excel m’a également donné une première habitude du traitement de tableaux, que je souhaite approfondir avec Python, SQL et pandas pour préparer et explorer des données hospitalières.” The candidate profile/CV only lists Microsoft Excel as a basic office skill; it does not support a claim of data-table processing experience or a credible bridge to Python/SQL/pandas data preparation.",
+      "The letter says “Je suis motivée pour acquérir les compétences techniques nécessaires et pour transformer mon expérience clinique en un atout pour la compréhension des enjeux hospitaliers.” This is not directly supported by the CV/profile, which contains no data science, statistics, machine learning, or technical training background. It is an aspirational claim, but for a required-skill role it overstates the candidate’s current fit without evidence.",
+      "The letter says “que je souhaite mobiliser pour présenter des résultats de manière accessible aux professionnels de santé.” The CV/profile supports explaining or training nursing students and colleagues, but it does not support presenting data science or machine learning results to medical teams. This is an unsupported extrapolation from nursing experience to the specific job responsibility."
+    ],
+    "suggestions": [
+      "Correct the company name to “Santéclair Analytics”.",
+      "Remove or rephrase any implication that the candidate is already learning Python, SQL, pandas, scikit-learn, machine learning, regression, decision trees, cross-validation, or statistics unless there is verifiable evidence.",
+      "Keep the focus on the candidate’s real hospital domain knowledge, but avoid claiming data preparation, model presentation, or technical data science capabilities that are not in the CV.",
+      "If the candidate has any self-study, bootcamp, certification, project, or coursework in data science, add it to the CV/profile and then reference it explicitly in the letter.",
+      "The letter is in French and professionally toned, but it should be much more conservative about the candidate’s technical readiness for a Data Scientist role."
+    ]
+  },
+  "review_iterations": 2,
+  "status": "awaiting_approval"
+}

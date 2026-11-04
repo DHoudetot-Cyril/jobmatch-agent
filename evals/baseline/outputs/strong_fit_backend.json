@@ -1,0 +1,154 @@
+{
+  "case_id": "strong_fit_backend",
+  "analysis_id": "eval-strong_fit_backend-b05dacb5",
+  "trace_seed": "eval-strong_fit_backend-20261104T132323",
+  "trace_id": "841ac1118f9cd8b987d0c770f19f5d86",
+  "created_at": "20261104T132323",
+  "elapsed_s": 356.4,
+  "offer": {
+    "title": "Développeur Backend Python (H/F)",
+    "company": "Bricolune",
+    "location": "Lyon",
+    "seniority": "mid",
+    "skills": [
+      {
+        "name": "Python",
+        "level": "required"
+      },
+      {
+        "name": "Django",
+        "level": "required"
+      },
+      {
+        "name": "Django REST Framework",
+        "level": "required"
+      },
+      {
+        "name": "PostgreSQL",
+        "level": "required"
+      },
+      {
+        "name": "Docker",
+        "level": "required"
+      },
+      {
+        "name": "GitHub Actions",
+        "level": "required"
+      },
+      {
+        "name": "pytest",
+        "level": "required"
+      },
+      {
+        "name": "Kubernetes",
+        "level": "nice_to_have"
+      },
+      {
+        "name": "Celery",
+        "level": "nice_to_have"
+      },
+      {
+        "name": "Redis",
+        "level": "nice_to_have"
+      }
+    ],
+    "responsibilities": [
+      "Concevoir et faire évoluer les API REST de la plateforme (réservations, paiements).",
+      "Modéliser et optimiser la base PostgreSQL.",
+      "Écrire des tests automatisés et participer aux revues de code.",
+      "Participer aux astreintes (une semaine par trimestre)."
+    ],
+    "language": "fr"
+  },
+  "profile": {
+    "name": "Hugo Lemaire",
+    "headline": "Développeur Backend Python",
+    "skills": [
+      "Python",
+      "Django",
+      "Django REST Framework",
+      "Flask",
+      "PostgreSQL",
+      "Redis",
+      "Celery",
+      "Docker",
+      "GitHub Actions",
+      "pytest",
+      "Git",
+      "Linux",
+      "REST"
+    ],
+    "experiences": [
+      {
+        "role": "Développeur Backend",
+        "company": "Parcelia",
+        "duration_months": 46,
+        "highlights": [
+          "Développement d'API REST avec Django REST Framework pour 40 000 commandes par jour.",
+          "Optimisation de requêtes PostgreSQL (temps de réponse moyen divisé par 3).",
+          "Tâches asynchrones avec Celery et Redis (envoi d'e-mails, génération de factures).",
+          "Tests unitaires et d'intégration avec pytest (couverture passée de 45 % à 82 %).",
+          "Pipelines GitHub Actions, images Docker."
+        ]
+      },
+      {
+        "role": "Développeur Python (alternance)",
+        "company": "Mutualis Conseil",
+        "duration_months": 16,
+        "highlights": [
+          "Scripts Python d'automatisation et petite application Flask interne."
+        ]
+      }
+    ],
+    "education": [
+      "Licence professionnelle Développement web — IUT Lyon 1 (2020)"
+    ],
+    "languages": [
+      "Français (natif)",
+      "anglais (professionnel)"
+    ]
+  },
+  "match": {
+    "score": 94,
+    "matched_skills": [
+      "Python",
+      "Django",
+      "Django REST Framework",
+      "PostgreSQL",
+      "Docker",
+      "GitHub Actions",
+      "pytest",
+      "Celery",
+      "Redis"
+    ],
+    "gaps": [
+      {
+        "skill": "Kubernetes",
+        "level": "nice_to_have",
+        "advice": "Suivez un parcours court comme Kubernetes Fundamentals (KodeKloud) et déployez votre API Django en Docker sur un cluster local kind/minikube avec Service, Ingress et HPA. En entretien, présentez cette expérience de labo et votre maîtrise Docker/Linux/CI comme base pour monter rapidement en compétence sur Kubernetes."
+      }
+    ],
+    "strengths": [
+      "Expérience backend Python/Django solide avec développement d'API REST à fort volume (40 000 commandes par jour).",
+      "Compétences directement alignées sur le poste : Django REST Framework, PostgreSQL, Docker, GitHub Actions et pytest.",
+      "Expérience concrète en optimisation de requêtes PostgreSQL et en tests automatisés, avec une amélioration mesurable de la couverture de tests.",
+      "Maîtrise des briques nice-to-have Celery et Redis pour les tâches asynchrones."
+    ],
+    "summary": "Le profil correspond très bien au poste de Développeur Backend Python mid-level, avec une expérience directe sur l'ensemble des compétences requises. Le candidat a démontré une capacité à concevoir des API REST, optimiser PostgreSQL et mettre en place des tests et des pipelines CI/CD. La seule lacune notable est l'absence de Kubernetes, qui n'est qu'un atout supplémentaire."
+  },
+  "cover_letter": {
+    "subject": "Candidature au poste de Développeur Backend Python (H/F)",
+    "body": "Madame, Monsieur,\n\nDéveloppeur Backend Python, je suis très intéressé par le poste proposé par Bricolune à Lyon. Votre besoin de concevoir et faire évoluer les API REST de la plateforme, notamment pour les réservations et les paiements, correspond directement à mon expérience du développement backend Python/Django.\n\nChez Parcelia, j’ai développé des API REST avec Django REST Framework pour 40 000 commandes par jour. Cette expérience m’a permis de travailler sur des services backend à fort volume, avec une attention particulière portée à la performance et à la lisibilité du code. J’ai également optimisé des requêtes PostgreSQL, ce qui a divisé par trois le temps de réponse moyen, une expérience directement utile pour modéliser et améliorer la base de données de votre plateforme.\n\nJ’ai aussi mis en place des tâches asynchrones avec Celery et Redis pour l’envoi d’e-mails et la génération de factures. J’ai réalisé des tests unitaires et d’intégration avec pytest, portant la couverture de 45 % à 82 %. Mes pipelines GitHub Actions et mes images Docker correspondent aux pratiques techniques attendues sur le poste.\n\nBien que je n’aie pas encore d’expérience Kubernetes, ma pratique de Docker, de Linux, de Git et des pipelines CI me donne une base solide pour monter rapidement en compétence sur cet environnement. Je serais ravi de contribuer à l’évolution de votre backend Python/Django et de participer aux astreintes selon le rythme prévu.\n\nJe reste à votre disposition pour en discuter lors d’un entretien.\n\nCordialement,\nHugo Lemaire",
+    "language": "fr"
+  },
+  "review": {
+    "approved": true,
+    "issues": [],
+    "suggestions": [
+      "The letter is 217 words in the body, below the requested 250-400 word range. You could add a short paragraph about code reviews, on-call availability, or your professional English to reach the minimum length.",
+      "Consider explicitly mentioning Django (not only Python/Django) and PostgreSQL modeling/optimization as separate required skills to strengthen alignment with the offer."
+    ]
+  },
+  "review_iterations": 2,
+  "status": "awaiting_approval"
+}

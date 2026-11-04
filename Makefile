@@ -40,6 +40,21 @@ format: ## Auto-fix lint issues and format code
 eval: ## DeepEval suite (needs llama-server; ARGS="--cases a,b --refresh --no-langfuse")
 	uv run --group eval python -m evals.run_eval $(ARGS)
 
+# A/B and stability (see evals/README.md). Override: make eval-compare A=... B=...
+A ?= evals/baseline
+B ?= evals/results/jevos
+STAB_CASES ?= english_offer_ml,few_skills_logistics
+N ?= 3
+.PHONY: eval-compare eval-stability
+
+eval-compare: ## Compare two eval label dirs (A=evals/baseline B=evals/results/jevos), no LLM
+	uv run --group eval python evals/compare.py $(A) $(B)
+
+eval-stability: ## Score stability: N graph runs of STAB_CASES, decisions off then on (~40 min)
+	-uv run --group eval python -m evals.run_eval --label stability_off --decisions off --repeat $(N) --cases $(STAB_CASES) --no-langfuse $(ARGS)
+	-uv run --group eval python -m evals.run_eval --label stability_on --decisions on --repeat $(N) --cases $(STAB_CASES) --no-langfuse $(ARGS)
+	uv run --group eval python evals/compare.py evals/results/stability_off evals/results/stability_on
+
 qwen: ## Print the command starting the host LLM (llama-server)
 	@echo "Run on the host (not in Docker):  ~/start_qwen_light.sh"
 	@echo "Then check:  curl -s http://172.17.0.1:8080/v1/models"

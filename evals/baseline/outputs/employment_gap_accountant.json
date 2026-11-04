@@ -1,0 +1,135 @@
+{
+  "case_id": "employment_gap_accountant",
+  "analysis_id": "eval-employment_gap_accountant-a7b531d3",
+  "trace_seed": "eval-employment_gap_accountant-20261104T134732",
+  "trace_id": "c39c6304dc5dc0ba443718ca71c3f490",
+  "created_at": "20261104T134732",
+  "elapsed_s": 398.0,
+  "offer": {
+    "title": "Comptable Général (H/F)",
+    "company": "Cabinet Ardoise & Associés",
+    "location": "Nantes",
+    "seniority": "mid",
+    "skills": [
+      {
+        "name": "Comptabilité générale",
+        "level": "required"
+      },
+      {
+        "name": "TVA",
+        "level": "required"
+      },
+      {
+        "name": "Bilans",
+        "level": "required"
+      },
+      {
+        "name": "Sage",
+        "level": "required"
+      },
+      {
+        "name": "Excel",
+        "level": "required"
+      },
+      {
+        "name": "Pennylane",
+        "level": "required"
+      },
+      {
+        "name": "Paie",
+        "level": "nice_to_have"
+      }
+    ],
+    "responsibilities": [
+      "Tenue de la comptabilité générale d'un portefeuille de 40 clients.",
+      "Déclarations de TVA, révision et préparation des bilans.",
+      "Relation client et conseil de premier niveau."
+    ],
+    "language": "fr"
+  },
+  "profile": {
+    "name": "Claire Dubreuil",
+    "headline": "Comptable",
+    "skills": [
+      "Comptabilité générale",
+      "TVA",
+      "Bilans",
+      "Sage",
+      "Excel"
+    ],
+    "experiences": [
+      {
+        "role": "Comptable en cabinet",
+        "company": "Cabinet Lemoine Expertise",
+        "duration_months": 70,
+        "highlights": [
+          "Tenue de la comptabilité générale de 35 dossiers (artisans, commerçants, SCI).",
+          "Déclarations de TVA mensuelles et trimestrielles, préparation des bilans.",
+          "Utilisation quotidienne de Sage et d'Excel (tableaux croisés dynamiques, RECHERCHEV)."
+        ]
+      },
+      {
+        "role": "Assistante comptable",
+        "company": "Boulangeries Tanguy",
+        "duration_months": null,
+        "highlights": [
+          "Saisie des factures fournisseurs, rapprochements bancaires."
+        ]
+      }
+    ],
+    "education": [
+      "DCG (Diplôme de comptabilité et de gestion) — 2014"
+    ],
+    "languages": [
+      "Français",
+      "anglais (scolaire)"
+    ]
+  },
+  "match": {
+    "score": 71,
+    "matched_skills": [
+      "Comptabilité générale",
+      "TVA",
+      "Bilans",
+      "Sage",
+      "Excel"
+    ],
+    "gaps": [
+      {
+        "skill": "Pennylane",
+        "level": "required",
+        "advice": "Suivez la formation Pennylane Academy ou les tutoriels officiels, puis réalisez un mini-projet de tenue d'un dossier fictif pour vous familiariser avec la saisie, la TVA et les bilans. Dans la candidature, appuyez-vous sur votre expérience Sage/Excel et votre gestion multi-dossiers pour montrer que vous pouvez monter rapidement en compétence sur Pennylane."
+      },
+      {
+        "skill": "Paie",
+        "level": "nice_to_have",
+        "advice": "Complétez votre profil par une formation courte en paie, par exemple un module en ligne ou une formation certifiante sur un logiciel de paie, et mettez en avant votre DCG ainsi que votre expérience comptable pour rassurer sur la compréhension des charges et des déclarations sociales. En entretien, assumez que la paie n'est pas votre cœur de métier, mais que vous pouvez l'aborder rapidement pour accompagner les clients sur des besoins simples."
+      }
+    ],
+    "strengths": [
+      "Expérience de près de 6 ans en cabinet comptable, avec une responsabilité comparable à l'offre : tenue de 35 dossiers, TVA et préparation des bilans.",
+      "Maîtrise quotidienne de Sage et d'Excel, y compris des fonctions avancées comme les tableaux croisés dynamiques et RECHERCHEV.",
+      "Profil formé (DCG) et déjà autonome sur un portefeuille de clients, ce qui correspond bien au niveau intermédiaire recherché."
+    ],
+    "summary": "Claire Dubreuil correspond bien au cœur de métier du poste : comptabilité générale, TVA, bilans, Sage et Excel, avec une expérience en cabinet proche du portefeuille attendu. Le principal écart est l'absence de Pennylane, compétence requise, ainsi que l'absence de mention de la paie. Son expérience et son niveau de séniorité restent toutefois très alignés avec les responsabilités proposées."
+  },
+  "cover_letter": {
+    "subject": "Candidature au poste de Comptable Général",
+    "body": "Madame, Monsieur,\n\nJe vous adresse ma candidature pour le poste de Comptable Général au sein de Cabinet Ardoise & Associés. Titulaire du DCG et comptable en cabinet, j’ai exercé pendant 70 mois au Cabinet Lemoine Expertise, où j’ai assuré la tenue de la comptabilité générale de 35 dossiers d’artisans, de commerçants et de SCI.\n\nCette expérience correspond aux missions annoncées : j’ai réalisé les déclarations de TVA mensuelles et trimestrielles, ainsi que la préparation des bilans. J’ai également utilisé quotidiennement Sage et Excel, notamment les tableaux croisés dynamiques et la fonction RECHERCHEV, dans le traitement des dossiers comptables. Ces pratiques m’ont familiarisée avec la gestion de plusieurs dossiers et avec les opérations de TVA et de bilans.\n\nPennylane ne fait pas encore partie de mes outils quotidiens. Je souhaite me former à ce logiciel et mettre en œuvre mes compétences en comptabilité générale, TVA et bilans dans votre environnement. Je suis également motivée pour contribuer à la relation client et au conseil de premier niveau, en m’appuyant sur la connaissance des dossiers et des obligations comptables.\n\nJe serais ravie de mettre cette expérience au service de votre équipe et de vos clients. Je reste à votre disposition pour un entretien.\n\nCordialement,\n\nClaire Dubreuil",
+    "language": "fr"
+  },
+  "review": {
+    "approved": false,
+    "issues": [
+      "The letter is too short for the required 250–400 words. The body contains approximately 157 words, excluding the subject line.",
+      "The letter does not mention the required 'Paie' skill. Although it is only a 'nice_to_have', the offer lists it, and the candidate profile/CV does not support any payroll experience, so the letter should either acknowledge the gap or omit it; currently it is simply absent, which is a minor tailoring gap rather than a hallucination."
+    ],
+    "suggestions": [
+      "Expand the letter to reach the 250–400 word range by adding more detail about how the candidate's experience with 35 dossiers translates to managing a portfolio of 40 clients, or by elaborating on client relationship and first-level advisory skills.",
+      "Consider briefly mentioning the candidate's recent 'Actualité fiscale 2024' training from the CV to demonstrate continued professional development and relevance to the role.",
+      "If the candidate has any exposure to payroll (Paie), mention it; if not, explicitly state willingness to learn it, as it is a nice-to-have in the offer."
+    ]
+  },
+  "review_iterations": 2,
+  "status": "awaiting_approval"
+}
