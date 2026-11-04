@@ -1,0 +1,53 @@
+id: junior_vs_senior_frontend
+description: Junior CV (1 year) against a senior / lead frontend offer.
+expected_score_range: [30, 65]
+must_match_skills: [React, JavaScript]
+must_flag_gaps: [Next.js, "Cypress|tests end-to-end|tests e2e"]
+notes: >
+  Core stack (React, JS, some TypeScript) matches but the seniority gap is large
+  (1 year vs 7+ years, team lead). Experience fit must be low. Letter must not
+  claim leadership or years of experience the candidate does not have.
+offer_text: |
+  Lead Développeur Frontend (H/F) — CDI — Bordeaux
+
+  Vinéo (entreprise fictive) propose une marketplace de vins de producteurs indépendants.
+
+  Missions
+  - Encadrer une équipe de 4 développeurs frontend (revues de code, mentorat, recrutement).
+  - Définir l'architecture frontend (Next.js, design system).
+  - Garantir la performance et l'accessibilité (Core Web Vitals, RGAA).
+  - Mettre en place la stratégie de tests (Jest, Cypress).
+
+  Profil
+  - 7 ans d'expérience minimum en développement frontend, dont 2 ans en tant que lead.
+  - React et TypeScript : maîtrise experte.
+  - Next.js en production.
+  - Tests unitaires et end-to-end (Jest, Cypress).
+  - JavaScript.
+
+  Un plus
+  - GraphQL.
+  - Expérience e-commerce.
+cv_text: |
+  Lucas Ferreira (personne fictive)
+  Développeur Frontend Junior — Bordeaux — lucas.ferreira@example.com
+
+  EXPÉRIENCE
+  Développeur Frontend — Agence Pixelbleu (agence fictive), Bordeaux
+  Octobre 2023 – aujourd'hui (1 an 1 mois)
+  - Intégration de maquettes Figma en composants React pour des sites vitrines.
+  - Premiers développements en TypeScript sur un projet de prise de rendez-vous.
+  - Tests unitaires avec Jest sur les composants principaux.
+
+  Stage Développeur Web — Mairie de Pessac (stage fictif)
+  Avril 2023 – juillet 2023
+  - Refonte de pages en HTML/CSS/JavaScript.
+
+  COMPÉTENCES
+  JavaScript, React, TypeScript (débutant), HTML, CSS, Jest, Git, Figma
+
+  FORMATION
+  Bachelor Développement web — École Numéris Bordeaux (école fictive), 2023
+
+  LANGUES
+  Français, portugais, anglais (B2)

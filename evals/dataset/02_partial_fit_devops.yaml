@@ -1,0 +1,55 @@
+id: partial_fit_devops
+description: Partial fit — Linux sysadmin applying to a cloud DevOps engineer offer.
+expected_score_range: [30, 65]
+must_match_skills: [Linux, Ansible, Docker]
+must_flag_gaps: [Kubernetes, Terraform]
+notes: >
+  Solid Linux/Ansible/Docker background but no Kubernetes, Terraform or public cloud.
+  AWS should be at best partial. Gap advice should be concrete (certification, lab project).
+offer_text: |
+  Ingénieur DevOps Cloud (H/F) — CDI — Toulouse
+
+  Aérovia Services (entreprise fictive) développe des logiciels de maintenance aéronautique
+  en SaaS. Nous migrons notre infrastructure on-premise vers AWS.
+
+  Vos missions
+  - Construire et maintenir l'infrastructure AWS en Infrastructure as Code (Terraform).
+  - Administrer nos clusters Kubernetes (EKS) et industrialiser les déploiements (Helm).
+  - Mettre en place l'observabilité (Prometheus, Grafana) et les alertes.
+  - Automatiser les configurations serveurs (Ansible).
+
+  Profil
+  - Expérience de 3 ans minimum en DevOps ou administration système.
+  - Kubernetes et Terraform indispensables.
+  - Bonne connaissance d'AWS.
+  - Linux, Docker, scripting Bash ou Python.
+  - Ansible.
+
+  Atouts
+  - Certification AWS ou CKA.
+  - GitLab CI.
+cv_text: |
+  Nadia Benali (personne fictive)
+  Administratrice systèmes Linux — Toulouse — nadia.benali@example.com
+
+  EXPÉRIENCES
+  Administratrice systèmes et réseaux — Clinique des Pins (établissement fictif), Toulouse
+  Mars 2019 – aujourd'hui (5 ans 8 mois)
+  - Administration d'un parc de 120 serveurs Linux (Debian, Rocky Linux) sur site.
+  - Automatisation des configurations avec Ansible (60 rôles écrits).
+  - Supervision avec Zabbix, scripts Bash de sauvegarde et de rotation des logs.
+  - Mise en place de quelques services conteneurisés avec Docker Compose (wiki, outils internes).
+  - Virtualisation VMware vSphere.
+
+  Technicienne systèmes — InfoSud Maintenance (entreprise fictive), Montauban
+  Septembre 2016 – février 2019
+  - Support N2, installation de postes et de serveurs Windows et Linux.
+
+  COMPÉTENCES
+  Linux, Bash, Ansible, Docker, Zabbix, VMware, réseaux TCP/IP, Python (notions)
+
+  FORMATION
+  BTS Systèmes numériques option Informatique et Réseaux (2016)
+
+  LANGUES
+  Français, anglais technique

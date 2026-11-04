@@ -1,0 +1,58 @@
+id: strong_fit_backend
+description: Strong fit — mid-level Python backend developer for a matching backend offer.
+expected_score_range: [75, 100]
+must_match_skills: [Python, Django, PostgreSQL, Docker, "API REST|REST"]
+must_flag_gaps: [Kubernetes]
+notes: >
+  Every required skill is explicit in the CV. Only Kubernetes (nice-to-have) is missing.
+  The letter must not claim Kubernetes experience.
+offer_text: |
+  Développeur Backend Python (H/F) — CDI — Lyon (télétravail 3 jours/semaine)
+
+  Bricolune (entreprise fictive) édite une plateforme de location d'outils entre particuliers
+  (300 000 utilisateurs actifs). L'équipe technique compte 14 personnes.
+
+  Missions
+  - Concevoir et faire évoluer les API REST de la plateforme (réservations, paiements).
+  - Modéliser et optimiser la base PostgreSQL.
+  - Écrire des tests automatisés et participer aux revues de code.
+  - Participer aux astreintes (une semaine par trimestre).
+
+  Profil recherché
+  - 3 ans d'expérience minimum en développement backend.
+  - Python et Django (Django REST Framework) indispensables.
+  - Bonne maîtrise de PostgreSQL.
+  - Docker et intégration continue (GitHub Actions).
+  - Tests automatisés (pytest).
+
+  Serait un plus
+  - Kubernetes.
+  - Celery / Redis.
+
+  Salaire : 45-52 k€ selon expérience.
+cv_text: |
+  Hugo Lemaire (personne fictive)
+  Développeur Backend Python — Villeurbanne — hugo.lemaire@example.com
+
+  EXPÉRIENCES
+  Développeur Backend — Parcelia (entreprise fictive, e-commerce), Lyon
+  Janvier 2021 – aujourd'hui (3 ans 10 mois)
+  - Développement d'API REST avec Django REST Framework pour 40 000 commandes par jour.
+  - Optimisation de requêtes PostgreSQL (temps de réponse moyen divisé par 3).
+  - Tâches asynchrones avec Celery et Redis (envoi d'e-mails, génération de factures).
+  - Tests unitaires et d'intégration avec pytest (couverture passée de 45 % à 82 %).
+  - Pipelines GitHub Actions, images Docker.
+
+  Développeur Python (alternance) — Mutualis Conseil (entreprise fictive), Lyon
+  Septembre 2019 – décembre 2020
+  - Scripts Python d'automatisation et petite application Flask interne.
+
+  COMPÉTENCES
+  Python, Django, Django REST Framework, Flask, PostgreSQL, Redis, Celery, Docker,
+  GitHub Actions, pytest, Git, Linux
+
+  FORMATION
+  Licence professionnelle Développement web — IUT Lyon 1 (2020)
+
+  LANGUES
+  Français (natif), anglais (professionnel)

@@ -1,0 +1,53 @@
+id: english_offer_ml
+description: Offer written in English (ML engineer, Amsterdam); CV in French. Letter must be in English.
+expected_score_range: [50, 85]
+must_match_skills: [Python, PyTorch, Docker]
+must_flag_gaps: [Kubernetes, MLflow]
+notes: >
+  Tests the language handling: the offer language is English, so the letter must be in
+  English even though the CV is French. Strong ML modelling skills, weak MLOps.
+offer_text: |
+  Machine Learning Engineer — Full-time — Amsterdam (hybrid)
+
+  Tulipwise (fictional company) builds demand-forecasting software for European grocery
+  chains. Our ML team (9 people) ships models used by 1,200 stores every day.
+
+  What you will do
+  - Design, train and deploy forecasting and recommendation models.
+  - Build training and serving pipelines and monitor models in production.
+  - Work with product managers to turn business questions into ML problems.
+
+  What we are looking for
+  - 3+ years of experience as an ML engineer or data scientist.
+  - Strong Python; PyTorch or TensorFlow.
+  - Experience deploying models: Docker, Kubernetes.
+  - Experiment tracking and model registry (MLflow or similar).
+  - SQL.
+
+  Nice to have
+  - Time-series forecasting.
+  - Dutch language.
+cv_text: |
+  Sofiane Haddad (personne fictive)
+  Data Scientist — Lille — sofiane.haddad@example.com
+
+  EXPÉRIENCES
+  Data Scientist — Nordpanier (entreprise fictive, grande distribution), Lille
+  Juin 2021 – aujourd'hui (3 ans 5 mois)
+  - Modèles de prévision des ventes par magasin (séries temporelles, LightGBM puis PyTorch).
+  - Réduction de 12 % des ruptures de stock sur le périmètre frais.
+  - Mise à disposition des modèles via une API FastAPI conteneurisée avec Docker.
+  - Requêtes SQL sur l'entrepôt de données (BigQuery).
+
+  Data Analyst (alternance) — Assurances du Nord (entreprise fictive), Lille
+  Septembre 2019 – mai 2021
+  - Tableaux de bord et analyses statistiques en Python (pandas, statsmodels).
+
+  COMPÉTENCES
+  Python, PyTorch, scikit-learn, LightGBM, pandas, SQL, BigQuery, FastAPI, Docker, Git
+
+  FORMATION
+  Diplôme d'ingénieur, spécialité data science — École Centrale de Lille (2021)
+
+  LANGUES
+  Français (natif), anglais (courant, C1), arabe (conversationnel)

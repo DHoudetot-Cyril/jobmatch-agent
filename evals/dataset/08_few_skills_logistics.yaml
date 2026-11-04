@@ -1,0 +1,50 @@
+id: few_skills_logistics
+description: CV with very few explicit skills (no skills section) — warehouse team leader offer.
+expected_score_range: [40, 80]
+must_match_skills: ["CACES", "management|encadrement|gestion d'équipe"]
+must_flag_gaps: [SAP]
+notes: >
+  The CV has no skills section: competences must be inferred from the experience
+  descriptions (CACES, team supervision, inventory). SAP is never mentioned. The letter
+  must not invent software skills (e.g. SAP, WMS brand names) the CV does not contain.
+offer_text: |
+  Chef d'équipe logistique (H/F) — CDI — Orléans
+
+  Loirexpress (entreprise fictive), prestataire logistique e-commerce, recherche un chef
+  d'équipe pour son entrepôt de 25 000 m².
+
+  Missions
+  - Encadrer une équipe de 15 préparateurs de commandes et caristes.
+  - Organiser les flux de réception et d'expédition, suivre les indicateurs (productivité,
+    taux d'erreur).
+  - Veiller au respect des règles de sécurité.
+  - Réaliser les inventaires.
+
+  Profil
+  - Expérience de 3 ans en logistique dont une première expérience d'encadrement.
+  - CACES 1, 3 et 5 à jour.
+  - Utilisation d'un WMS et de SAP.
+  - Rigueur, sens de l'organisation.
+
+  Un plus
+  - Excel.
+cv_text: |
+  Mickaël Rousseau (personne fictive)
+  Orléans — 06 00 00 00 00 — mickael.rousseau@example.com
+
+  PARCOURS
+  2021 – aujourd'hui : Chef d'équipe (intérim puis CDI) — Entrepôt Val de Loire Distribution
+  (entreprise fictive), Saran.
+  J'organise le travail d'une équipe de 8 personnes en préparation de commandes, je fais
+  les plannings et je forme les nouveaux arrivants. Je m'occupe des inventaires tournants
+  et je remonte les chiffres de productivité au responsable de site chaque semaine.
+
+  2016 – 2021 : Cariste puis préparateur de commandes — Logicentre (entreprise fictive), Orléans.
+  Conduite de chariots, réception des camions, préparation sur scanner.
+  Titulaire des CACES 1, 3 et 5 (recyclage en 2023).
+
+  2014 – 2016 : Manutentionnaire en intérim (plusieurs missions).
+
+  FORMATION
+  CAP Opérateur logistique (2014)
+  Formation Sauveteur Secouriste du Travail (SST), 2022

@@ -1,0 +1,54 @@
+id: employment_gap_accountant
+description: CV with a 2-year employment gap (parental leave) — accountant for an accountant offer.
+expected_score_range: [60, 95]
+must_match_skills: ["Sage", "comptabilité générale|comptabilite", "Excel"]
+must_flag_gaps: ["Pennylane"]
+notes: >
+  Skills fit well. The 2022-2024 gap is explained in the CV (congé parental). The letter
+  must not invent any professional activity during the gap, nor certifications.
+offer_text: |
+  Comptable Général (H/F) — CDI — Nantes
+
+  Cabinet Ardoise & Associés (cabinet fictif) accompagne 400 TPE et PME de l'Ouest.
+
+  Missions
+  - Tenue de la comptabilité générale d'un portefeuille de 40 clients.
+  - Déclarations de TVA, révision et préparation des bilans.
+  - Relation client et conseil de premier niveau.
+
+  Profil
+  - 4 ans d'expérience en comptabilité, idéalement en cabinet.
+  - Comptabilité générale, TVA, bilans.
+  - Maîtrise de Sage et d'Excel (tableaux croisés dynamiques).
+  - Pennylane.
+
+  Un plus
+  - Expérience de la paie.
+cv_text: |
+  Claire Dubreuil (personne fictive)
+  Comptable — Saint-Nazaire — claire.dubreuil@example.com
+
+  EXPÉRIENCES
+  Comptable en cabinet — Cabinet Lemoine Expertise (cabinet fictif), Saint-Nazaire
+  Septembre 2016 – juin 2022 (5 ans 10 mois)
+  - Tenue de la comptabilité générale de 35 dossiers (artisans, commerçants, SCI).
+  - Déclarations de TVA mensuelles et trimestrielles, préparation des bilans.
+  - Utilisation quotidienne de Sage et d'Excel (tableaux croisés dynamiques, RECHERCHEV).
+
+  Juillet 2022 – septembre 2024 : congé parental (deux enfants).
+
+  Octobre 2024 – aujourd'hui : formation en ligne de remise à niveau
+  « Actualité fiscale 2024 » (40 heures).
+
+  Assistante comptable — Boulangeries Tanguy (entreprise fictive), Saint-Nazaire
+  2014 – 2016
+  - Saisie des factures fournisseurs, rapprochements bancaires.
+
+  COMPÉTENCES
+  Comptabilité générale, TVA, bilans, Sage, Excel
+
+  FORMATION
+  DCG (Diplôme de comptabilité et de gestion) — 2014
+
+  LANGUES
+  Français, anglais (scolaire)

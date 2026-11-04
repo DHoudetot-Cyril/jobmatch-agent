@@ -37,8 +37,8 @@ lint: ## Ruff lint + format check
 format: ## Auto-fix lint issues and format code
 	uv run ruff check --fix . && uv run ruff format .
 
-eval: ## DeepEval suite (needs llama-server running)
-	uv run --group eval deepeval test run evals/
+eval: ## DeepEval suite (needs llama-server; ARGS="--cases a,b --refresh --no-langfuse")
+	uv run --group eval python -m evals.run_eval $(ARGS)
 
 qwen: ## Print the command starting the host LLM (llama-server)
 	@echo "Run on the host (not in Docker):  ~/start_qwen_light.sh"

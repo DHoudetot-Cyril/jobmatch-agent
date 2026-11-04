@@ -1,0 +1,59 @@
+id: overqualified_support
+description: Over-qualified — an IT manager with 15 years of experience applying to a level-1 helpdesk job.
+expected_score_range: [65, 100]
+must_match_skills: ["Active Directory", "Windows", "ITIL"]
+must_flag_gaps: []
+notes: >
+  All skills are covered; the only concern is over-qualification (experience fit may be
+  lowered but skills dominate the rubric). The letter should stay credible and must not
+  invent a motivation the CV does not support beyond what is reasonable.
+offer_text: |
+  Technicien Support Informatique N1 (H/F) — CDD 12 mois — Rennes
+
+  Breizh Mutuelle Services (entreprise fictive) recherche un technicien pour son centre
+  de services (350 utilisateurs).
+
+  Missions
+  - Prise en charge des appels et tickets utilisateurs (outil GLPI).
+  - Résolution des incidents de premier niveau sur postes Windows et Office 365.
+  - Gestion des comptes dans Active Directory (création, réinitialisation de mots de passe).
+  - Préparation et installation des postes de travail.
+
+  Profil
+  - Bac+2 en informatique ou première expérience en support.
+  - Windows 10/11, Office 365, Active Directory.
+  - Connaissance des bonnes pratiques ITIL.
+  - Sens du service et pédagogie.
+
+  Un plus
+  - GLPI.
+cv_text: |
+  Patrick Le Goff (personne fictive)
+  Responsable des systèmes d'information — Rennes — patrick.legoff@example.com
+
+  EXPÉRIENCES
+  Responsable des systèmes d'information — Groupe Armorique Distribution (entreprise fictive)
+  2015 – 2024 (9 ans)
+  - Direction d'une équipe de 8 personnes (support, infrastructure, applications).
+  - Pilotage de la migration de 600 postes vers Windows 10 et Office 365.
+  - Mise en place d'un centre de services selon ITIL v4 (outil GLPI).
+  - Gestion d'un budget annuel de 1,2 M€.
+
+  Administrateur systèmes Windows — Ouest Logistique (entreprise fictive)
+  2009 – 2015
+  - Administration Active Directory, GPO, serveurs Windows Server.
+  - Support N2/N3 aux utilisateurs.
+
+  Technicien support — Bretagne Informatique Services (entreprise fictive)
+  2006 – 2009
+  - Support N1 téléphonique et sur site, installation de postes.
+
+  COMPÉTENCES
+  Windows, Windows Server, Active Directory, Office 365, GLPI, ITIL v4 (certifié Foundation),
+  management d'équipe, gestion budgétaire
+
+  FORMATION
+  Master Management des systèmes d'information — IAE de Rennes (2006)
+
+  LANGUES
+  Français, anglais (courant)

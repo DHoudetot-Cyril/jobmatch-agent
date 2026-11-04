@@ -1,0 +1,53 @@
+id: mismatch_nurse_data
+description: Clear mismatch — a nurse applying to a data scientist offer (different field).
+expected_score_range: [0, 25]
+must_match_skills: []
+must_flag_gaps: [Python, "Machine Learning|apprentissage automatique", SQL]
+notes: >
+  No technical skill in common. The score must be very low. The letter must NOT invent
+  any data/ML experience; at most it can mention the health domain knowledge.
+offer_text: |
+  Data Scientist (H/F) — CDI — Paris
+
+  Santéclair Analytics (entreprise fictive) développe des modèles prédictifs pour optimiser
+  la gestion des lits dans les hôpitaux.
+
+  Missions
+  - Concevoir, entraîner et évaluer des modèles de machine learning (prévision, classification).
+  - Préparer et explorer les données hospitalières (SQL, Python).
+  - Industrialiser les modèles avec l'équipe MLOps.
+  - Présenter les résultats aux équipes médicales.
+
+  Profil
+  - Master ou doctorat en data science, statistiques ou informatique.
+  - Python (pandas, scikit-learn) et SQL indispensables.
+  - Machine learning : régression, arbres de décision, validation croisée.
+  - Statistiques.
+
+  Un plus
+  - Connaissance du milieu hospitalier.
+  - PyTorch.
+cv_text: |
+  Élodie Garnier (personne fictive)
+  Infirmière diplômée d'État — Créteil — elodie.garnier@example.com
+
+  EXPÉRIENCES
+  Infirmière en service de réanimation — Hôpital Saint-Aubin (établissement fictif), Créteil
+  2017 – aujourd'hui
+  - Prise en charge de patients en soins critiques (12 lits).
+  - Encadrement des étudiants infirmiers.
+  - Participation à la mise en place d'un nouveau logiciel de dossier patient informatisé
+    (formation des collègues).
+
+  Infirmière en médecine polyvalente — Clinique du Parc (établissement fictif), Melun
+  2014 – 2017
+
+  COMPÉTENCES
+  Soins techniques, gestion de l'urgence, travail en équipe pluridisciplinaire,
+  Pack Office (Word, Excel)
+
+  FORMATION
+  Diplôme d'État d'infirmier — IFSI de Créteil (2014)
+
+  LANGUES
+  Français, anglais (notions)
