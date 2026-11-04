@@ -1,0 +1,194 @@
+{"id": "doc-016-other-o_post", "task": "doc_type", "probs": {"cv": 0.011257139881879345, "job_offer": 0.039673683124221835, "other": 0.9490691769938989}, "latency_ms": 45.432859000356984}
+{"id": "claim-024-data_engineer", "task": "claim_supported", "probs": {"no": 0.8892092487889416, "yes": 0.11079075121105847}, "latency_ms": 207.78986099958274}
+{"id": "claim-025-data_engineer", "task": "claim_supported", "probs": {"no": 0.9061016503682562, "yes": 0.09389834963174384}, "latency_ms": 194.27782699949603}
+{"id": "claim-026-data_engineer", "task": "claim_supported", "probs": {"no": 0.9382757018852007, "yes": 0.061724298114799334}, "latency_ms": 59.8057549996156}
+{"id": "claim-027-data_engineer", "task": "claim_supported", "probs": {"no": 0.9463467439582967, "yes": 0.053653256041703304}, "latency_ms": 55.67396900005406}
+{"id": "claim-028-data_engineer", "task": "claim_supported", "probs": {"no": 0.9050514846430858, "yes": 0.09494851535691415}, "latency_ms": 55.90136099999654}
+{"id": "claim-029-data_engineer", "task": "claim_supported", "probs": {"no": 0.8727988458297825, "yes": 0.1272011541702175}, "latency_ms": 58.55595800039737}
+{"id": "claim-030-data_engineer", "task": "claim_supported", "probs": {"no": 0.8956903056480113, "yes": 0.10430969435198864}, "latency_ms": 57.182268999895314}
+{"id": "doc-009-cv-data_engineer", "task": "doc_type", "probs": {"cv": 0.5311436125880268, "job_offer": 0.0704619905197042, "other": 0.39839439689226913}, "latency_ms": 81.87840600021445}
+{"id": "sen-006-data_engineer", "task": "seniority", "probs": {"junior": 0.0668904875101457, "mid": 0.6590642445990665, "senior": 0.25303277958039727, "lead": 0.021012488310390483}, "latency_ms": 122.95334500049648}
+{"id": "skill-055-data_engineer", "task": "skill_evidence", "probs": {"no": 0.08286133215938496, "yes": 0.917138667840615}, "latency_ms": 99.17114100062463}
+{"id": "skill-056-data_engineer", "task": "skill_evidence", "probs": {"no": 0.09676604105082232, "yes": 0.9032339589491777}, "latency_ms": 55.29073400066409}
+{"id": "skill-057-data_engineer", "task": "skill_evidence", "probs": {"no": 0.9294794987223489, "yes": 0.07052050127765108}, "latency_ms": 46.884467999916524}
+{"id": "skill-058-data_engineer", "task": "skill_evidence", "probs": {"no": 0.9157640357937535, "yes": 0.08423596420624649}, "latency_ms": 45.3893079993577}
+{"id": "skill-059-data_engineer", "task": "skill_evidence", "probs": {"no": 0.9035396838472104, "yes": 0.09646031615278965}, "latency_ms": 44.760390000192274}
+{"id": "skill-060-data_engineer", "task": "skill_evidence", "probs": {"no": 0.9308853532664122, "yes": 0.06911464673358785}, "latency_ms": 52.08712900002865}
+{"id": "skill-061-data_engineer", "task": "skill_evidence", "probs": {"no": 0.8969570189522692, "yes": 0.10304298104773077}, "latency_ms": 55.6670080004551}
+{"id": "skill-062-data_engineer", "task": "skill_evidence", "probs": {"no": 0.15106078960609548, "yes": 0.8489392103939045}, "latency_ms": 55.49900599999091}
+{"id": "skill-063-data_engineer", "task": "skill_evidence", "probs": {"no": 0.16862539699704204, "yes": 0.831374603002958}, "latency_ms": 53.80308299936587}
+{"id": "skill-064-data_engineer", "task": "skill_evidence", "probs": {"no": 0.9620777922789261, "yes": 0.03792220772107385}, "latency_ms": 47.38036499929876}
+{"id": "doc-005-offer-logistics", "task": "doc_type", "probs": {"cv": 0.16125773455709608, "job_offer": 0.23912017562734658, "other": 0.5996220898155573}, "latency_ms": 105.39255599996977}
+{"id": "claim-041-accountant", "task": "claim_supported", "probs": {"no": 0.8041902253157853, "yes": 0.19580977468421473}, "latency_ms": 171.89353199955804}
+{"id": "claim-042-accountant", "task": "claim_supported", "probs": {"no": 0.8613065088801402, "yes": 0.13869349111985987}, "latency_ms": 120.67839399969671}
+{"id": "doc-008-cv-accountant", "task": "doc_type", "probs": {"cv": 0.01767815475803874, "job_offer": 0.012237173096143507, "other": 0.9700846721458177}, "latency_ms": 76.95300799969118}
+{"id": "sen-018-accountant", "task": "seniority", "probs": {"junior": 0.036256904275793596, "mid": 0.7380878437700197, "senior": 0.212546012768618, "lead": 0.013109239185568791}, "latency_ms": 111.30231600054685}
+{"id": "skill-045-accountant", "task": "skill_evidence", "probs": {"no": 0.1299679670412902, "yes": 0.8700320329587098}, "latency_ms": 89.67014200061385}
+{"id": "skill-046-accountant", "task": "skill_evidence", "probs": {"no": 0.8164118806222475, "yes": 0.18358811937775255}, "latency_ms": 45.49281000072369}
+{"id": "skill-047-accountant", "task": "skill_evidence", "probs": {"no": 0.21197434225649858, "yes": 0.7880256577435014}, "latency_ms": 51.30590899989329}
+{"id": "skill-048-accountant", "task": "skill_evidence", "probs": {"no": 0.08704160186356547, "yes": 0.9129583981364345}, "latency_ms": 58.132111000304576}
+{"id": "skill-049-accountant", "task": "skill_evidence", "probs": {"no": 0.14011592374095994, "yes": 0.8598840762590401}, "latency_ms": 53.35620599998947}
+{"id": "claim-050-qa", "task": "claim_supported", "probs": {"no": 0.035130313007969094, "yes": 0.9648696869920309}, "latency_ms": 102.66674800004694}
+{"id": "claim-051-qa", "task": "claim_supported", "probs": {"no": 0.7865507033967062, "yes": 0.21344929660329384}, "latency_ms": 94.78857100020832}
+{"id": "doc-011-cv-qa", "task": "doc_type", "probs": {"cv": 0.2694115532867516, "job_offer": 0.03994561962568031, "other": 0.6906428270875681}, "latency_ms": 53.22703499950876}
+{"id": "sen-010-qa", "task": "seniority", "probs": {"junior": 0.4790285970704017, "mid": 0.42792321637117625, "senior": 0.0663286798115726, "lead": 0.02671950674684946}, "latency_ms": 84.19184600006702}
+{"id": "skill-093-qa", "task": "skill_evidence", "probs": {"no": 0.08377308299385489, "yes": 0.9162269170061451}, "latency_ms": 75.46493700010615}
+{"id": "skill-094-qa", "task": "skill_evidence", "probs": {"no": 0.05438923770377191, "yes": 0.9456107622962281}, "latency_ms": 51.955527999780315}
+{"id": "skill-095-qa", "task": "skill_evidence", "probs": {"no": 0.4700649074810046, "yes": 0.5299350925189954}, "latency_ms": 44.51992600024823}
+{"id": "skill-096-qa", "task": "skill_evidence", "probs": {"no": 0.9289375373387072, "yes": 0.07106246266129274}, "latency_ms": 35.755327000515535}
+{"id": "skill-097-qa", "task": "skill_evidence", "probs": {"no": 0.9118396095443329, "yes": 0.08816039045566716}, "latency_ms": 40.4621709994899}
+{"id": "skill-098-qa", "task": "skill_evidence", "probs": {"no": 0.6494543030883666, "yes": 0.3505456969116334}, "latency_ms": 46.511212999575946}
+{"id": "skill-099-qa", "task": "skill_evidence", "probs": {"no": 0.7810739687570223, "yes": 0.21892603124297777}, "latency_ms": 44.78220999953919}
+{"id": "skill-100-qa", "task": "skill_evidence", "probs": {"no": 0.08297475328801218, "yes": 0.9170252467119878}, "latency_ms": 44.7782900000675}
+{"id": "skill-101-qa", "task": "skill_evidence", "probs": {"no": 0.8007771395600636, "yes": 0.19922286043993637}, "latency_ms": 40.296168999702786}
+{"id": "doc-006-offer-data_engineer", "task": "doc_type", "probs": {"cv": 0.15912245595276975, "job_offer": 0.23787835406247035, "other": 0.60299918998476}, "latency_ms": 175.488659999246}
+{"id": "doc-002-offer-nurse", "task": "doc_type", "probs": {"cv": 0.46068708479630566, "job_offer": 0.1817277335817449, "other": 0.35758518162194947}, "latency_ms": 240.24609100069938}
+{"id": "doc-014-letter-english_offer_ml", "task": "doc_type", "probs": {"cv": 0.2737020875055112, "job_offer": 0.17338681719130214, "other": 0.5529110953031866}, "latency_ms": 183.65531099971122}
+{"id": "doc-000-offer-backend", "task": "doc_type", "probs": {"cv": 0.3440912615639441, "job_offer": 0.36090159086200607, "other": 0.2950071475740499}, "latency_ms": 201.43028300026344}
+{"id": "claim-047-ios", "task": "claim_supported", "probs": {"no": 0.043180585637732416, "yes": 0.9568194143622676}, "latency_ms": 170.37854899990634}
+{"id": "claim-048-ios", "task": "claim_supported", "probs": {"no": 0.9680446544383012, "yes": 0.031955345561698725}, "latency_ms": 89.0171820001342}
+{"id": "claim-049-ios", "task": "claim_supported", "probs": {"no": 0.039501638125923, "yes": 0.960498361874077}, "latency_ms": 35.98289999990811}
+{"id": "sen-009-ios", "task": "seniority", "probs": {"junior": 0.06372061359611927, "mid": 0.5147503143243828, "senior": 0.3930670440195028, "lead": 0.028462028059995145}, "latency_ms": 67.58430999980192}
+{"id": "skill-084-ios", "task": "skill_evidence", "probs": {"no": 0.04957470944246134, "yes": 0.9504252905575387}, "latency_ms": 77.00552899950708}
+{"id": "skill-085-ios", "task": "skill_evidence", "probs": {"no": 0.062155746399990774, "yes": 0.9378442536000092}, "latency_ms": 46.63427499963291}
+{"id": "skill-086-ios", "task": "skill_evidence", "probs": {"no": 0.09275837957368527, "yes": 0.9072416204263147}, "latency_ms": 37.36990800007334}
+{"id": "skill-087-ios", "task": "skill_evidence", "probs": {"no": 0.7205654328444945, "yes": 0.2794345671555055}, "latency_ms": 34.63352200014924}
+{"id": "skill-088-ios", "task": "skill_evidence", "probs": {"no": 0.899859303548358, "yes": 0.10014069645164199}, "latency_ms": 34.5044189998589}
+{"id": "skill-089-ios", "task": "skill_evidence", "probs": {"no": 0.9233867299883363, "yes": 0.07661327001166379}, "latency_ms": 34.38728799937962}
+{"id": "skill-090-ios", "task": "skill_evidence", "probs": {"no": 0.15114492106502742, "yes": 0.8488550789349726}, "latency_ms": 34.483419000025606}
+{"id": "skill-091-ios", "task": "skill_evidence", "probs": {"no": 0.07129079044780018, "yes": 0.9287092095521998}, "latency_ms": 34.403018000375596}
+{"id": "skill-092-ios", "task": "skill_evidence", "probs": {"no": 0.07570759029760754, "yes": 0.9242924097023925}, "latency_ms": 34.37042800032941}
+{"id": "doc-015-other-o_invoice", "task": "doc_type", "probs": {"cv": 0.022695622961147587, "job_offer": 0.005752349062902557, "other": 0.9715520279759499}, "latency_ms": 88.31078200000775}
+{"id": "claim-000-backend", "task": "claim_supported", "probs": {"no": 0.6053784440003562, "yes": 0.3946215559996437}, "latency_ms": 175.43454799942992}
+{"id": "claim-001-backend", "task": "claim_supported", "probs": {"no": 0.7900891413298643, "yes": 0.2099108586701357}, "latency_ms": 128.1947150000633}
+{"id": "claim-002-backend", "task": "claim_supported", "probs": {"no": 0.8439571867932011, "yes": 0.1560428132067989}, "latency_ms": 54.74526499983767}
+{"id": "claim-003-backend", "task": "claim_supported", "probs": {"no": 0.9066503772176707, "yes": 0.0933496227823293}, "latency_ms": 57.80693699944095}
+{"id": "claim-004-backend", "task": "claim_supported", "probs": {"no": 0.943761452496472, "yes": 0.05623854750352797}, "latency_ms": 51.89531700034422}
+{"id": "claim-005-backend", "task": "claim_supported", "probs": {"no": 0.8986718787332144, "yes": 0.10132812126678564}, "latency_ms": 47.854131999883975}
+{"id": "claim-006-backend", "task": "claim_supported", "probs": {"no": 0.8883926006118352, "yes": 0.11160739938816483}, "latency_ms": 48.4589789994061}
+{"id": "claim-007-backend", "task": "claim_supported", "probs": {"no": 0.9583528555083766, "yes": 0.041647144491623475}, "latency_ms": 46.016536000024644}
+{"id": "claim-008-backend", "task": "claim_supported", "probs": {"no": 0.9448922936139948, "yes": 0.0551077063860052}, "latency_ms": 49.01298700042389}
+{"id": "claim-009-backend", "task": "claim_supported", "probs": {"no": 0.7246551021699097, "yes": 0.27534489783009025}, "latency_ms": 61.202443999718525}
+{"id": "sen-000-backend", "task": "seniority", "probs": {"junior": 0.05456187981248309, "mid": 0.7754574994261457, "senior": 0.1447240837478322, "lead": 0.02525653701353905}, "latency_ms": 95.24583599977632}
+{"id": "skill-000-backend", "task": "skill_evidence", "probs": {"no": 0.08852893788505267, "yes": 0.9114710621149473}, "latency_ms": 90.85640600005718}
+{"id": "skill-001-backend", "task": "skill_evidence", "probs": {"no": 0.09466650358204765, "yes": 0.9053334964179524}, "latency_ms": 51.063496000097075}
+{"id": "skill-002-backend", "task": "skill_evidence", "probs": {"no": 0.9469240388327456, "yes": 0.05307596116725448}, "latency_ms": 50.828152000576665}
+{"id": "skill-003-backend", "task": "skill_evidence", "probs": {"no": 0.8989550886736342, "yes": 0.1010449113263659}, "latency_ms": 54.26854800043657}
+{"id": "skill-004-backend", "task": "skill_evidence", "probs": {"no": 0.9454106663513838, "yes": 0.05458933364861615}, "latency_ms": 49.46773300071072}
+{"id": "skill-005-backend", "task": "skill_evidence", "probs": {"no": 0.1321502434983972, "yes": 0.8678497565016028}, "latency_ms": 43.899066999983916}
+{"id": "skill-006-backend", "task": "skill_evidence", "probs": {"no": 0.35187558051350476, "yes": 0.6481244194864952}, "latency_ms": 51.74748399986129}
+{"id": "skill-007-backend", "task": "skill_evidence", "probs": {"no": 0.4821180110409563, "yes": 0.5178819889590437}, "latency_ms": 58.29949300004955}
+{"id": "skill-008-backend", "task": "skill_evidence", "probs": {"no": 0.09167453723067476, "yes": 0.9083254627693252}, "latency_ms": 57.98688899994886}
+{"id": "skill-009-backend", "task": "skill_evidence", "probs": {"no": 0.948875676746741, "yes": 0.051124323253259045}, "latency_ms": 52.73850699995819}
+{"id": "doc-001-offer-devops", "task": "doc_type", "probs": {"cv": 0.1595142917027066, "job_offer": 0.27306605284328106, "other": 0.5674196554540123}, "latency_ms": 110.61646500002098}
+{"id": "claim-045-lead", "task": "claim_supported", "probs": {"no": 0.9237221051296373, "yes": 0.07627789487036271}, "latency_ms": 174.8142579999694}
+{"id": "claim-046-lead", "task": "claim_supported", "probs": {"no": 0.8772672400840041, "yes": 0.1227327599159959}, "latency_ms": 115.68749399975786}
+{"id": "doc-010-cv-lead", "task": "doc_type", "probs": {"cv": 0.36763595209623706, "job_offer": 0.09652609561328276, "other": 0.5358379522904801}, "latency_ms": 76.35262900021189}
+{"id": "sen-008-lead", "task": "seniority", "probs": {"junior": 0.017317372129823625, "mid": 0.8684804826483171, "senior": 0.03604127013625655, "lead": 0.07816087508560265}, "latency_ms": 106.19989399947372}
+{"id": "skill-075-lead", "task": "skill_evidence", "probs": {"no": 0.07200204736186766, "yes": 0.9279979526381323}, "latency_ms": 87.20257699951617}
+{"id": "skill-076-lead", "task": "skill_evidence", "probs": {"no": 0.08782951467939903, "yes": 0.912170485320601}, "latency_ms": 50.225623000187625}
+{"id": "skill-077-lead", "task": "skill_evidence", "probs": {"no": 0.9554842413347507, "yes": 0.04451575866524928}, "latency_ms": 42.35458600032871}
+{"id": "skill-078-lead", "task": "skill_evidence", "probs": {"no": 0.8969579444550044, "yes": 0.10304205554499558}, "latency_ms": 42.83838299943454}
+{"id": "skill-079-lead", "task": "skill_evidence", "probs": {"no": 0.9484981742340215, "yes": 0.0515018257659785}, "latency_ms": 44.29478300062328}
+{"id": "skill-080-lead", "task": "skill_evidence", "probs": {"no": 0.0840001338399774, "yes": 0.9159998661600226}, "latency_ms": 48.967337000249245}
+{"id": "skill-081-lead", "task": "skill_evidence", "probs": {"no": 0.1921244579335012, "yes": 0.8078755420664988}, "latency_ms": 49.54212400025426}
+{"id": "skill-082-lead", "task": "skill_evidence", "probs": {"no": 0.9618336481181899, "yes": 0.038166351881810036}, "latency_ms": 43.74121499949979}
+{"id": "skill-083-lead", "task": "skill_evidence", "probs": {"no": 0.08093493630187487, "yes": 0.9190650636981251}, "latency_ms": 43.438070999400225}
+{"id": "sen-007-bank", "task": "seniority", "probs": {"junior": 0.03773305337176266, "mid": 0.7944162963863832, "senior": 0.13702085070846384, "lead": 0.03082979953339027}, "latency_ms": 157.2175689998403}
+{"id": "skill-065-bank", "task": "skill_evidence", "probs": {"no": 0.8370771189881132, "yes": 0.16292288101188673}, "latency_ms": 159.23088700037624}
+{"id": "skill-066-bank", "task": "skill_evidence", "probs": {"no": 0.6979094055884063, "yes": 0.30209059441159364}, "latency_ms": 44.48297500039189}
+{"id": "skill-067-bank", "task": "skill_evidence", "probs": {"no": 0.7318092424400231, "yes": 0.2681907575599769}, "latency_ms": 49.521663999257726}
+{"id": "skill-068-bank", "task": "skill_evidence", "probs": {"no": 0.20950636083464624, "yes": 0.7904936391653538}, "latency_ms": 51.48392000046442}
+{"id": "skill-069-bank", "task": "skill_evidence", "probs": {"no": 0.8906969673808547, "yes": 0.10930303261914529}, "latency_ms": 50.8500420000928}
+{"id": "skill-070-bank", "task": "skill_evidence", "probs": {"no": 0.2521447032655566, "yes": 0.7478552967344434}, "latency_ms": 54.76001499937411}
+{"id": "skill-071-bank", "task": "skill_evidence", "probs": {"no": 0.5404844442780506, "yes": 0.45951555572194935}, "latency_ms": 48.99737699997786}
+{"id": "skill-072-bank", "task": "skill_evidence", "probs": {"no": 0.7516798440577184, "yes": 0.24832015594228157}, "latency_ms": 46.01452600036282}
+{"id": "skill-073-bank", "task": "skill_evidence", "probs": {"no": 0.6710808804504481, "yes": 0.3289191195495519}, "latency_ms": 54.391300000133924}
+{"id": "skill-074-bank", "task": "skill_evidence", "probs": {"no": 0.6698252589832026, "yes": 0.3301747410167975}, "latency_ms": 53.279775000191876}
+{"id": "doc-012-cv-s_mid_fr", "task": "doc_type", "probs": {"cv": 0.4437361769790728, "job_offer": 0.09300870975028219, "other": 0.46325511327064506}, "latency_ms": 89.54040800017538}
+{"id": "sen-013-s_mid_fr", "task": "seniority", "probs": {"junior": 0.0294335606204388, "mid": 0.1435639333445532, "senior": 0.7858068689194413, "lead": 0.041195637115566806}, "latency_ms": 124.87151799996354}
+{"id": "doc-003-offer-frontend", "task": "doc_type", "probs": {"cv": 0.46778831156874445, "job_offer": 0.3007697702567942, "other": 0.23144191817446128}, "latency_ms": 141.8398089999755}
+{"id": "claim-035-frontend", "task": "claim_supported", "probs": {"no": 0.8843812152171701, "yes": 0.11561878478282993}, "latency_ms": 158.15970100084087}
+{"id": "claim-036-frontend", "task": "claim_supported", "probs": {"no": 0.9020483683429263, "yes": 0.09795163165707364}, "latency_ms": 104.61678299998312}
+{"id": "claim-037-frontend", "task": "claim_supported", "probs": {"no": 0.9287329785788936, "yes": 0.07126702142110641}, "latency_ms": 56.47029800002201}
+{"id": "sen-002-frontend", "task": "seniority", "probs": {"junior": 0.3468152717823174, "mid": 0.5184426420556542, "senior": 0.10349507897263213, "lead": 0.03124700718939634}, "latency_ms": 86.08586999980616}
+{"id": "skill-024-frontend", "task": "skill_evidence", "probs": {"no": 0.20140248018104756, "yes": 0.7985975198189524}, "latency_ms": 83.64244699987466}
+{"id": "skill-025-frontend", "task": "skill_evidence", "probs": {"no": 0.41395741089140803, "yes": 0.586042589108592}, "latency_ms": 51.91700599971227}
+{"id": "skill-026-frontend", "task": "skill_evidence", "probs": {"no": 0.892177796495975, "yes": 0.1078222035040251}, "latency_ms": 51.77054399973713}
+{"id": "skill-027-frontend", "task": "skill_evidence", "probs": {"no": 0.9302521458955305, "yes": 0.06974785410446949}, "latency_ms": 51.06848400009767}
+{"id": "skill-028-frontend", "task": "skill_evidence", "probs": {"no": 0.13375787612531775, "yes": 0.8662421238746822}, "latency_ms": 50.2716529999816}
+{"id": "skill-029-frontend", "task": "skill_evidence", "probs": {"no": 0.9273116758920297, "yes": 0.07268832410797028}, "latency_ms": 44.43472499951895}
+{"id": "doc-004-offer-ml", "task": "doc_type", "probs": {"cv": 0.1466983673835457, "job_offer": 0.7356508398389966, "other": 0.11765079277745771}, "latency_ms": 96.6719349999039}
+{"id": "doc-013-letter-strong_fit_backend", "task": "doc_type", "probs": {"cv": 0.08517803801476259, "job_offer": 0.20118153504165728, "other": 0.7136404269435802}, "latency_ms": 214.05670100011776}
+{"id": "sen-012-s_jr_fr", "task": "seniority", "probs": {"junior": 0.137343855133344, "mid": 0.4726577180228173, "senior": 0.3587080718549909, "lead": 0.03129035498884786}, "latency_ms": 221.41152099993633}
+{"id": "doc-017-other-o_news", "task": "doc_type", "probs": {"cv": 0.045749488642444526, "job_offer": 0.7674358698017946, "other": 0.1868146415557609}, "latency_ms": 149.05712700056029}
+{"id": "sen-017-s_lead_en", "task": "seniority", "probs": {"junior": 0.007831375401246215, "mid": 0.018893813488419328, "senior": 0.3988947760800605, "lead": 0.5743800350302739}, "latency_ms": 135.92935799988481}
+{"id": "claim-043-logistics", "task": "claim_supported", "probs": {"no": 0.9061281189464596, "yes": 0.09387188105354041}, "latency_ms": 152.30572100063}
+{"id": "claim-044-logistics", "task": "claim_supported", "probs": {"no": 0.9314481829337299, "yes": 0.06855181706627007}, "latency_ms": 106.28409499986446}
+{"id": "sen-005-logistics", "task": "seniority", "probs": {"junior": 0.04859402030991702, "mid": 0.18558808078073089, "senior": 0.3428873474437783, "lead": 0.4229305514655738}, "latency_ms": 82.55544199982978}
+{"id": "skill-050-logistics", "task": "skill_evidence", "probs": {"no": 0.5654131038936651, "yes": 0.43458689610633494}, "latency_ms": 87.88701499997842}
+{"id": "skill-051-logistics", "task": "skill_evidence", "probs": {"no": 0.7025895077584583, "yes": 0.29741049224154165}, "latency_ms": 50.60122799932287}
+{"id": "skill-052-logistics", "task": "skill_evidence", "probs": {"no": 0.9162230739565816, "yes": 0.08377692604341831}, "latency_ms": 44.597135999538295}
+{"id": "skill-053-logistics", "task": "skill_evidence", "probs": {"no": 0.9048998259146337, "yes": 0.09510017408536633}, "latency_ms": 42.035860999931174}
+{"id": "skill-054-logistics", "task": "skill_evidence", "probs": {"no": 0.1672823255138024, "yes": 0.8327176744861976}, "latency_ms": 49.56934399979218}
+{"id": "claim-031-devops", "task": "claim_supported", "probs": {"no": 0.7452305876070019, "yes": 0.2547694123929981}, "latency_ms": 118.01711400039494}
+{"id": "claim-032-devops", "task": "claim_supported", "probs": {"no": 0.9268904877703293, "yes": 0.07310951222967069}, "latency_ms": 117.53552800018952}
+{"id": "claim-033-devops", "task": "claim_supported", "probs": {"no": 0.9192880267603456, "yes": 0.08071197323965436}, "latency_ms": 48.5177089994977}
+{"id": "claim-034-devops", "task": "claim_supported", "probs": {"no": 0.8583470956199891, "yes": 0.14165290438001088}, "latency_ms": 40.06919399944309}
+{"id": "sen-001-devops", "task": "seniority", "probs": {"junior": 0.03405101980605226, "mid": 0.7550654395636913, "senior": 0.18380425590301067, "lead": 0.02707928472724583}, "latency_ms": 80.68646699939563}
+{"id": "skill-010-devops", "task": "skill_evidence", "probs": {"no": 0.08003931440212608, "yes": 0.9199606855978739}, "latency_ms": 88.39296099995408}
+{"id": "skill-011-devops", "task": "skill_evidence", "probs": {"no": 0.5231792141278278, "yes": 0.4768207858721723}, "latency_ms": 50.74017900005856}
+{"id": "skill-012-devops", "task": "skill_evidence", "probs": {"no": 0.9237737791948338, "yes": 0.07622622080516621}, "latency_ms": 42.71167099977902}
+{"id": "skill-013-devops", "task": "skill_evidence", "probs": {"no": 0.9224853611414942, "yes": 0.07751463885850587}, "latency_ms": 48.14449500008777}
+{"id": "skill-014-devops", "task": "skill_evidence", "probs": {"no": 0.9195519397072424, "yes": 0.08044806029275763}, "latency_ms": 49.64803500024573}
+{"id": "skill-015-devops", "task": "skill_evidence", "probs": {"no": 0.3230142039246856, "yes": 0.6769857960753144}, "latency_ms": 44.36729299959552}
+{"id": "skill-016-devops", "task": "skill_evidence", "probs": {"no": 0.09621278350362217, "yes": 0.9037872164963778}, "latency_ms": 52.55618399951345}
+{"id": "skill-017-devops", "task": "skill_evidence", "probs": {"no": 0.3631980029195915, "yes": 0.6368019970804085}, "latency_ms": 57.37198999941029}
+{"id": "skill-018-devops", "task": "skill_evidence", "probs": {"no": 0.9423627854539838, "yes": 0.057637214546016176}, "latency_ms": 49.08584799977689}
+{"id": "sen-016-s_jr_en", "task": "seniority", "probs": {"junior": 0.11462514745633597, "mid": 0.4402017348012826, "senior": 0.4131461510678508, "lead": 0.03202696667453049}, "latency_ms": 86.02199899996776}
+{"id": "claim-038-support", "task": "claim_supported", "probs": {"no": 0.7902939314671517, "yes": 0.20970606853284832}, "latency_ms": 164.04593900006148}
+{"id": "claim-039-support", "task": "claim_supported", "probs": {"no": 0.9583367801532198, "yes": 0.04166321984678022}, "latency_ms": 119.49147400082438}
+{"id": "claim-040-support", "task": "claim_supported", "probs": {"no": 0.8939986066634827, "yes": 0.10600139333651727}, "latency_ms": 40.54527100015548}
+{"id": "doc-007-cv-support", "task": "doc_type", "probs": {"cv": 0.08821773918846959, "job_offer": 0.026016532569023088, "other": 0.8857657282425073}, "latency_ms": 66.41937299991696}
+{"id": "sen-003-support", "task": "seniority", "probs": {"junior": 0.030271688361753774, "mid": 0.14133493559495872, "senior": 0.6858628343792704, "lead": 0.1425305416640171}, "latency_ms": 106.34109500006161}
+{"id": "skill-030-support", "task": "skill_evidence", "probs": {"no": 0.1593955506526028, "yes": 0.8406044493473972}, "latency_ms": 89.1424810006356}
+{"id": "skill-031-support", "task": "skill_evidence", "probs": {"no": 0.25379345324546576, "yes": 0.7462065467545342}, "latency_ms": 54.68271200061281}
+{"id": "skill-032-support", "task": "skill_evidence", "probs": {"no": 0.8887753868402939, "yes": 0.11122461315970608}, "latency_ms": 48.32952699962334}
+{"id": "skill-033-support", "task": "skill_evidence", "probs": {"no": 0.95699684726931, "yes": 0.043003152730690025}, "latency_ms": 42.62499999913416}
+{"id": "skill-034-support", "task": "skill_evidence", "probs": {"no": 0.13046613919143812, "yes": 0.8695338608085619}, "latency_ms": 47.40829399997892}
+{"id": "skill-035-support", "task": "skill_evidence", "probs": {"no": 0.21846699346721, "yes": 0.78153300653279}, "latency_ms": 49.29554899990762}
+{"id": "sen-015-s_lead_fr", "task": "seniority", "probs": {"junior": 0.03616101343206396, "mid": 0.23234253023171758, "senior": 0.3343201289455845, "lead": 0.397176327390634}, "latency_ms": 104.07273399960104}
+{"id": "sen-019-s_mid_en_x", "task": "seniority", "probs": {"junior": 0.06211803325442651, "mid": 0.29607826410289495, "senior": 0.622995389048492, "lead": 0.018808313594186565}, "latency_ms": 153.6571169999661}
+{"id": "claim-010-ml", "task": "claim_supported", "probs": {"no": 0.07462606526134619, "yes": 0.9253739347386538}, "latency_ms": 153.80821000053402}
+{"id": "claim-011-ml", "task": "claim_supported", "probs": {"no": 0.22147629226339116, "yes": 0.7785237077366088}, "latency_ms": 102.0078060000742}
+{"id": "claim-012-ml", "task": "claim_supported", "probs": {"no": 0.09100416544223977, "yes": 0.9089958345577602}, "latency_ms": 38.861557000018365}
+{"id": "claim-013-ml", "task": "claim_supported", "probs": {"no": 0.9153214918569934, "yes": 0.08467850814300658}, "latency_ms": 35.797606999949494}
+{"id": "claim-014-ml", "task": "claim_supported", "probs": {"no": 0.947564193193284, "yes": 0.05243580680671595}, "latency_ms": 31.569539000884106}
+{"id": "claim-015-ml", "task": "claim_supported", "probs": {"no": 0.9824447343676872, "yes": 0.017555265632312744}, "latency_ms": 29.17808599977434}
+{"id": "claim-016-ml", "task": "claim_supported", "probs": {"no": 0.9415918944259357, "yes": 0.05840810557406429}, "latency_ms": 33.757948000129545}
+{"id": "claim-017-ml", "task": "claim_supported", "probs": {"no": 0.4634671008003721, "yes": 0.5365328991996279}, "latency_ms": 35.005916000045545}
+{"id": "sen-004-ml", "task": "seniority", "probs": {"junior": 0.05318183817499309, "mid": 0.8364107205777206, "senior": 0.08609710025386035, "lead": 0.024310340993425834}, "latency_ms": 73.89542399960192}
+{"id": "skill-036-ml", "task": "skill_evidence", "probs": {"no": 0.1008272099440688, "yes": 0.8991727900559312}, "latency_ms": 80.69640600024286}
+{"id": "skill-037-ml", "task": "skill_evidence", "probs": {"no": 0.818410812090282, "yes": 0.18158918790971798}, "latency_ms": 43.409569999312225}
+{"id": "skill-038-ml", "task": "skill_evidence", "probs": {"no": 0.9546771389810197, "yes": 0.045322861018980275}, "latency_ms": 41.93160999966494}
+{"id": "skill-039-ml", "task": "skill_evidence", "probs": {"no": 0.10443775735471217, "yes": 0.8955622426452878}, "latency_ms": 49.43241099954321}
+{"id": "skill-040-ml", "task": "skill_evidence", "probs": {"no": 0.9376141090132907, "yes": 0.06238589098670933}, "latency_ms": 54.89630500051135}
+{"id": "skill-041-ml", "task": "skill_evidence", "probs": {"no": 0.8823853391698436, "yes": 0.1176146608301564}, "latency_ms": 52.98396899979707}
+{"id": "skill-042-ml", "task": "skill_evidence", "probs": {"no": 0.14350925935883374, "yes": 0.8564907406411663}, "latency_ms": 50.43025499981013}
+{"id": "skill-043-ml", "task": "skill_evidence", "probs": {"no": 0.1025627992846393, "yes": 0.8974372007153607}, "latency_ms": 52.04400699949474}
+{"id": "skill-044-ml", "task": "skill_evidence", "probs": {"no": 0.9037741960771098, "yes": 0.09622580392289014}, "latency_ms": 50.24978299934446}
+{"id": "doc-018-other-o_email", "task": "doc_type", "probs": {"cv": 0.08314413838832713, "job_offer": 0.5501031884501978, "other": 0.3667526731614751}, "latency_ms": 74.69954400039569}
+{"id": "sen-014-s_sr_fr", "task": "seniority", "probs": {"junior": 0.3238683824194751, "mid": 0.38255690868947173, "senior": 0.2693219375441486, "lead": 0.024252771346904553}, "latency_ms": 131.75929999943037}
+{"id": "doc-019-other-o_menu", "task": "doc_type", "probs": {"cv": 0.030686080371501518, "job_offer": 0.05402720737007875, "other": 0.9152867122584197}, "latency_ms": 130.86212700000033}
+{"id": "claim-018-nurse", "task": "claim_supported", "probs": {"no": 0.7694817559238987, "yes": 0.23051824407610128}, "latency_ms": 128.04542899993976}
+{"id": "claim-019-nurse", "task": "claim_supported", "probs": {"no": 0.9126036258177984, "yes": 0.08739637418220154}, "latency_ms": 97.60286599976098}
+{"id": "claim-020-nurse", "task": "claim_supported", "probs": {"no": 0.7573205750054983, "yes": 0.24267942499450168}, "latency_ms": 49.74308500004554}
+{"id": "claim-021-nurse", "task": "claim_supported", "probs": {"no": 0.9340351799068703, "yes": 0.06596482009312968}, "latency_ms": 52.30491000020265}
+{"id": "claim-022-nurse", "task": "claim_supported", "probs": {"no": 0.8848714153281746, "yes": 0.11512858467182543}, "latency_ms": 47.691707000012684}
+{"id": "claim-023-nurse", "task": "claim_supported", "probs": {"no": 0.9189765059585981, "yes": 0.0810234940414018}, "latency_ms": 48.17262400047184}
+{"id": "sen-011-nurse", "task": "seniority", "probs": {"junior": 0.053087326146967935, "mid": 0.3974969548946121, "senior": 0.4278456993401736, "lead": 0.12157001961824639}, "latency_ms": 79.60662099958427}
+{"id": "skill-019-nurse", "task": "skill_evidence", "probs": {"no": 0.5949882944075064, "yes": 0.4050117055924935}, "latency_ms": 76.10656300039409}
+{"id": "skill-020-nurse", "task": "skill_evidence", "probs": {"no": 0.9374733152170245, "yes": 0.06252668478297556}, "latency_ms": 40.43841899965628}
+{"id": "skill-021-nurse", "task": "skill_evidence", "probs": {"no": 0.14091107383355572, "yes": 0.8590889261664443}, "latency_ms": 47.07157899974845}
+{"id": "skill-022-nurse", "task": "skill_evidence", "probs": {"no": 0.8891075750383118, "yes": 0.11089242496168818}, "latency_ms": 49.612924000030034}
+{"id": "skill-023-nurse", "task": "skill_evidence", "probs": {"no": 0.2744161664599162, "yes": 0.7255838335400838}, "latency_ms": 44.11147900009382}

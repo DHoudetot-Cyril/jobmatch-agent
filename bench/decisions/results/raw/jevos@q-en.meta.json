@@ -1,0 +1,12 @@
+{
+  "backend": "jevos@q-en",
+  "rss_before_mb": 35.8828125,
+  "load_s": 2.118778062000274,
+  "rss_after_load_mb": 47.55859375,
+  "children_rss_after_load_mb": 1125.6484375,
+  "run_s": 6.652741347999836,
+  "peak_rss_mb": 48.29296875,
+  "children_peak_rss_mb": 1545.91796875,
+  "n_run": 194,
+  "concurrency": 2
+}
