@@ -1,4 +1,24 @@
-# JobMatch Agent
+<h1 align="center">🧭 JobMatch Agent</h1>
+
+<p align="center">
+  <strong>Hierarchical LangGraph agents that match a CV to a job offer, explain the gaps and draft a cover letter,<br/>
+  100% local, traced, monitored and evaluated.</strong>
+</p>
+
+<p align="center">
+  <a href="https://github.com/DHoudetot-Cyril/jobmatch-agent/actions/workflows/ci.yml"><img src="https://github.com/DHoudetot-Cyril/jobmatch-agent/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <img src="https://img.shields.io/badge/python-3.12-blue?logo=python&logoColor=white" alt="Python 3.12">
+  <img src="https://img.shields.io/badge/LangGraph-1C3C3C?logo=langchain&logoColor=white" alt="LangGraph">
+  <img src="https://img.shields.io/badge/llama.cpp-Qwen-000000" alt="llama.cpp">
+  <img src="https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white" alt="FastAPI">
+  <img src="https://img.shields.io/badge/Langfuse-tracing-0A0A0A" alt="Langfuse">
+  <img src="https://img.shields.io/badge/Prometheus-E6522C?logo=prometheus&logoColor=white" alt="Prometheus">
+  <img src="https://img.shields.io/badge/Grafana-F46800?logo=grafana&logoColor=white" alt="Grafana">
+  <img src="https://img.shields.io/badge/DeepEval-evaluation-6E40C9" alt="DeepEval">
+  <img src="https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white" alt="Docker">
+</p>
+
+---
 
 **🇬🇧 English** · [🇫🇷 Français](#-version-française)
 
@@ -325,3 +345,9 @@ ne mesure rien. Détails : [`docs/decision-layer.md`](docs/decision-layer.md).
 - **Auto-évaluation** : le juge est le même modèle que les agents, ce qui peut gonfler les scores.
 - **Petits jeux de test** : 8 cas d'évaluation, et peu d'exemples en anglais dans le benchmark du modèle de décision.
 - **Redémarrages** : une analyse en attente de validation survit à un redémarrage de l'API ; une analyse en cours d'exécution est marquée `failed` et doit être relancée.
+
+---
+
+## 👤 Auteur · Author
+
+**Cyril D'Houdetot** · [GitHub](https://github.com/DHoudetot-Cyril)
