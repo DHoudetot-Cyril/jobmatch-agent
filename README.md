@@ -36,6 +36,12 @@ tracing, **Prometheus + Grafana** monitoring and a **DeepEval** test suite, all 
 > Portfolio project. The goal is to show how to take an LLM application past the demo stage:
 > how to measure it, trace it, evaluate it and deploy it.
 
+<p align="center"><img src="docs/demo.gif" alt="A real analysis: graph nodes, the career agent's tool calls, the writer/reviewer loop and the result" width="860"></p>
+<p align="center"><sub>A <b>real run</b> on the sample data engineer offer and CV, replayed from the API result and
+its Langfuse trace (<a href="docs/demo/run.json">run.json</a>): every node, tool call, timing and output is
+the real one. Only the pace changes: about 9 min of local inference shown in 40 s, with the real
+clock in the corner. Regenerate with <code>scripts/demo_extract.py</code> then <code>scripts/demo_render.py</code>.</sub></p>
+
 ## What this demonstrates
 
 - Designing a **multi-agent graph** (LangGraph subgraphs, deterministic supervisor, interrupt/resume with a Postgres checkpointer).
@@ -250,7 +256,8 @@ src/jobmatch/
   documents.py      txt / pdf / scanned pdf / image → text
   schemas.py        Pydantic contracts shared by graph, API and evals
 data/career/        ESCO snapshot (272 concepts, CC BY 4.0) + curated learning catalog (107 checked links)
-scripts/            rebuild the ESCO snapshot, re-check the catalog links (network, build time only)
+scripts/            rebuild the ESCO snapshot, re-check the catalog links (network, build time only),
+                    extract a real run and render the demo GIF (demo_extract.py, demo_render.py)
 evals/              DeepEval suite, dataset, local judge, A/B compare
 bench/decisions/    decision-model benchmark (dataset, metrics, calibration)
 docs/               architecture, API, operations, observability, decision layer, ADRs
@@ -284,6 +291,12 @@ finale. Tout tourne **en local** sur un **Qwen3.8-27B** quantifié, servi par **
 petit **modèle de décision** sur CPU (jevos) pour des vérifications oui/non calibrées. Le projet
 inclut l'outillage qu'il faut pour mettre une application LLM en production : traces **Langfuse**,
 supervision **Prometheus + Grafana** et évaluations **DeepEval**, le tout sous **Docker Compose**.
+
+<p align="center"><img src="docs/demo.gif" alt="Une vraie analyse : les nœuds du graphe, les appels d'outils de l'agent, la boucle rédacteur/relecteur et le résultat" width="860"></p>
+<p align="center"><sub>Une <b>vraie exécution</b> sur l'offre et le CV d'exemple « data engineer », rejouée à partir du
+résultat de l'API et de sa trace Langfuse (<a href="docs/demo/run.json">run.json</a>) : nœuds, appels d'outils,
+durées et sorties sont réels. Seul le rythme change : environ 9 min d'inférence locale montrées en 40 s,
+avec l'heure réelle dans le coin.</sub></p>
 
 ### Ce que le projet montre
 

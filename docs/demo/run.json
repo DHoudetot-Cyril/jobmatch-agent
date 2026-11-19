@@ -1,0 +1,396 @@
+{
+  "analysis": {
+    "status": "awaiting_approval",
+    "offer": "Data Engineer confirmé (H/F) · Lumio Énergie",
+    "candidate": "Camille Martin",
+    "score": 79,
+    "matched_skills": [
+      "Python",
+      "SQL",
+      "Apache Spark",
+      "PySpark",
+      "Apache Airflow",
+      "Docker",
+      "GitLab CI",
+      "AWS",
+      "Amazon S3",
+      "Amazon Redshift"
+    ],
+    "gaps": [
+      {
+        "skill": "AWS Glue",
+        "level": "required"
+      },
+      {
+        "skill": "Kafka",
+        "level": "nice_to_have"
+      },
+      {
+        "skill": "dbt",
+        "level": "nice_to_have"
+      },
+      {
+        "skill": "Terraform",
+        "level": "nice_to_have"
+      }
+    ],
+    "plan_summary": "Priorisez AWS Glue, compétence requise, en capitalisant sur vos preuves vérifiées en Apache Spark, ETL et cloud. Complétez ensuite dbt et Terraform, qui prolongent directement vos compétences SQL, data warehouse, data quality, Docker et infrastructure as code. Enfin, abordez Kafka de manière honnête, sans sur-vendre, en montrant une montée en compétence structurée sur le streaming.",
+    "letter_subject": "Candidature au poste de Data Engineer confirmé",
+    "letter_words": 335,
+    "review_issues": 8,
+    "review_iterations": 2
+  },
+  "events": [
+    {
+      "t": 0.1,
+      "duration": 0.0,
+      "name": "supervisor",
+      "kind": "node",
+      "detail": ""
+    },
+    {
+      "t": 0.1,
+      "duration": 53.0,
+      "name": "parse_cv",
+      "kind": "node",
+      "detail": "Camille Martin · 18 skills · 3 experiences"
+    },
+    {
+      "t": 0.1,
+      "duration": 51.8,
+      "name": "parse_offer",
+      "kind": "node",
+      "detail": "Data Engineer confirmé (H/F) · Lumio Énergie · 14 skills (10 required)"
+    },
+    {
+      "t": 53.1,
+      "duration": 0.0,
+      "name": "supervisor",
+      "kind": "node",
+      "detail": ""
+    },
+    {
+      "t": 53.1,
+      "duration": 62.5,
+      "name": "score_match",
+      "kind": "node",
+      "detail": "score 79/100 · 10 matched · 4 gaps"
+    },
+    {
+      "t": 115.6,
+      "duration": 1.8,
+      "name": "verify_skills",
+      "kind": "node",
+      "detail": "jevos checked 14 skills · agrees with the LLM on 14"
+    },
+    {
+      "t": 117.4,
+      "duration": 38.5,
+      "name": "analyze_gaps",
+      "kind": "node",
+      "detail": "gaps: AWS Glue (required), Kafka (nice-to-have), dbt (nice-to-have), Terraform (nice-to-have)"
+    },
+    {
+      "t": 156.0,
+      "duration": 0.0,
+      "name": "supervisor",
+      "kind": "node",
+      "detail": ""
+    },
+    {
+      "t": 156.0,
+      "duration": 9.5,
+      "name": "career_advisor",
+      "kind": "node",
+      "detail": "plans 4 tool calls"
+    },
+    {
+      "t": 165.5,
+      "duration": 0.2,
+      "name": "career_tools",
+      "kind": "node",
+      "detail": ""
+    },
+    {
+      "t": 165.5,
+      "duration": 0.2,
+      "name": "search_skill_taxonomy",
+      "kind": "tool",
+      "call": "\"dbt data build tool\"",
+      "result": "ESCO: statistics"
+    },
+    {
+      "t": 165.5,
+      "duration": 0.2,
+      "name": "search_skill_taxonomy",
+      "kind": "tool",
+      "call": "\"Apache Kafka\"",
+      "result": "ESCO: no concept"
+    },
+    {
+      "t": 165.5,
+      "duration": 0.2,
+      "name": "search_skill_taxonomy",
+      "kind": "tool",
+      "call": "\"AWS Glue\"",
+      "result": "ESCO: cloud technologies"
+    },
+    {
+      "t": 165.5,
+      "duration": 0.2,
+      "name": "search_skill_taxonomy",
+      "kind": "tool",
+      "call": "\"Terraform infrastructure as code\"",
+      "result": "ESCO: no concept"
+    },
+    {
+      "t": 165.7,
+      "duration": 32.2,
+      "name": "career_advisor",
+      "kind": "node",
+      "detail": "plans 8 tool calls"
+    },
+    {
+      "t": 197.9,
+      "duration": 0.2,
+      "name": "career_tools",
+      "kind": "node",
+      "detail": ""
+    },
+    {
+      "t": 197.9,
+      "duration": 0.2,
+      "name": "search_skill_taxonomy",
+      "kind": "tool",
+      "call": "\"data integration ETL\"",
+      "result": "ESCO: statistics"
+    },
+    {
+      "t": 197.9,
+      "duration": 0.2,
+      "name": "check_cv_evidence",
+      "kind": "tool",
+      "call": "\"data warehouse\"",
+      "result": "P=0.95 · in the CV"
+    },
+    {
+      "t": 197.9,
+      "duration": 0.2,
+      "name": "search_skill_taxonomy",
+      "kind": "tool",
+      "call": "\"infrastructure as code\"",
+      "result": "ESCO: ICT infrastructure"
+    },
+    {
+      "t": 197.9,
+      "duration": 0.2,
+      "name": "check_cv_evidence",
+      "kind": "tool",
+      "call": "\"Apache Spark\"",
+      "result": "P=0.98 · in the CV"
+    },
+    {
+      "t": 197.9,
+      "duration": 0.2,
+      "name": "search_skill_taxonomy",
+      "kind": "tool",
+      "call": "\"data warehouse\"",
+      "result": "ESCO: data warehouse"
+    },
+    {
+      "t": 197.9,
+      "duration": 0.2,
+      "name": "search_skill_taxonomy",
+      "kind": "tool",
+      "call": "\"message queue\"",
+      "result": "ESCO: no concept"
+    },
+    {
+      "t": 197.9,
+      "duration": 0.2,
+      "name": "check_cv_evidence",
+      "kind": "tool",
+      "call": "\"streaming\"",
+      "result": "P=0.04 · not in the CV"
+    },
+    {
+      "t": 197.9,
+      "duration": 0.2,
+      "name": "check_cv_evidence",
+      "kind": "tool",
+      "call": "\"infrastructure as code\"",
+      "result": "P=0.90 · in the CV"
+    },
+    {
+      "t": 198.1,
+      "duration": 22.1,
+      "name": "career_advisor",
+      "kind": "node",
+      "detail": "plans 10 tool calls"
+    },
+    {
+      "t": 220.2,
+      "duration": 0.2,
+      "name": "career_tools",
+      "kind": "node",
+      "detail": ""
+    },
+    {
+      "t": 220.2,
+      "duration": 0.1,
+      "name": "check_cv_evidence",
+      "kind": "tool",
+      "call": "\"cloud technologies\"",
+      "result": "P=0.97 · in the CV"
+    },
+    {
+      "t": 220.2,
+      "duration": 0.0,
+      "name": "check_cv_evidence",
+      "kind": "tool",
+      "call": "\"SQL\"",
+      "result": "P=0.75 · in the CV"
+    },
+    {
+      "t": 220.2,
+      "duration": 0.1,
+      "name": "check_cv_evidence",
+      "kind": "tool",
+      "call": "\"data quality\"",
+      "result": "P=0.85 · in the CV"
+    },
+    {
+      "t": 220.2,
+      "duration": 0.1,
+      "name": "check_cv_evidence",
+      "kind": "tool",
+      "call": "\"data extraction, transformation and loading tools\"",
+      "result": "P=0.92 · in the CV"
+    },
+    {
+      "t": 220.2,
+      "duration": 0.0,
+      "name": "search_learning_resources",
+      "kind": "tool",
+      "call": "\"AWS Glue\"",
+      "result": "AWS Glue Developer Guide"
+    },
+    {
+      "t": 220.2,
+      "duration": 0.2,
+      "name": "check_cv_evidence",
+      "kind": "tool",
+      "call": "\"Docker\"",
+      "result": "P=0.93 · in the CV"
+    },
+    {
+      "t": 220.2,
+      "duration": 0.0,
+      "name": "search_learning_resources",
+      "kind": "tool",
+      "call": "\"Kafka\"",
+      "result": "Apache Kafka Quickstart"
+    },
+    {
+      "t": 220.2,
+      "duration": 0.1,
+      "name": "check_cv_evidence",
+      "kind": "tool",
+      "call": "\"REST API\"",
+      "result": "P=0.35 · not in the CV"
+    },
+    {
+      "t": 220.2,
+      "duration": 0.0,
+      "name": "search_learning_resources",
+      "kind": "tool",
+      "call": "\"Terraform\"",
+      "result": "Get started with Terraform (AWS)"
+    },
+    {
+      "t": 220.2,
+      "duration": 0.0,
+      "name": "search_learning_resources",
+      "kind": "tool",
+      "call": "\"dbt\"",
+      "result": "dbt Quickstart guides"
+    },
+    {
+      "t": 220.4,
+      "duration": 42.1,
+      "name": "career_advisor",
+      "kind": "node",
+      "detail": "enough evidence, writes the plan"
+    },
+    {
+      "t": 262.5,
+      "duration": 84.9,
+      "name": "career_plan",
+      "kind": "node",
+      "detail": "plan: AWS Glue [high], Kafka [medium], dbt [medium], Terraform [low]"
+    },
+    {
+      "t": 347.4,
+      "duration": 0.0,
+      "name": "supervisor",
+      "kind": "node",
+      "detail": ""
+    },
+    {
+      "t": 347.4,
+      "duration": 45.2,
+      "name": "write_letter",
+      "kind": "node",
+      "detail": "draft of 281 words"
+    },
+    {
+      "t": 392.6,
+      "duration": 34.7,
+      "name": "review_letter",
+      "kind": "node",
+      "detail": "1 issue flagged"
+    },
+    {
+      "t": 427.3,
+      "duration": 0.0,
+      "name": "verify_claims",
+      "kind": "node",
+      "detail": "nothing to dismiss"
+    },
+    {
+      "t": 427.3,
+      "duration": 45.2,
+      "name": "write_letter",
+      "kind": "node",
+      "detail": "draft of 335 words"
+    },
+    {
+      "t": 472.6,
+      "duration": 43.7,
+      "name": "review_letter",
+      "kind": "node",
+      "detail": "10 issues flagged"
+    },
+    {
+      "t": 516.3,
+      "duration": 0.3,
+      "name": "verify_claims",
+      "kind": "node",
+      "detail": "8 issues left after jevos"
+    },
+    {
+      "t": 516.6,
+      "duration": 0.0,
+      "name": "supervisor",
+      "kind": "node",
+      "detail": ""
+    },
+    {
+      "t": 516.6,
+      "duration": 0.0,
+      "name": "human_review",
+      "kind": "node",
+      "detail": "paused: waiting for a human decision"
+    }
+  ]
+}
