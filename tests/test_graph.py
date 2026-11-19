@@ -127,7 +127,8 @@ async def test_resume_approved_completes(graph, install_fake_llm, responses):
 async def test_resume_with_feedback_rewrites_then_pauses_again(
     graph, install_fake_llm, responses, letter
 ):
-    rewritten = letter.model_copy(update={"body": "Version plus courte"})
+    shorter = "Madame, Monsieur,\n\n" + "Mon expérience correspond à vos besoins. " * 45
+    rewritten = letter.model_copy(update={"body": shorter})  # 272 words: still in range
     responses[CoverLetter] = [letter, rewritten]
     fake = install_fake_llm(responses)
     config = _config()
@@ -135,7 +136,7 @@ async def test_resume_with_feedback_rewrites_then_pauses_again(
 
     result = await _resume(graph, config, approved=False, feedback="Plus court svp")
     [intr] = result["__interrupt__"]
-    assert intr.value["cover_letter"]["body"] == "Version plus courte"
+    assert intr.value["cover_letter"]["body"] == shorter
     state = (await graph.aget_state(config)).values
     assert state["status"] == AnalysisStatus.awaiting_approval
     assert state["human_feedback"] == "Plus court svp"

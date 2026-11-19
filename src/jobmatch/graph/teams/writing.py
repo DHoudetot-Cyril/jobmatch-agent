@@ -18,6 +18,12 @@ layer disabled the reviewer uses its original prompt/schema and `verify_claims` 
 The writer also applies `human_feedback` (set by `human_review` when the human asks for a
 rewrite); in that case it revises the previous draft instead of starting from scratch.
 
+The letter length is checked in code, never by the LLM (`length_issue`): the reviewer used to
+estimate it and was often wrong (it called a 281-word letter "about 230 words", and flagged
+310 words as "below the 250-400 range"). Each false length issue sent the letter back to the
+writer, which padded it with unsupported claims. Length remarks written by the LLM anyway are
+dropped, and the computed issue states the exact count so the writer can act on it.
+
 The reviewer call has NO `max_tokens` cap (`REVIEWER_MAX_TOKENS = None`): with Qwen thinking,
 a 4096-token budget was exhausted on long reviews (finish_reason=length -> failed analysis).
 It is bounded only by the llama-server per-slot context. Other nodes keep the default cap.
@@ -47,6 +53,53 @@ from jobmatch.state import JobMatchState
 log = logging.getLogger(__name__)
 
 REVIEWER_MAX_TOKENS = None  # no cap: bounded by the server's per-slot context only
+
+
+_HAS_WORD_CHAR = re.compile(r"\w")
+# An LLM issue about length (dropped: the length is checked in code). Claim issues are never
+# matched, their quote may legitimately contain such words.
+_LLM_LENGTH_ISSUE = re.compile(
+    r"\b(too (short|long)|word count|length|\d+\s*(words|mots))\b", re.IGNORECASE
+)
+
+
+def count_words(text: str) -> int:
+    """Words as a reader counts them: whitespace-separated tokens containing a letter or a
+    digit. "d'expérience" is one word, a lone "—" or "-" is none."""
+    return sum(1 for token in text.split() if _HAS_WORD_CHAR.search(token))
+
+
+def length_issue(body: str, min_words: int, max_words: int) -> str | None:
+    """The blocking issue for a letter outside [min_words, max_words], or None."""
+    n = count_words(body)
+    if n < min_words:
+        return (
+            f"The letter is too short: {n} words (counted in code), the target is "
+            f"{min_words}-{max_words}. Add about {min_words - n} words of relevant content "
+            "taken from the CV, without inventing facts."
+        )
+    if n > max_words:
+        return (
+            f"The letter is too long: {n} words (counted in code), the target is "
+            f"{min_words}-{max_words}. Remove about {n - max_words} words."
+        )
+    return None
+
+
+def _apply_length_check(review: Review, body: str) -> Review:
+    """Replace the LLM's opinion on length by the computed check."""
+    settings = get_settings()
+    issues = [
+        i
+        for i in review.issues
+        if i.startswith("Unsupported claim") or not _LLM_LENGTH_ISSUE.search(i)
+    ]
+    computed = length_issue(body, settings.letter_min_words, settings.letter_max_words)
+    if computed:
+        issues.append(computed)
+    # Approval follows the issues: the prompt makes every blocking problem an issue, so a
+    # rejection whose only reason was a wrong length estimate becomes an approval.
+    return review.model_copy(update={"issues": issues, "approved": not issues})
 
 
 def claim_issue(claim: str) -> str:
@@ -98,8 +151,11 @@ def _revision_context(state: JobMatchState) -> str:
 @instrument_node("write_letter")
 async def write_letter(state: JobMatchState) -> dict:
     language = state["offer"].language
+    settings = get_settings()
     messages = WRITE_LETTER_PROMPT.format_messages(
         language=language,
+        min_words=settings.letter_min_words,
+        max_words=settings.letter_max_words,
         offer_json=to_json(state["offer"]),
         profile_json=to_json(state["profile"]),
         match_json=to_json(state["match"]),
@@ -140,8 +196,7 @@ async def review_letter(state: JobMatchState) -> dict:
             temperature=0.0,
             max_tokens=REVIEWER_MAX_TOKENS,
         )
-    if review.issues:  # an approval with open issues is inconsistent: issues win
-        review.approved = False
+    review = _apply_length_check(review, letter.body)
     return {
         "review": review,
         "review_iterations": state.get("review_iterations", 0) + 1,

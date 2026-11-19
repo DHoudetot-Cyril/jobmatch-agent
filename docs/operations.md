@@ -136,6 +136,8 @@ variables ignored). Names are case-insensitive.
 | `LLM_MAX_TOKENS` | `4096` | no | Max completion tokens per call, thinking tokens included. The reviewer (`review_letter`) ignores it and runs uncapped (`REVIEWER_MAX_TOKENS = None` in `graph/teams/writing.py`), bounded only by the 16k per-slot context. |
 | `LLM_TIMEOUT_S` | `300.0` | no | Per-call HTTP timeout (seconds). |
 | `MAX_REVIEW_ITERATIONS` | `2` | no | Number of reviews per writing round (writer/reviewer loop cap). |
+| `LETTER_MIN_WORDS` | `250` | no | Cover-letter length range, counted in code by `review_letter` (`count_words` in `graph/teams/writing.py`); a letter outside it gets a blocking issue with the exact count. The LLM reviewer no longer judges the length. |
+| `LETTER_MAX_WORDS` | `400` | no | Upper bound of that range. Both bounds are also given to the writer prompt. |
 | `MIN_TEXT_CHARS_FOR_PDF` | `200` | no | Below this many extracted characters a PDF is treated as scanned and read with vision. |
 | `DECISIONS_ENABLED` | `true` | yes | Decision layer on/off. `false` = the historical LLM-only pipeline (A/B switch). |
 | `DECISIONS_BACKEND` | `jevos` | yes | Backend name from `decisions/registry.py`. Only `jevos` is benchmarked and calibrated; any other backend runs with raw probabilities (T = 1.0) and a one-time warning (`calibration_temperature` in `decisions/service.py`). |

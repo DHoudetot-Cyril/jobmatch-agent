@@ -31,6 +31,9 @@ Portfolio project: code quality, observability and evaluation matter as much as 
   (URLs/ESCO URIs not returned by a tool dropped, transferable skills need p ≥ 0.5).
   `CAREER_ADVISOR_ENABLED=false` = previous pipeline. Data: `CAREER_DATA_DIR` (offline).
 - Reviewer (`review_letter`) runs with no `max_tokens` cap (thinking + long review hit 4096).
+- Letter length is counted in code (`count_words`/`length_issue` in `graph/teams/writing.py`,
+  `LETTER_MIN_WORDS`/`LETTER_MAX_WORDS` = 250/400); LLM length remarks are dropped and
+  `approved = not issues`. Never ask the LLM to count or judge the length.
 - FastAPI API, Langfuse v4 (self-hosted) tracing, Prometheus + Grafana, DeepEval evals.
 
 ## Layout

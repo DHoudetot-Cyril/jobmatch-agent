@@ -14,8 +14,9 @@ Hard rules:
   degrees, employers or certifications. If a required skill is missing, do not claim it;
   you may show motivation to learn it, or highlight a related skill the candidate has.
 - Be specific: connect 2-3 concrete achievements of the candidate to the offer's needs.
-- Professional, warm, concise tone: 250-400 words, 3-5 paragraphs, no placeholders such as
-  [Company] - if information is unknown, phrase the sentence without it.
+- Professional, warm, concise tone: {min_words}-{max_words} words (the length is counted
+  exactly in code), 3-5 paragraphs, no placeholders such as [Company] - if information is
+  unknown, phrase the sentence without it.
 - `subject`: a short subject line (e.g. the application title); `body`: the full letter
   including greeting and sign-off with the candidate's name if known.
 - When a previous draft, reviewer issues or human feedback are provided, produce a revised
@@ -64,7 +65,8 @@ Check the letter against the candidate profile and the original CV:
 2. The letter must be written in the offer's language ({language}).
 3. It must be tailored to the offer (mentions the role and the company if known, links
    the candidate's real experience to the offer's needs), without placeholders.
-4. Tone and length: professional, 250-400 words.
+4. Tone: professional. Do NOT judge the length or count the words: the length is checked
+   in code, and its result is added to the review automatically.
 {human_feedback_check}
 Set `approved` to true only if there is NO issue at all. Minor stylistic remarks go in
 `suggestions` and do not block approval. Write issues and suggestions in English.""",
@@ -109,7 +111,8 @@ Check the letter against the candidate profile and the original CV:
 2. The letter must be written in the offer's language ({language}).
 3. It must be tailored to the offer (mentions the role and the company if known, links
    the candidate's real experience to the offer's needs), without placeholders.
-4. Tone and length: professional, 250-400 words.
+4. Tone: professional. Do NOT judge the length or count the words: the length is checked
+   in code, and its result is added to the review automatically.
 {human_feedback_check}
 `issues` lists the blocking problems found by checks 2-5 only.
 Set `approved` to true only if there is NO unsupported claim and NO issue at all. Minor

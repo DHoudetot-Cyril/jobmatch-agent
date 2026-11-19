@@ -261,7 +261,10 @@ async def test_verify_claims_dismisses_supported_claims(
     responses[Review] = [
         Review(
             approved=False,
-            issues=["Letter is too long", f"The claim « {TRUE_CLAIM} » is not in the CV"],
+            issues=[
+                "The letter does not name the company",
+                f"The claim « {TRUE_CLAIM} » is not in the CV",
+            ],
             unsupported_claims=[TRUE_CLAIM, FALSE_CLAIM],
         )
     ]
@@ -276,7 +279,7 @@ async def test_verify_claims_dismisses_supported_claims(
         (FALSE_CLAIM, False),
     ]
     # the LLM's duplicate of the claim was merged; the dismissed claim's issue is gone
-    assert review.issues == ["Letter is too long", claim_issue(FALSE_CLAIM)]
+    assert review.issues == ["The letter does not name the company", claim_issue(FALSE_CLAIM)]
     assert review.unsupported_claims == [FALSE_CLAIM]
     assert review.approved is False
     # the writer is asked to fix only the remaining issues

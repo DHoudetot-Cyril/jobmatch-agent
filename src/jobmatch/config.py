@@ -21,6 +21,9 @@ class Settings(BaseSettings):
 
     # --- Agent behaviour ---
     max_review_iterations: int = 2  # writer <-> reviewer loop
+    # Cover-letter length, counted in code (the LLM reviewer used to estimate it, often wrongly)
+    letter_min_words: int = 250
+    letter_max_words: int = 400
     min_text_chars_for_pdf: int = 200  # below this a PDF is treated as scanned -> vision OCR
 
     # --- Decision layer ("System 1", see jobmatch.decisions.service) ---

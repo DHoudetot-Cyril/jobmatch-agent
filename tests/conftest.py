@@ -173,7 +173,12 @@ def profile() -> CandidateProfile:
 
 @pytest.fixture
 def letter() -> CoverLetter:
-    return CoverLetter(subject="Candidature Data Engineer", body="Madame, Monsieur, ...")
+    # ~300 words: inside the length range checked in code (LETTER_MIN/MAX_WORDS)
+    sentence = "Mon expérience en pipelines de données correspond à vos besoins. "
+    return CoverLetter(
+        subject="Candidature Data Engineer",
+        body="Madame, Monsieur,\n\n" + sentence * 30 + "\nCamille Martin",
+    )
 
 
 @pytest.fixture

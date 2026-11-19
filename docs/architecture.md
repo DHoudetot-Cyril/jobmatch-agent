@@ -336,6 +336,14 @@ flowchart LR
 - **Budget.** `max_review_iterations = 2` (`config.py`): at most two reviews per writing
   round. When the budget is used up the letter goes to the human anyway, with the last
   review attached.
+- **Length counted in code.** The letter must be `LETTER_MIN_WORDS`-`LETTER_MAX_WORDS`
+  (250-400) words. `review_letter` counts them itself (`count_words`) and adds a blocking
+  issue with the exact count when the letter is outside the range; length remarks written by
+  the LLM are dropped. The reviewer used to estimate the length and got it wrong in a real
+  run (a 281-word letter called "about 230 words", 335 words flagged as "below 250-400").
+  The rewrite triggered by that false issue padded the letter with unsupported claims
+  (1 issue, then 10). Same principle as the score: a fact that code can compute is not asked
+  of the LLM ([ADR 0003](adr/0003-score-computed-in-code.md)).
 - **Reviewer as hallucination guard.** `review_letter` receives the structured profile *and*
   the raw CV text and must flag every claim not supported by the CV. Any open issue forces
   `approved = false`.
