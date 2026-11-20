@@ -34,85 +34,85 @@
         "level": "nice_to_have"
       }
     ],
-    "plan_summary": "Priorisez AWS Glue, compétence requise, en capitalisant sur vos preuves vérifiées en Apache Spark, ETL et cloud. Complétez ensuite dbt et Terraform, qui prolongent directement vos compétences SQL, data warehouse, data quality, Docker et infrastructure as code. Enfin, abordez Kafka de manière honnête, sans sur-vendre, en montrant une montée en compétence structurée sur le streaming.",
+    "plan_summary": "Priorisez AWS Glue, car c’est le seul gap requis et votre stack AWS/PySpark/Redshift permet de le combler rapidement. En parallèle, consolidez dbt grâce à vos bases SQL et Great Expectations, puis Terraform pour industrialiser l’infrastructure. Kafka reste un plus à démontrer par un POC local, sans sur-vendre une expérience production.",
     "letter_subject": "Candidature au poste de Data Engineer confirmé",
-    "letter_words": 335,
-    "review_issues": 8,
+    "letter_words": 272,
+    "review_issues": 1,
     "review_iterations": 2
   },
   "events": [
     {
-      "t": 0.1,
+      "t": 0.0,
       "duration": 0.0,
       "name": "supervisor",
       "kind": "node",
       "detail": ""
     },
     {
-      "t": 0.1,
-      "duration": 53.0,
+      "t": 0.0,
+      "duration": 52.0,
       "name": "parse_cv",
       "kind": "node",
       "detail": "Camille Martin · 18 skills · 3 experiences"
     },
     {
-      "t": 0.1,
-      "duration": 51.8,
+      "t": 0.0,
+      "duration": 50.8,
       "name": "parse_offer",
       "kind": "node",
       "detail": "Data Engineer confirmé (H/F) · Lumio Énergie · 14 skills (10 required)"
     },
     {
-      "t": 53.1,
+      "t": 52.0,
       "duration": 0.0,
       "name": "supervisor",
       "kind": "node",
       "detail": ""
     },
     {
-      "t": 53.1,
-      "duration": 62.5,
+      "t": 52.0,
+      "duration": 63.2,
       "name": "score_match",
       "kind": "node",
       "detail": "score 79/100 · 10 matched · 4 gaps"
     },
     {
-      "t": 115.6,
-      "duration": 1.8,
+      "t": 115.2,
+      "duration": 0.5,
       "name": "verify_skills",
       "kind": "node",
       "detail": "jevos checked 14 skills · agrees with the LLM on 14"
     },
     {
-      "t": 117.4,
-      "duration": 38.5,
+      "t": 115.7,
+      "duration": 44.6,
       "name": "analyze_gaps",
       "kind": "node",
       "detail": "gaps: AWS Glue (required), Kafka (nice-to-have), dbt (nice-to-have), Terraform (nice-to-have)"
     },
     {
-      "t": 156.0,
+      "t": 160.3,
       "duration": 0.0,
       "name": "supervisor",
       "kind": "node",
       "detail": ""
     },
     {
-      "t": 156.0,
-      "duration": 9.5,
+      "t": 160.3,
+      "duration": 9.7,
       "name": "career_advisor",
       "kind": "node",
       "detail": "plans 4 tool calls"
     },
     {
-      "t": 165.5,
+      "t": 170.0,
       "duration": 0.2,
       "name": "career_tools",
       "kind": "node",
       "detail": ""
     },
     {
-      "t": 165.5,
+      "t": 170.0,
       "duration": 0.2,
       "name": "search_skill_taxonomy",
       "kind": "tool",
@@ -120,15 +120,7 @@
       "result": "ESCO: statistics"
     },
     {
-      "t": 165.5,
-      "duration": 0.2,
-      "name": "search_skill_taxonomy",
-      "kind": "tool",
-      "call": "\"Apache Kafka\"",
-      "result": "ESCO: no concept"
-    },
-    {
-      "t": 165.5,
+      "t": 170.0,
       "duration": 0.2,
       "name": "search_skill_taxonomy",
       "kind": "tool",
@@ -136,7 +128,15 @@
       "result": "ESCO: cloud technologies"
     },
     {
-      "t": 165.5,
+      "t": 170.0,
+      "duration": 0.2,
+      "name": "search_skill_taxonomy",
+      "kind": "tool",
+      "call": "\"Apache Kafka\"",
+      "result": "ESCO: no concept"
+    },
+    {
+      "t": 170.0,
       "duration": 0.2,
       "name": "search_skill_taxonomy",
       "kind": "tool",
@@ -144,21 +144,37 @@
       "result": "ESCO: no concept"
     },
     {
-      "t": 165.7,
-      "duration": 32.2,
+      "t": 170.2,
+      "duration": 9.6,
       "name": "career_advisor",
       "kind": "node",
-      "detail": "plans 8 tool calls"
+      "detail": "plans 4 tool calls"
     },
     {
-      "t": 197.9,
+      "t": 179.8,
       "duration": 0.2,
       "name": "career_tools",
       "kind": "node",
       "detail": ""
     },
     {
-      "t": 197.9,
+      "t": 179.8,
+      "duration": 0.2,
+      "name": "search_skill_taxonomy",
+      "kind": "tool",
+      "call": "\"data streaming\"",
+      "result": "ESCO: statistics"
+    },
+    {
+      "t": 179.8,
+      "duration": 0.2,
+      "name": "search_skill_taxonomy",
+      "kind": "tool",
+      "call": "\"data modeling SQL\"",
+      "result": "ESCO: SQL"
+    },
+    {
+      "t": 179.8,
       "duration": 0.2,
       "name": "search_skill_taxonomy",
       "kind": "tool",
@@ -166,15 +182,7 @@
       "result": "ESCO: statistics"
     },
     {
-      "t": 197.9,
-      "duration": 0.2,
-      "name": "check_cv_evidence",
-      "kind": "tool",
-      "call": "\"data warehouse\"",
-      "result": "P=0.95 · in the CV"
-    },
-    {
-      "t": 197.9,
+      "t": 179.8,
       "duration": 0.2,
       "name": "search_skill_taxonomy",
       "kind": "tool",
@@ -182,117 +190,61 @@
       "result": "ESCO: ICT infrastructure"
     },
     {
-      "t": 197.9,
-      "duration": 0.2,
-      "name": "check_cv_evidence",
-      "kind": "tool",
-      "call": "\"Apache Spark\"",
-      "result": "P=0.98 · in the CV"
-    },
-    {
-      "t": 197.9,
-      "duration": 0.2,
-      "name": "search_skill_taxonomy",
-      "kind": "tool",
-      "call": "\"data warehouse\"",
-      "result": "ESCO: data warehouse"
-    },
-    {
-      "t": 197.9,
-      "duration": 0.2,
-      "name": "search_skill_taxonomy",
-      "kind": "tool",
-      "call": "\"message queue\"",
-      "result": "ESCO: no concept"
-    },
-    {
-      "t": 197.9,
-      "duration": 0.2,
-      "name": "check_cv_evidence",
-      "kind": "tool",
-      "call": "\"streaming\"",
-      "result": "P=0.04 · not in the CV"
-    },
-    {
-      "t": 197.9,
-      "duration": 0.2,
-      "name": "check_cv_evidence",
-      "kind": "tool",
-      "call": "\"infrastructure as code\"",
-      "result": "P=0.90 · in the CV"
-    },
-    {
-      "t": 198.1,
-      "duration": 22.1,
+      "t": 179.9,
+      "duration": 20.6,
       "name": "career_advisor",
       "kind": "node",
-      "detail": "plans 10 tool calls"
+      "detail": "plans 8 tool calls"
     },
     {
-      "t": 220.2,
+      "t": 200.5,
       "duration": 0.2,
       "name": "career_tools",
       "kind": "node",
       "detail": ""
     },
     {
-      "t": 220.2,
+      "t": 200.5,
       "duration": 0.1,
       "name": "check_cv_evidence",
       "kind": "tool",
-      "call": "\"cloud technologies\"",
-      "result": "P=0.97 · in the CV"
+      "call": "\"PySpark\"",
+      "result": "P=0.98 · in the CV"
     },
     {
-      "t": 220.2,
-      "duration": 0.0,
+      "t": 200.5,
+      "duration": 0.1,
       "name": "check_cv_evidence",
       "kind": "tool",
       "call": "\"SQL\"",
       "result": "P=0.75 · in the CV"
     },
     {
-      "t": 220.2,
+      "t": 200.5,
       "duration": 0.1,
       "name": "check_cv_evidence",
       "kind": "tool",
-      "call": "\"data quality\"",
-      "result": "P=0.85 · in the CV"
+      "call": "\"AWS Redshift\"",
+      "result": "P=0.98 · in the CV"
     },
     {
-      "t": 220.2,
+      "t": 200.5,
       "duration": 0.1,
       "name": "check_cv_evidence",
       "kind": "tool",
-      "call": "\"data extraction, transformation and loading tools\"",
-      "result": "P=0.92 · in the CV"
+      "call": "\"Apache Spark\"",
+      "result": "P=0.98 · in the CV"
     },
     {
-      "t": 220.2,
-      "duration": 0.0,
-      "name": "search_learning_resources",
-      "kind": "tool",
-      "call": "\"AWS Glue\"",
-      "result": "AWS Glue Developer Guide"
-    },
-    {
-      "t": 220.2,
+      "t": 200.5,
       "duration": 0.2,
       "name": "check_cv_evidence",
       "kind": "tool",
-      "call": "\"Docker\"",
-      "result": "P=0.93 · in the CV"
+      "call": "\"Great Expectations\"",
+      "result": "P=0.98 · in the CV"
     },
     {
-      "t": 220.2,
-      "duration": 0.0,
-      "name": "search_learning_resources",
-      "kind": "tool",
-      "call": "\"Kafka\"",
-      "result": "Apache Kafka Quickstart"
-    },
-    {
-      "t": 220.2,
+      "t": 200.5,
       "duration": 0.1,
       "name": "check_cv_evidence",
       "kind": "tool",
@@ -300,15 +252,45 @@
       "result": "P=0.35 · not in the CV"
     },
     {
-      "t": 220.2,
-      "duration": 0.0,
-      "name": "search_learning_resources",
+      "t": 200.5,
+      "duration": 0.2,
+      "name": "check_cv_evidence",
       "kind": "tool",
-      "call": "\"Terraform\"",
-      "result": "Get started with Terraform (AWS)"
+      "call": "\"GitLab CI\"",
+      "result": "P=0.95 · in the CV"
     },
     {
-      "t": 220.2,
+      "t": 200.5,
+      "duration": 0.2,
+      "name": "check_cv_evidence",
+      "kind": "tool",
+      "call": "\"Docker\"",
+      "result": "P=0.93 · in the CV"
+    },
+    {
+      "t": 200.7,
+      "duration": 15.7,
+      "name": "career_advisor",
+      "kind": "node",
+      "detail": "plans 6 tool calls"
+    },
+    {
+      "t": 216.4,
+      "duration": 0.1,
+      "name": "career_tools",
+      "kind": "node",
+      "detail": ""
+    },
+    {
+      "t": 216.4,
+      "duration": 0.1,
+      "name": "check_cv_evidence",
+      "kind": "tool",
+      "call": "\"CSV\"",
+      "result": "P=0.20 · not in the CV"
+    },
+    {
+      "t": 216.4,
       "duration": 0.0,
       "name": "search_learning_resources",
       "kind": "tool",
@@ -316,77 +298,109 @@
       "result": "dbt Quickstart guides"
     },
     {
-      "t": 220.4,
-      "duration": 42.1,
+      "t": 216.4,
+      "duration": 0.0,
+      "name": "search_learning_resources",
+      "kind": "tool",
+      "call": "\"Kafka\"",
+      "result": "Apache Kafka Quickstart"
+    },
+    {
+      "t": 216.4,
+      "duration": 0.0,
+      "name": "search_learning_resources",
+      "kind": "tool",
+      "call": "\"Terraform\"",
+      "result": "Get started with Terraform (AWS)"
+    },
+    {
+      "t": 216.4,
+      "duration": 0.0,
+      "name": "search_learning_resources",
+      "kind": "tool",
+      "call": "\"AWS Glue\"",
+      "result": "AWS Glue Developer Guide"
+    },
+    {
+      "t": 216.4,
+      "duration": 0.0,
+      "name": "check_cv_evidence",
+      "kind": "tool",
+      "call": "\"Apache Airflow\"",
+      "result": "P=0.97 · in the CV"
+    },
+    {
+      "t": 216.5,
+      "duration": 42.5,
       "name": "career_advisor",
       "kind": "node",
       "detail": "enough evidence, writes the plan"
     },
     {
-      "t": 262.5,
-      "duration": 84.9,
+      "t": 259.0,
+      "duration": 85.6,
       "name": "career_plan",
       "kind": "node",
-      "detail": "plan: AWS Glue [high], Kafka [medium], dbt [medium], Terraform [low]"
+      "detail": "plan: AWS Glue [high], Kafka [low], dbt [medium], Terraform [medium]"
     },
     {
-      "t": 347.4,
+      "t": 344.6,
       "duration": 0.0,
       "name": "supervisor",
       "kind": "node",
       "detail": ""
     },
     {
-      "t": 347.4,
-      "duration": 45.2,
+      "t": 344.6,
+      "duration": 43.9,
       "name": "write_letter",
       "kind": "node",
-      "detail": "draft of 281 words"
+      "detail": "draft of 261 words"
     },
     {
-      "t": 392.6,
-      "duration": 34.7,
+      "t": 388.5,
+      "duration": 34.2,
+      "name": "review_letter",
+      "kind": "node",
+      "detail": "2 issues flagged"
+    },
+    {
+      "t": 422.7,
+      "duration": 0.1,
+      "name": "verify_claims",
+      "kind": "node",
+      "detail": "2 issues left after jevos"
+    },
+    {
+      "t": 422.8,
+      "duration": 42.5,
+      "name": "write_letter",
+      "kind": "node",
+      "detail": "draft of 272 words"
+    },
+    {
+      "t": 465.2,
+      "duration": 33.1,
       "name": "review_letter",
       "kind": "node",
       "detail": "1 issue flagged"
     },
     {
-      "t": 427.3,
-      "duration": 0.0,
+      "t": 498.4,
+      "duration": 0.1,
       "name": "verify_claims",
       "kind": "node",
-      "detail": "nothing to dismiss"
+      "detail": "1 issue left after jevos"
     },
     {
-      "t": 427.3,
-      "duration": 45.2,
-      "name": "write_letter",
-      "kind": "node",
-      "detail": "draft of 335 words"
-    },
-    {
-      "t": 472.6,
-      "duration": 43.7,
-      "name": "review_letter",
-      "kind": "node",
-      "detail": "10 issues flagged"
-    },
-    {
-      "t": 516.3,
-      "duration": 0.3,
-      "name": "verify_claims",
-      "kind": "node",
-      "detail": "8 issues left after jevos"
-    },
-    {
-      "t": 516.6,
+      "t": 498.4,
       "duration": 0.0,
       "name": "supervisor",
       "kind": "node",
       "detail": ""
     },
     {
-      "t": 516.6,
+      "t": 498.4,
       "duration": 0.0,
       "name": "human_review",
       "kind": "node",

@@ -199,7 +199,7 @@ def render(record: dict, output: Path) -> None:
         ("  Review     ", DIM),
         (
             f"{a['review_iterations']} writer/reviewer rounds · "
-            f"{a['review_issues']} issues left for the human",
+            f"{a['review_issues']} issue{'s' * (a['review_issues'] != 1)} left for the human",
             WARN,
         ),
     )

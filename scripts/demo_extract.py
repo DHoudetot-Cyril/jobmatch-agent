@@ -93,9 +93,10 @@ def node_detail(name: str, out: Any) -> str:
         return "approved" if out["review"]["approved"] else f"{n} issue{'s' * (n > 1)} flagged"
     if name == "verify_claims":
         review = out.get("review")
-        return (
-            f"{len(review['issues'])} issues left after jevos" if review else "nothing to dismiss"
-        )
+        if not review:
+            return "nothing to dismiss"
+        n = len(review["issues"])
+        return f"{n} issue{'s' * (n != 1)} left after jevos"
     if name == "human_review":
         return "paused: waiting for a human decision"
     return ""
