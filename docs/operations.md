@@ -43,7 +43,7 @@ flowchart LR
 | GPU | AMD Radeon RX 7900 XTX, 24 GB VRAM (gfx1100), ROCm / HIP | Any GPU supported by a llama.cpp backend works (CUDA, Vulkan, Metal, ROCm). The app only needs an OpenAI-compatible endpoint. |
 | CPU / RAM | AMD Ryzen 7 9800X3D (8 cores / 16 threads), 30 GB RAM | Source: `bench/decisions/BACKENDS.md`. jevos runs on this CPU. |
 | OS | Linux | |
-| LLM | `Qwen3.8-27B-UD-IQ4_XS.gguf` (13.6 GB file) + `mmproj-BF16.gguf` (0.9 GB, vision) | Served by llama.cpp `llama-server`, alias `qwen`. |
+| LLM | `Qwen3.8-27B-UD-IQ4_XS.gguf` (13.6 GB file) + `mmproj-BF16.gguf` or `mmproj-F16.gguf` (0.9 GB, vision) | Served by llama.cpp `llama-server`, alias `qwen`. |
 | Containers | Docker with the Compose plugin | All images pinned (see [section 7](#7-upgrading-pinned-versions)). |
 | Python tooling | [uv](https://docs.astral.sh/uv/), Python 3.12 | Only needed on the host for tests, evals and the benchmark. |
 
@@ -87,7 +87,7 @@ Flags, one by one:
 | `HSA_OVERRIDE_GFX_VERSION=11.0.0` | env | ROCm: makes the runtime treat the GPU as gfx 11.0.0 (RX 7900 XTX family). |
 | `HIP_VISIBLE_DEVICES=0` | env | ROCm: use only the first GPU. |
 | `-m …/Qwen3.8-27B-UD-IQ4_XS.gguf` | | The model weights (IQ4_XS quantization, about 4 bits per weight). |
-| `--mmproj …/mmproj-BF16.gguf` | if `VISION=1` (default) | Vision projector: lets Qwen read scanned PDFs and images (`documents.py`). |
+| `--mmproj …/mmproj-BF16.gguf` | if `VISION=1` (default) | Vision projector: lets Qwen read scanned PDFs and images (`documents.py`). `MMPROJ=/path` overrides it; otherwise the launcher takes the first file found (`mmproj-BF16.gguf`, then `mmproj-F16.gguf`) and, if there is none, starts without vision with a warning instead of failing. |
 | `--alias qwen` | | Model name returned by `/v1/models`; matches `LLM_MODEL=qwen`. |
 | `-c "$CTX"` | 32768 | Total context. Shared by the slots, so each slot gets 16k tokens. |
 | `-np "$SLOTS"` | 2 | Two parallel slots: the agent graph and the DeepEval judge (or two eval cases) run at the same time. |

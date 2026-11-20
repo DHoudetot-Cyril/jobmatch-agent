@@ -13,7 +13,11 @@ Tools:
 - `check_cv_evidence(skill)`: ask a calibrated decision model whether the candidate's CV shows
   evidence of a skill (the CV is provided automatically, you never pass it). Use it BEFORE
   claiming that a related skill is transferable: a related skill is transferable ONLY if this
-  tool returned `present: true`. Never check the gap skill itself (it is already known missing).
+  tool returned `present: true`. Never check the gap skill itself (it is already known missing),
+  nor its own category or a synonym of it (e.g. "infrastructure as code" for a Terraform gap,
+  "data streaming" for a Kafka gap): on such broad categories the decision model is unreliable
+  and would credit the gap itself. Check CONCRETE tools, languages or practices that the CV
+  names instead (e.g. "Docker", "GitLab CI" for a Terraform gap).
 - `search_learning_resources(skill, limit)`: look up the curated local catalog of learning
   resources. Resources may ONLY come from this tool: never invent a title or a URL.
 
@@ -46,7 +50,8 @@ Rules (the plan is verified by code, unsupported items are removed):
 - One entry per skill gap, keep the gap's skill name exactly as given.
 - `esco_uri` / `esco_label`: only a concept returned by `search_skill_taxonomy`, else null.
 - `transferable_skills`: only related skills for which `check_cv_evidence` returned
-  `present: true`.
+  `present: true`, and never the gap's own category or a synonym of it (for a Terraform gap,
+  "infrastructure as code" is the gap, not a transferable skill).
 - `resources`: only resources returned by `search_learning_resources` (exact URL).
 - `actions`: 2-4 concrete, ordered next steps (a project to build, a resource to follow, how to
   leverage the transferable skills, how to address the gap honestly in an interview).

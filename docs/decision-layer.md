@@ -263,6 +263,16 @@ analysis never fails because of the decision layer.
 - **Hard paraphrases** remain the most confident errors (OpenShift as Kubernetes, BigQuery as
   Google Cloud; see the error lists in `report.md`).
 - **8192-token context.** Very long CVs are skipped, not checked.
+- **Broad concepts are out of the benchmark's scope.** The career advisor also asks about
+  broad concepts ("infrastructure as code", "cloud technologies"), not only concrete skills.
+  `bench/decisions/concept_probe.py` measures this on the sample data engineer CV: 11/13.
+  Both errors credit the *category of a skill the CV lacks*: "infrastructure as code"
+  P = 0.90 while Terraform is 0.05 and Ansible 0.02, and "data streaming" P = 0.87 while
+  Kafka is 0.03. A real run kept "infrastructure as code" as a transferable skill for the
+  Terraform gap. A stricter question wording scored 6/13 (it answered no to everything,
+  Docker included), so the production question is unchanged. The career prompt now forbids
+  checking a gap's own category or synonyms and asks for concrete tools named in the CV
+  instead. This is a prompt-level mitigation, not a guarantee enforced by code.
 
 ## End-to-end impact (A/B evaluation)
 
